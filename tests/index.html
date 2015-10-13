@@ -1,18 +1,21 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/src/material-datepicker.css">
-    <script type="text/javascript" src="/assets/javascript/material-monthpicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="../src/material-datepicker.css">
+    <script type="text/javascript" src="../assets/javascript/material-monthpicker.js"></script>
     
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function () {
-//        var datepicker = new datepicker('#material-datepicker', {
+//        window.datepicker = new datepicker('#material-datepicker', {
 //          
 //        });
         
-        var monthpicker = new materialMonthpicker('material-monthpicker');
+        window.monthpicker = new MaterialMonthpicker('material-monthpicker', {
+          lang: 'de',
+          theme: 'dark',
+        });
       
-//        var yearpicker = new yearpicker('#material-yearpicker', {
+//        window.yearpicker = new yearpicker('#material-yearpicker', {
 //          
 //        });
       })
