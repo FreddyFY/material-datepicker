@@ -1,0 +1,30 @@
+{
+  "mmm": [
+    "Jan",
+    "Feb",
+    "M&auml;r",
+    "Apr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Dez"
+  ],
+  "mmmm": [
+    "Jannuar",
+    "Februar",
+    "M&auml;rz",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
+  ]
+}
