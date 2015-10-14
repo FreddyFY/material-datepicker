@@ -49,10 +49,15 @@ var monthpicker = new MaterialMonthpicker('input', {
 ## API
 
 `.open()`
+
 `.close()`
+
 `.newDate( new Date(861999834000) )` set new Date
+
 `.date` returns the current date
+
 `.element` returns the choosen element
+
 `.picker` returns the picker element
 
 
