@@ -16,6 +16,7 @@ class MaterialMonthpicker {
     this.date = this.settings.date;
 
     let xmlhttp = new XMLHttpRequest();
+    let file = `../src/translations/${this.settings.lang}.json`;
     xmlhttp.open("GET", `../src/translations/${this.settings.lang}.json`, true);
     var i18nn;
     xmlhttp.addEventListener("readystatechange", () => {
@@ -112,11 +113,11 @@ class MaterialMonthpicker {
 
     //styles
     const newStyle = `
-      .mp-picker.mp-monthpicker .mp-picker-info {
+      .mp-picker.mp-monthpicker:not([data-theme="dark"]) .mp-picker-info {
         background-color: ${this.settings.primaryColor};
       }
 
-      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].active,
+      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active,
       .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active {
         background-color: ${this.settings.primaryColor};
       }
