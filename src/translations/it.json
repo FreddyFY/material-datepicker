@@ -1,0 +1,48 @@
+{
+  "mmm": [
+    "Gen",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mag",
+    "Giu",
+    "Lug",
+    "Ago",
+    "Sett",
+    "Ott",
+    "Nov",
+    "Dic"
+  ],
+  "mmmm": [
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre ",
+    "Dicembre "
+  ],
+  "ddd": [
+    "Dom",
+    "Lun",
+    "Mar",
+    "Mer",
+    "Gio",
+    "Ven",
+    "Sab"
+  ],
+  "dddd" : [
+    "Domenica",
+    "Lunedi",
+    "Martedi",
+    "Mercoledi",
+    "Giovedi",
+    "Venerdi",
+    "Sabato"
+  ]
+}
