@@ -117,7 +117,7 @@ class MaterialMonthpicker {
         background-color: ${this.settings.primaryColor};
       }
 
-      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active,
+      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].active,
       .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active {
         background-color: ${this.settings.primaryColor};
       }

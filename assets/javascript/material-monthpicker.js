@@ -133,7 +133,7 @@ var MaterialMonthpicker = (function () {
       }
 
       //styles
-      var newStyle = '\n      .mp-picker.mp-monthpicker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active,\n      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].today:not(.active),\n      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].today:not(.active) {\n        color: ' + this.settings.primaryColor + ';\n      }\n    ';
+      var newStyle = '\n      .mp-picker.mp-monthpicker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].active,\n      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].today:not(.active),\n      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].today:not(.active) {\n        color: ' + this.settings.primaryColor + ';\n      }\n    ';
 
       var containerStyle = document.createElement('style');
       containerStyle.type = 'text/css';
