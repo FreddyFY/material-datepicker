@@ -52,6 +52,8 @@ class MaterialMonthpicker {
     this.picker.setAttribute('class', 'mp-monthpicker mp-picker');
     this.picker.setAttribute('data-theme', this.settings.theme);
     this.picker.setAttribute('data-orientation', this.settings.orientation);
+    this.picker.style.top = this.position.top + this.position.height + 10 + 'px';
+    this.picker.style.left = this.position.left + 'px';
 
     let containerInfo = document.createElement('div');
     containerInfo.setAttribute('class', 'mp-picker-info');
