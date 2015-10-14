@@ -16,10 +16,12 @@ var MaterialMonthpicker = (function () {
       primaryColor: 'rgba(0, 150, 136, 1)', //css color value
       theme: 'light', // light, dark
       date: new Date(),
+      pickerFormat: "mmm",
+      outputFormat: "{mm}/{yyyy}",
       lang: 'en', // en, de, it, ..
-      pickerFormat: 'mmm', // mmm, mmmm
-      buttons: true };
-    // boolean
+      buttons: true // boolean
+    };
+
     this.settings = Object.assign(defaults, settings);
     this.date = this.settings.date;
 
@@ -65,6 +67,7 @@ var MaterialMonthpicker = (function () {
       this.picker = document.createElement('div');
       this.picker.setAttribute('class', 'mp-monthpicker mp-picker');
       this.picker.setAttribute('data-theme', this.settings.theme);
+      this.picker.setAttribute('data-orientation', this.settings.orientation);
 
       var containerInfo = document.createElement('div');
       containerInfo.setAttribute('class', 'mp-picker-info');
@@ -120,13 +123,22 @@ var MaterialMonthpicker = (function () {
           var month = i;
           var nextDate = _this3.date;
           nextDate.setMonth(month);
-          _this3.newDate(nextDate);
+          _this3.newDate(nextDate, 'month');
         });
       };
 
       for (var i = 0; i < 12; i++) {
         _loop(i);
       }
+
+      //styles
+      var newStyle = '\n      .mp-picker.mp-monthpicker .mp-picker-info {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].active,\n      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].today:not(.active),\n      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].today:not(.active) {\n        color: ' + this.settings.primaryColor + ';\n      }\n    ';
+
+      var containerStyle = document.createElement('style');
+      containerStyle.type = 'text/css';
+      containerStyle.appendChild(document.createTextNode(newStyle));
+      document.querySelector('head').appendChild(containerStyle);
+      console.log(document.querySelector('head'));
     }
   }, {
     key: 'yearChange',
@@ -161,7 +173,7 @@ var MaterialMonthpicker = (function () {
       this.picker.style.top = this.position.top;
       this.picker.style.left = this.position.left;
 
-      this.newDate();
+      this.newDate(null);
     }
   }, {
     key: 'close',
@@ -170,16 +182,19 @@ var MaterialMonthpicker = (function () {
     }
   }, {
     key: 'newDate',
-    value: function newDate(date) {
+    value: function newDate(date, value) {
       var dates = date || this.settings.date;
 
       this.picker.querySelector('.mp-info-year').innerHTML = dates.getYear() + 1900;
       this.picker.querySelector('.mp-info-month').innerHTML = this.i18n.mmm[dates.getMonth()];
       this.picker.querySelector('.mp-picker-year-this').innerHTML = dates.getYear() + 1900;
+
       if (this.picker.querySelector('[class*="mp-picker-choose-month"].active') != null) {
         this.picker.querySelector('[class*="mp-picker-choose-month"].active').classList.remove('active');
       }
+
       this.picker.querySelector('.mp-picker-choose-month-' + dates.getMonth() * 1).classList.add('active');
+
       if (new Date().getYear() == dates.getYear()) {
         this.picker.querySelector('.mp-picker-choose-month-' + new Date().getMonth() * 1).classList.add('today');
       } else if (this.picker.querySelector('.mp-picker-choose-month-' + new Date().getMonth() * 1 + '.today') != null) {
@@ -187,6 +202,33 @@ var MaterialMonthpicker = (function () {
       }
 
       this.date = dates;
+
+      //write into input field
+      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
+        var monthNumber = dates.getMonth() + 1;
+        var yearNumber = dates.getYear() + 1900;
+        var dateNumber = dates.getDate();
+        var dayNumber = dates.getDay();
+        var output = this.settings.outputFormat;
+
+        output = output.replace(/\{dddd\}/g, this.i18n.dddd[dayNumber]);
+        output = output.replace(/\{ddd\}/g, this.i18n.ddd[dayNumber]);
+        output = output.replace(/\{dd\}/g, ("0" + dateNumber).slice(-2));
+        output = output.replace(/\{d\}/g, dateNumber);
+
+        output = output.replace(/\{mmmm\}/g, this.i18n.mmmm[monthNumber]);
+        output = output.replace(/\{mmm\}/g, this.i18n.mmm[monthNumber]);
+        output = output.replace(/\{mm\}/g, ("0" + monthNumber).slice(-2));
+        output = output.replace(/\{m\}/g, monthNumber);
+
+        output = output.replace(/\{yyyy\}/g, ("0" + yearNumber).slice(-4));
+        output = output.replace(/\{yy\}/g, ("0" + yearNumber).slice(-2));
+        this.element.value = output;
+      }
+
+      if (value == 'month') {
+        this.close();
+      }
     }
   }]);
 
