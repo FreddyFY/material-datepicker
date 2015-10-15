@@ -147,6 +147,8 @@ var MaterialMonthpicker = (function () {
       containerStyle.appendChild(document.createTextNode(newStyle));
       document.querySelector('head').appendChild(containerStyle);
       //    console.log(document.querySelector('head'));
+
+      this.newDate();
     }
   }, {
     key: 'yearChange',

@@ -142,6 +142,7 @@ class MaterialMonthpicker {
     document.querySelector('head').appendChild(containerStyle);
 //    console.log(document.querySelector('head'));
 
+    this.newDate();
   }
 
   yearChange(direction) {
