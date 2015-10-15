@@ -9,7 +9,8 @@ class MaterialMonthpicker {
       pickerFormat: "mmm",
       outputFormat: "{mm}/{yyyy}",
       lang: 'en', // en, de, it, ..
-      buttons: true // boolean
+      buttons: true, // boolean
+      onNewDate: none, // function
     };
 
     this.settings = Object.assign(defaults, settings);
@@ -231,9 +232,17 @@ class MaterialMonthpicker {
       output = output.replace(/\{yy\}/g, ("0" + yearNumber).slice(-2));
       this.element.value = output;
     }
+    
+    this.callbackOnNewDate();
 
     if (value == 'month') {
       this.close();
     }
+  }
+  
+  callbackOnNewDate() {
+    if (typeof(this.settings.onNewDate) == 'function') {
+        this.settings.onNewDate.call()
+      }
   }
 }

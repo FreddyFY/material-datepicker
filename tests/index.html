@@ -10,11 +10,14 @@
 //          
 //        });
         
-        window.monthpicker = new MaterialMonthpicker('material-monthpicker', {
+        window.monthpicker = new MaterialMonthpicker('#material-monthpicker', {
           lang: 'en',
           orientation: 'portrait',
           primaryColor: '#795548',
           buttons: true,
+          onNewDate : function() {
+            alert();
+          }
         });
       
 //        window.yearpicker = new yearpicker('#material-yearpicker', {

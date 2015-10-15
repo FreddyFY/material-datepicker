@@ -30,6 +30,7 @@ var monthpicker = new MaterialMonthpicker('input', {
 * **date** *(default: today)* - The initial date of the Picker[type: new Date()]
 * **pickerFormat** *(default: mmm)* - Date-format of the picker-values
 * **outputFormat** *(default: {mm}/{yyyy})* - Date-format of the output[inside a input]
+* **onNewDate** *(default: none)* - Function called when releasing 
 
 
 ### Example
@@ -41,7 +42,10 @@ var monthpicker = new MaterialMonthpicker('input', {
   primary-color: 'red',
   date: new Date(861999834000),
   pickerFormat: 'mmmm',
-  outputFormat: {d}-{mm}-{yyyyy}
+  outputFormat: {d}-{mm}-{yyyyy},
+  onNewDate: function() {
+               alert('New Date!!')
+             }
 });
 ```
 
