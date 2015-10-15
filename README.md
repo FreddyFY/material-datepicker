@@ -23,15 +23,15 @@ var monthpicker = new MaterialMonthpicker('input', {
 
 ## Options
 
-* **lang** *(default: en)* - Language *[string]*
-* **orientation** *(default: landscape)* - Orientation of the picker: portait or landscape *[string]*
-* **theme** *(default: light)* - Theme of the picker: light or dark  *[string]*
-* **primaryColor** *(default: #80cbc4)* - Color of the picker; Html color values  *[string]*
-* **date** *(default: today)* - The initial date of the Picker *[type: Date Object]*
-* **pickerFormat** *(default: mmm)* - Date-format of the picker-values  *[string]*
-* **outputFormat** *(default: {mm}/{yyyy})* - Date-format of the output[inside a input] *[string]*
-* **outputElement** *(default: none)* - Returns the date inside a SPAN-tag, P-tag or A-Tag *[string or Object]*
-* **onNewDate** *(default: none)* - Function called when new Date is picked  *[function]*
+* **lang** *(default: en)* *[string]* - Language
+* **orientation** *(default: landscape)* *[string]* - Orientation of the picker: portait or landscape
+* **theme** *(default: light)* *[string]* - Theme of the picker: light or dark
+* **primaryColor** *(default: #80cbc4)* *[string]* - Color of the picker; Html color values
+* **date** *(default: today)* *[type: Date Object]* - The initial date of the Picker
+* **pickerFormat** *(default: mmm)* *[string]* - Date-format of the picker-values
+* **outputFormat** *(default: {mm}/{yyyy})* *[string]* - Date-format of the output[inside a input or OutputElement]
+* **outputElement** *(default: none)* *[string or Object]* - Returns the date inside a SPAN-tag, P-tag or A-Tag
+* **onNewDate** *(default: none)* *[function]* - Function called when new Date is picked
 
 
 ### Example
