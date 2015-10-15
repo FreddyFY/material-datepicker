@@ -140,7 +140,7 @@ var MaterialMonthpicker = (function () {
       containerStyle.type = 'text/css';
       containerStyle.appendChild(document.createTextNode(newStyle));
       document.querySelector('head').appendChild(containerStyle);
-      console.log(document.querySelector('head'));
+      //    console.log(document.querySelector('head'));
     }
   }, {
     key: 'yearChange',
@@ -172,8 +172,23 @@ var MaterialMonthpicker = (function () {
     key: 'open',
     value: function open() {
       document.body.appendChild(this.picker);
-      this.picker.style.top = this.position.top;
-      this.picker.style.left = this.position.left;
+      var top = this.position.top + this.position.height + 5;
+      var left = this.position.left;
+      var body = document.body.getBoundingClientRect();
+      var picker = this.picker.getBoundingClientRect();
+
+      console.log(left + picker.width + 50 > body.width);
+      if (left + picker.width + 50 > body.width) {
+        left = left - picker.width - 5;
+      }
+
+      console.log(top + picker.height + 20 > body.height);
+      if (top + picker.height + 20 > body.height) {
+        top = top - picker.height - this.position.height - 5;
+      }
+
+      this.picker.style.top = top;
+      this.picker.style.left = left;
 
       this.newDate(null);
     }

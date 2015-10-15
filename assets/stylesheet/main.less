@@ -26,7 +26,7 @@
 .mp-picker {
   .clearfix();
   font-family: 'roboto', sans-serif;
-  font-size: 1em;
+  font-size: 15px;
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 2.5px 6px 2px rgba(0, 0, 0, .2);
@@ -40,29 +40,34 @@
     position: absolute;
     width: 350px;
     height: 12.5em;
-    font-size: .9em;
     
-    [class*="mp-picker-choose-month"] {
-      float: left;
-      display: inline-block;
-      width: 100% / 3;
-      cursor: pointer;
-      margin-bottom: .6em;
-      text-align: center;
-      border-radius: 1em;
-      transition: background-color .2s ease;
-      
-      &:hover {
-        background-color: darken(@color-background, 8%);
+    .mp-picker-choose {
+      a {
+        color: @color-text;
       }
       
-      &.today {
-        color: @color-primary;
-      }
-      
-      &.active {
-        color: @color-text-inverted;
-        background-color: @color-primary;
+      [class*="mp-picker-choose-month"] {
+        float: left;
+        display: inline-block;
+        width: 100% / 3;
+        cursor: pointer;
+        margin-bottom: .6em;
+        text-align: center;
+        border-radius: 1em;
+        transition: background-color .2s ease;
+
+        &:hover {
+          background-color: darken(@color-background, 8%);
+        }
+
+        &.today {
+          color: @color-primary;
+        }
+
+        &.active {
+          color: @color-text-inverted;
+          background-color: @color-primary;
+        }
       }
     }
   }
