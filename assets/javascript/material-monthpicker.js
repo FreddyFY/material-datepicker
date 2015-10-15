@@ -217,6 +217,12 @@ var MaterialMonthpicker = (function () {
         this.picker.querySelector('.mp-picker-choose-month-' + new Date().getMonth() * 1 + '.today').classList.remove('today');
       }
 
+      //set to 0:00:00
+      dates.setMilliseconds(0);
+      dates.setSeconds(0);
+      dates.setMinutes(0);
+      dates.setHours(0);
+
       this.date = dates;
 
       //write into input field
@@ -226,6 +232,8 @@ var MaterialMonthpicker = (function () {
         var dateNumber = dates.getDate();
         var dayNumber = dates.getDay();
         var output = this.settings.outputFormat;
+
+        output = output.replace(/\{timestamp\}/g, dates.getTime());
 
         output = output.replace(/\{dddd\}/g, this.i18n.dddd[dayNumber]);
         output = output.replace(/\{ddd\}/g, this.i18n.ddd[dayNumber]);

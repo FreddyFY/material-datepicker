@@ -42,7 +42,7 @@ var monthpicker = new MaterialMonthpicker('input', {
   primary-color: 'red',
   date: new Date(861999834000),
   pickerFormat: 'mmmm',
-  outputFormat: '{d}-{mm}-{yyyyy}',
+  outputFormat: '{d} - {mm} - {yyyyy} - {timestamp}',
   onNewDate: function() {
                alert('New Date!!')
              }

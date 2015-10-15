@@ -208,8 +208,14 @@ class MaterialMonthpicker {
       this.picker.querySelector(`.mp-picker-choose-month-${new Date().getMonth() * 1}.today`).classList.remove('today');
     }
 
-    this.date = dates;
+    //set to 0:00:00
+    dates.setMilliseconds(0);
+    dates.setSeconds(0);
+    dates.setMinutes(0);
+    dates.setHours(0);
 
+    this.date = dates;
+    
     //write into input field
     if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
       let monthNumber = dates.getMonth() + 1;
@@ -217,7 +223,9 @@ class MaterialMonthpicker {
       let dateNumber = dates.getDate();
       let dayNumber = dates.getDay();
       let output = this.settings.outputFormat;
-
+      
+      output = output.replace(/\{timestamp\}/g, dates.getTime());
+      
       output = output.replace(/\{dddd\}/g, this.i18n.dddd[dayNumber]);
       output = output.replace(/\{ddd\}/g, this.i18n.ddd[dayNumber]);
       output = output.replace(/\{dd\}/g, ("0" + dateNumber).slice(-2));
