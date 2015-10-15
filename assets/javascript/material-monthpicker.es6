@@ -233,10 +233,10 @@ class MaterialMonthpicker {
       this.element.value = output;
     }
     
-    this.callbackOnNewDate();
 
     if (value == 'month') {
       this.close();
+      this.callbackOnNewDate();
     }
   }
   
