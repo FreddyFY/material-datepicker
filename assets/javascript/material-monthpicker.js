@@ -20,7 +20,7 @@ var MaterialMonthpicker = (function () {
       outputFormat: "{mm}/{yyyy}",
       lang: 'en', // en, de, it, ..
       buttons: true, // boolean
-      onNewDate: none };
+      onNewDate: '' };
 
     // function
     this.settings = Object.assign(defaults, settings);

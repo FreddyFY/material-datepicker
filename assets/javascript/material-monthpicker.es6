@@ -10,7 +10,7 @@ class MaterialMonthpicker {
       outputFormat: "{mm}/{yyyy}",
       lang: 'en', // en, de, it, ..
       buttons: true, // boolean
-      onNewDate: none, // function
+      onNewDate: '', // function
     };
 
     this.settings = Object.assign(defaults, settings);
