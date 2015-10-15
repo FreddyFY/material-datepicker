@@ -177,12 +177,10 @@ var MaterialMonthpicker = (function () {
       var body = document.body.getBoundingClientRect();
       var picker = this.picker.getBoundingClientRect();
 
-      console.log(left + picker.width + 50 > body.width);
       if (left + picker.width + 50 > body.width) {
         left = left - picker.width - 5;
       }
 
-      console.log(top + picker.height + 20 > body.height);
       if (top + picker.height + 20 > body.height) {
         top = top - picker.height - this.position.height - 5;
       }
