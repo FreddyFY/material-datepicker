@@ -28,7 +28,7 @@ class MaterialMonthpicker {
 
     let loaded = () => {
       if (typeof element == 'string') {
-        this.element = document.querySelector(`#${element}`);
+        this.element = document.querySelector(`${element}`);
       } else {
         this.element = element;
       }

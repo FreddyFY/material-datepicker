@@ -38,7 +38,7 @@ var MaterialMonthpicker = (function () {
 
     var loaded = function loaded() {
       if (typeof element == 'string') {
-        _this.element = document.querySelector('#' + element);
+        _this.element = document.querySelector('' + element);
       } else {
         _this.element = element;
       }
