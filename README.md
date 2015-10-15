@@ -23,14 +23,15 @@ var monthpicker = new MaterialMonthpicker('input', {
 
 ## Options
 
-* **lang** *(default: en)* - Language.
-* **orientation** *(default: landscape)* - Orientation of the picker: portait or landscape
-* **theme** *(default: light)* - Theme of the picker: light or dark
-* **primaryColor** *(default: #80cbc4)* - Color of the picker, html color values
-* **date** *(default: today)* - The initial date of the Picker[type: new Date()]
-* **pickerFormat** *(default: mmm)* - Date-format of the picker-values
-* **outputFormat** *(default: {mm}/{yyyy})* - Date-format of the output[inside a input]
-* **onNewDate** *(default: none)* - Function called when new Date is picked 
+* **lang** *(default: en)* - Language *[string]*
+* **orientation** *(default: landscape)* - Orientation of the picker: portait or landscape *[string]*
+* **theme** *(default: light)* - Theme of the picker: light or dark  *[string]*
+* **primaryColor** *(default: #80cbc4)* - Color of the picker; Html color values  *[string]*
+* **date** *(default: today)* - The initial date of the Picker *[type: Date Object]*
+* **pickerFormat** *(default: mmm)* - Date-format of the picker-values  *[string]*
+* **outputFormat** *(default: {mm}/{yyyy})* - Date-format of the output[inside a input] *[string]*
+* **outputElement** *(default: none)* - Returns the date inside a SPAN-tag, P-tag or A-Tag *[string or Object]*
+* **onNewDate** *(default: none)* - Function called when new Date is picked  *[function]*
 
 
 ### Example
@@ -43,6 +44,7 @@ var monthpicker = new MaterialMonthpicker('input', {
   date: new Date(861999834000),
   pickerFormat: 'mmmm',
   outputFormat: '{d} - {mm} - {yyyyy} - {timestamp}',
+  outputElment: '.month'
   onNewDate: function() {
                alert('New Date!!')
              }

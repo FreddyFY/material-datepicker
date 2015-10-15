@@ -20,9 +20,10 @@ var MaterialMonthpicker = (function () {
       outputFormat: "{mm}/{yyyy}",
       lang: 'en', // en, de, it, ..
       buttons: true, // boolean
-      onNewDate: '' };
+      onNewDate: '', // function
+      outputElement: ''
+    };
 
-    // function
     this.settings = Object.assign(defaults, settings);
     this.date = this.settings.date;
 
@@ -38,11 +39,15 @@ var MaterialMonthpicker = (function () {
     xmlhttp.send();
 
     var loaded = function loaded() {
-      if (typeof element == 'string') {
+      _this.element = element;
+      if (typeof _this.element == 'string') {
         _this.element = document.querySelector('' + element);
-      } else {
-        _this.element = element;
       }
+
+      if (typeof _this.settings.outputElement == 'string' && _this.settings.outputElement != '') {
+        _this.settings.outputElement = document.querySelector('' + _this.settings.outputElement);
+      }
+
       _this.define();
     };
   }
@@ -226,7 +231,8 @@ var MaterialMonthpicker = (function () {
       this.date = dates;
 
       //write into input field
-      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
+
+      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text' || this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
         var monthNumber = dates.getMonth() + 1;
         var yearNumber = dates.getYear() + 1900;
         var dateNumber = dates.getDate();
@@ -247,7 +253,14 @@ var MaterialMonthpicker = (function () {
 
         output = output.replace(/\{yyyy\}/g, ("0" + yearNumber).slice(-4));
         output = output.replace(/\{yy\}/g, ("0" + yearNumber).slice(-2));
-        this.element.value = output;
+
+        if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
+          this.element.value = output;
+        }
+
+        if (this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
+          this.settings.outputElement.innerHTML = output;
+        }
       }
 
       if (value == 'month') {

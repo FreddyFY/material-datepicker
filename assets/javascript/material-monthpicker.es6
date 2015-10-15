@@ -11,6 +11,7 @@ class MaterialMonthpicker {
       lang: 'en', // en, de, it, ..
       buttons: true, // boolean
       onNewDate: '', // function
+      outputElement: '',
     };
 
     this.settings = Object.assign(defaults, settings);
@@ -28,11 +29,16 @@ class MaterialMonthpicker {
     xmlhttp.send();
 
     let loaded = () => {
-      if (typeof element == 'string') {
+      this.element = element;
+      if (typeof this.element == 'string') {
         this.element = document.querySelector(`${element}`);
-      } else {
-        this.element = element;
       }
+      
+      if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
+        this.settings.outputElement = document.querySelector(`${this.settings.outputElement}`);
+      }
+      
+      
       this.define();
     }
   }
@@ -217,7 +223,11 @@ class MaterialMonthpicker {
     this.date = dates;
     
     //write into input field
-    if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
+    
+    if ( (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') || 
+         (this.settings.outputElement.tagName == 'SPAN') ||
+         (this.settings.outputElement.tagName == 'P') ||
+         (this.settings.outputElement.tagName == 'A') ) {
       let monthNumber = dates.getMonth() + 1;
       let yearNumber = dates.getYear() + 1900;
       let dateNumber = dates.getDate();
@@ -238,7 +248,14 @@ class MaterialMonthpicker {
 
       output = output.replace(/\{yyyy\}/g, ("0" + yearNumber).slice(-4));
       output = output.replace(/\{yy\}/g, ("0" + yearNumber).slice(-2));
-      this.element.value = output;
+      
+      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
+        this.element.value = output;
+      }
+      
+      if (this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
+        this.settings.outputElement.innerHTML = output;
+      }
     }
     
 

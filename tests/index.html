@@ -10,14 +10,15 @@
 //          
 //        });
         
-        window.monthpicker = new MaterialMonthpicker('#material-monthpicker', {
+        window.monthpicker = new MaterialMonthpicker('.material-monthpicker', {
           lang: 'en',
           orientation: 'portrait',
           primaryColor: '#795548',
           buttons: true,
-          onNewDate : function() {
+          onNewDate: function() {
 //            alert();
-          }
+          },
+          outputElement: '.month'
         });
       
 //        window.yearpicker = new yearpicker('#material-yearpicker', {
@@ -34,7 +35,8 @@
 -->
     <br>
     <span>monthpicker</span>
-    <input type="text" id="material-monthpicker">
+    <input type="button" class="material-monthpicker" value="Month">
+    <span class="month"></span>
     <br>
 <!--
     <span>yearpicker</span>
