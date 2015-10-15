@@ -118,13 +118,13 @@ class MaterialMonthpicker {
         background-color: ${this.settings.primaryColor};
       }
 
-      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].active,
-      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].active {
+      .mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].active,
+      .mp-picker.mp-monthpicker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-choose-month"].active {
         background-color: ${this.settings.primaryColor};
       }
 
-      .mp-picker.mp-monthpicker [class*="mp-picker-choose-month"].today:not(.active),
-      .mp-picker.mp-monthpicker[data-theme="dark"] [class*="mp-picker-choose-month"].today:not(.active) {
+      .mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active),
+      .mp-picker.mp-monthpicker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active) {
         color: ${this.settings.primaryColor};
       }
     `;
