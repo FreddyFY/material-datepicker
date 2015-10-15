@@ -246,8 +246,8 @@ var MaterialMonthpicker = (function () {
         output = output.replace(/\{dd\}/g, ("0" + dateNumber).slice(-2));
         output = output.replace(/\{d\}/g, dateNumber);
 
-        output = output.replace(/\{mmmm\}/g, this.i18n.mmmm[monthNumber]);
-        output = output.replace(/\{mmm\}/g, this.i18n.mmm[monthNumber]);
+        output = output.replace(/\{mmmm\}/g, this.i18n.mmmm[monthNumber - 1]);
+        output = output.replace(/\{mmm\}/g, this.i18n.mmm[monthNumber - 1]);
         output = output.replace(/\{mm\}/g, ("0" + monthNumber).slice(-2));
         output = output.replace(/\{m\}/g, monthNumber);
 
