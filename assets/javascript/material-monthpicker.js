@@ -26,8 +26,7 @@ var MaterialMonthpicker = (function () {
     this.date = this.settings.date;
 
     var xmlhttp = new XMLHttpRequest();
-    var file = '../src/translations/' + this.settings.lang + '.json';
-    xmlhttp.open("GET", '../src/translations/' + this.settings.lang + '.json', true);
+    xmlhttp.open("GET", 'https://rawgit.com/FreddyFY/material-datepicker/master/src/translations/' + this.settings.lang + '.json', true);
     var i18nn;
     xmlhttp.addEventListener("readystatechange", function () {
       if (xmlhttp.readyState == 4) {
