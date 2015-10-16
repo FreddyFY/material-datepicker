@@ -268,7 +268,7 @@ class MaterialMonthpicker {
   
   callbackOnNewDate() {
     if (typeof(this.settings.onNewDate) == 'function') {
-        this.settings.onNewDate.call(this)
+        this.settings.onNewDate.call(this, this.date)
       }
   }
 }
