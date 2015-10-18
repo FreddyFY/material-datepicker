@@ -5,6 +5,8 @@
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 2.5px 6px 2px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  height: 12.5em;
   position: absolute;
 }
 .mp-picker:before,
@@ -18,34 +20,38 @@
 .mp-picker * {
   box-sizing: border-box;
 }
-.mp-picker.mp-monthpicker {
-  position: absolute;
-  width: 350px;
-  height: 12.5em;
+.mp-picker .mp-picker-choose * {
+  display: inline-block;
+  text-align: center;
 }
-.mp-picker.mp-monthpicker .mp-picker-choose a {
+.mp-picker .mp-picker-choose a {
   color: rgba(0, 0, 0, 0.87);
 }
-.mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"] {
-  float: left;
-  display: inline-block;
-  width: 33.33333333%;
+.mp-picker .mp-picker-choose [class*="mp-picker-click"] {
   cursor: pointer;
   margin-bottom: .6em;
-  text-align: center;
   border-radius: 1em;
   -webkit-transition: background-color 0.2s ease;
           transition: background-color 0.2s ease;
 }
-.mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"]:hover {
+.mp-picker .mp-picker-choose [class*="mp-picker-click"]:hover {
   background-color: #e6e6e6;
 }
-.mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].today {
+.mp-picker .mp-picker-choose [class*="mp-picker-click"].today {
   color: #009688;
 }
-.mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].active {
+.mp-picker .mp-picker-choose [class*="mp-picker-click"].active {
   color: #ffffff;
   background-color: #009688;
+}
+.mp-picker .mp-picker-choose .mp-picker-header[class*="mp-picker-header-day"] {
+  width: 14.28571429%;
+}
+.mp-picker .mp-picker-choose .mp-picker-choose-day {
+  width: 14.28571429%;
+}
+.mp-picker .mp-picker-choose .mp-picker-month-day {
+  width: 33.33333333%;
 }
 .mp-picker[data-theme="dark"] .mp-picker-info {
   background: #555555;
