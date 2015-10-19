@@ -42,6 +42,7 @@
     * {
       display: inline-block;
       text-align: center;
+      font-weight: 500;
     }
     
     a {
@@ -52,8 +53,18 @@
       cursor: pointer;
       margin-bottom: .6em;
       border-radius: 1em;
-      transition: background-color .2s ease;
+      transition: background-color .2s ease;     
       
+      &.mp-picker-choose-day {
+        font-size: .8em;
+        margin: 0;
+        padding: .3em 0;
+      }
+      
+      &.mp-empty {
+        background-color: transparent !important;
+        cursor: default;
+      }
 
       &:hover {
         background-color: darken(@color-background, 8%);
@@ -69,7 +80,11 @@
       }
     }
     
-    .mp-picker-header {      
+    .mp-picker-header {
+      margin-bottom: .6em;
+      font-size: .8em;
+      opacity: .57;
+            
       &[class*="mp-picker-header-day"] {
         width: 100% / 7;
       }
@@ -122,13 +137,16 @@
       float: none;
       height: 25%;
     }
-    
+        
     .mp-picker-picker {
       width: 100%;
       float: none;
       height: 75%;
-      padding-top: 2em;
     }
+  }
+  
+  &.mp-monthpicker[data-orientation="portrait"] .mp-picker-picker {
+    padding-top: 2em;
   }
   
   .mp-picker-info {

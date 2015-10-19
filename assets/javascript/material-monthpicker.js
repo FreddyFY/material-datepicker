@@ -15,7 +15,7 @@ var MaterialMonthpicker = (function () {
       type: "date",
       orientation: 'landscape', // landscape, portait
       primaryColor: 'rgba(0, 150, 136, 1)', //css color value
-      weekBegin: 'monday',
+      weekBegin: 'sunday',
       theme: 'light', // light, dark
       date: new Date(),
       outputFormat: "{yyyy}/{mm}/{dd}",
@@ -109,7 +109,7 @@ var MaterialMonthpicker = (function () {
       containerPickerYearBefore.setAttribute('class', 'mp-picker-year-before mp-picker-year-button');
       containerPickerYear.appendChild(containerPickerYearBefore);
       containerPickerYearBefore.addEventListener('click', function () {
-        _this3.yearChange(-1);
+        _this3._siteChange(-1);
       });
 
       var containerPickerYearThis = document.createElement('span');
@@ -120,7 +120,7 @@ var MaterialMonthpicker = (function () {
       containerPickerYearNext.setAttribute('class', 'mp-picker-year-next mp-picker-year-button');
       containerPickerYear.appendChild(containerPickerYearNext);
       containerPickerYearNext.addEventListener('click', function () {
-        _this3.yearChange(+1);
+        _this3._siteChange(+1);
       });
 
       var containerPickerChoose = document.createElement('div');
@@ -161,21 +161,30 @@ var MaterialMonthpicker = (function () {
 
         var _loop = function (i) {
           var containerPickerChooseDay = document.createElement('a');
-          containerPickerChooseDay.setAttribute('class', 'mp-picker-click-' + i + ' mp-picker-choose-day');
-          if (i + 1 >= firstWeekDay && num <= thisMonthLenght) {
+          containerPickerChooseDay.setAttribute('class', 'mp-picker-choose-day');
+
+          var boolean = i >= firstWeekDay;
+          if (_this3.settings.weekBegin == 'monday') {
+            boolean = i + 1 >= firstWeekDay;
+          }
+
+          if (boolean && num <= thisMonthLenght) {
             containerPickerChooseDay.innerHTML = num;
+            containerPickerChooseDay.classList.add('mp-picker-click-' + num);
             num++;
           } else {
             containerPickerChooseDay.innerHTML = ' ';
+            containerPickerChooseDay.classList.add('mp-empty');
           }
 
           containerPickerChoose.appendChild(containerPickerChooseDay);
 
-          containerPickerChooseDay.addEventListener('click', function () {
+          containerPickerChooseDay.addEventListener('click', function (element) {
+            if (element.path[0].classList.contains('mp-empty')) return;
             var month = i;
             var nextDate = _this3.date;
-            //          nextDate.setMonth(month);
-            //          this.newDate(nextDate, 'month');
+            nextDate.setMonth(month);
+            _this3.newDate(nextDate, 'month');
           });
         };
 
@@ -183,26 +192,26 @@ var MaterialMonthpicker = (function () {
           _loop(i);
         }
       } else if (this.settings.type == 'month') {
-          var months = 12;
+        var months = 12;
 
-          var _loop2 = function (i) {
-            var containerPickerChooseMonth = document.createElement('a');
-            containerPickerChooseMonth.setAttribute('class', 'mp-picker-click-' + i + ' mp-picker-choose-month');
-            containerPickerChooseMonth.innerHTML = _this3.i18n.MMM[i];
-            containerPickerChoose.appendChild(containerPickerChooseMonth);
+        var _loop2 = function (i) {
+          var containerPickerChooseMonth = document.createElement('a');
+          containerPickerChooseMonth.setAttribute('class', 'mp-picker-click-' + i + ' mp-picker-choose-month');
+          containerPickerChooseMonth.innerHTML = _this3.i18n.MMM[i];
+          containerPickerChoose.appendChild(containerPickerChooseMonth);
 
-            containerPickerChooseMonth.addEventListener('click', function () {
-              var month = i;
-              var nextDate = _this3.date;
-              nextDate.setMonth(month);
-              _this3.newDate(nextDate, 'month');
-            });
-          };
+          containerPickerChooseMonth.addEventListener('click', function () {
+            var month = i;
+            var nextDate = _this3.date;
+            nextDate.setMonth(month);
+            _this3.newDate(nextDate, 'month');
+          });
+        };
 
-          for (var i = 0; i < months; i++) {
-            _loop2(i);
-          }
+        for (var i = 0; i < months; i++) {
+          _loop2(i);
         }
+      }
 
       //styles
       var newStyle = '\n      .mp-picker.mp-monthpicker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].active,\n      .mp-picker.mp-monthpicker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-choose-month"].active {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active),\n      .mp-picker.mp-monthpicker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active) {\n        color: ' + this.settings.primaryColor + ';\n      }\n    ';
@@ -216,13 +225,17 @@ var MaterialMonthpicker = (function () {
       //    this.newDate();
     }
   }, {
-    key: 'yearChange',
-    value: function yearChange(direction) {
+    key: '_siteChange',
+    value: function _siteChange(direction) {
       var _this4 = this;
 
       var directions = { '-1': 'left', '1': 'right' };
       var directionsNot = { '-1': 'right', '1': 'left' };
-      this.date.setYear(this.date.getYear() + 1900 + direction);
+      if (this.settings.type == 'date') {
+        this.date.setMonth(this.date.getMonth() + direction);
+      } else if (this.settings.type == 'month') {
+        this.date.setYear(this.date.getYear() + 1900 + direction);
+      }
 
       this.picker.querySelectorAll('.mp-animate')[0].classList.add('mp-animate-' + directions[direction]);
       this.picker.querySelectorAll('.mp-animate')[1].classList.add('mp-animate-' + directions[direction]);
@@ -272,21 +285,40 @@ var MaterialMonthpicker = (function () {
     key: 'newDate',
     value: function newDate(date, value) {
       var dates = date || this.settings.date;
+      var i18n = this.i18n;
+      var year = dates.getYear() + 1900 + '';
+      console.log(year.substr(2));
+      var month = dates.getMonth();
+      var day = dates.getDay();
+      var datee = dates.getDate();
 
-      this.picker.querySelector('.mp-info-year').innerHTML = dates.getYear() + 1900;
-      this.picker.querySelector('.mp-info-date').innerHTML = this.i18n.MMM[dates.getMonth()];
-      this.picker.querySelector('.mp-picker-year-this').innerHTML = dates.getYear() + 1900;
-
-      if (this.picker.querySelector('[class*="mp-picker-choose-month"].active') != null) {
-        this.picker.querySelector('[class*="mp-picker-choose-month"].active').classList.remove('active');
+      if (this.settings.type == 'date') {
+        this.picker.querySelector('.mp-info-year').innerHTML = dates.getYear() + 1900;
+        this.picker.querySelector('.mp-info-date').innerHTML = i18n.DDD[day] + ', ' + i18n.MMM[month] + ' ' + datee;
+        this.picker.querySelector('.mp-picker-year-this').innerHTML = i18n.MMMM[month] + ' ' + year;
+      } else if (this.settings.type == 'month') {
+        this.picker.querySelector('.mp-info-year').innerHTML = year;
+        this.picker.querySelector('.mp-info-date').innerHTML = i18n.MMM[month];
+        this.picker.querySelector('.mp-picker-year-this').innerHTML = year;
       }
 
-      this.picker.querySelector('.mp-picker-choose-month-' + dates.getMonth() * 1).classList.add('active');
+      if (this.picker.querySelector('[class*="mp-picker-click"].active') != null) {
+        this.picker.querySelector('[class*="mp-picker-click"].active').classList.remove('active');
+      }
 
-      if (new Date().getYear() == dates.getYear()) {
-        this.picker.querySelector('.mp-picker-choose-month-' + new Date().getMonth() * 1).classList.add('today');
-      } else if (this.picker.querySelector('.mp-picker-choose-month-' + new Date().getMonth() * 1 + '.today') != null) {
-        this.picker.querySelector('.mp-picker-choose-month-' + new Date().getMonth() * 1 + '.today').classList.remove('today');
+      this.picker.querySelector('.mp-picker-click-' + dates.getMonth() * 1).classList.add('active');
+
+      var boolean = undefined;
+      if (this.settings.type == 'date') {
+        boolean = new Date().getYear() == dates.getYear() && new Date().getMonth() == dates.getMonth();
+      } else if (this.settings.type == 'month') {
+        boolean = new Date().getYear() == dates.getYear();
+      }
+
+      if (boolean) {
+        this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1).classList.add('today');
+      } else if (this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today') != null) {
+        this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today').classList.remove('today');
       }
 
       //set to 0:00:00
