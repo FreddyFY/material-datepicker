@@ -33,6 +33,7 @@
   width: 350px;
   height: 12.5em;
   position: absolute;
+  display: table;
   
   * {
     box-sizing: border-box;
@@ -89,14 +90,6 @@
         width: 100% / 7;
       }
     }
-    
-    .mp-picker-choose-day {
-      width: 100% / 7;
-    }
-  
-    .mp-picker-month-day {
-      width: 100% / 3;
-    }
   }
   
   &[data-theme="dark"] {
@@ -108,7 +101,7 @@
       background-color: @color-dark-background;
       color: @color-text-inverted;
       
-      .mp-picker-year .mp-picker-year-button {
+      .mp-picker-site .mp-picker-site-button {
         background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiAjZjRmNGY0OyIgZD0iTTMuNywwLjdMMS40LDNsMi4zLDIuM0wzLDZMMCwzbDMtM0wzLjcsMC43eiIvPg0KPC9nPg0KPC9zdmc+DQo=");
         opacity: 1;
         
@@ -131,28 +124,46 @@
   &[data-orientation="portrait"] {
     width: 225px;
     height: 325px;
+    display: block;
     
     .mp-picker-info {
+      display: block;
       width: 100%;
-      float: none;
       height: 25%;
+      
+      .mp-info-second {
+        word-wrap: break-word;
+      }
     }
         
     .mp-picker-picker {
+      display: block;
       width: 100%;
-      float: none;
       height: 75%;
     }
   }
   
-  &.mp-monthpicker[data-orientation="portrait"] .mp-picker-picker {
-    padding-top: 2em;
+  &.mp-datepicker {
+    [class*="mp-picker-choose"] span,
+    [class*="mp-picker-choose"] a {
+      width: 100% / 7;
+    }
+  }
+  
+  &.mp-monthpicker {
+    [class*="mp-picker-choose"] span,
+    [class*="mp-picker-choose"] a {
+      width: 100% / 3;
+    }
+    
+    &[data-orientation="portrait"] .mp-picker-picker {
+      padding-top: 2em;
+    }
   }
   
   .mp-picker-info {
-    float: left;
+    display: table-cell;
     width: 30%;
-    height: 100%;
     color: @color-text-inverted;
     background: @color-primary;
     padding: 1em;
@@ -164,20 +175,23 @@
     }
     
     .mp-info-second {
-      font-size: 2em;
+      font-size: 1.9em;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      overflow: hidden;
+      display: inline-block;
     }
   }
   
   .mp-picker-picker {
-    float: left;
+    display: table-cell;
     width: 70%;
-    height: 100%;
     background: @color-background;
     color: @color-text;
     padding: 1em;
     overflow: hidden;
     
-    .mp-picker-year {
+    .mp-picker-site {
       .clearfix();
       margin-bottom: 1em;
       font-size: .8em;
@@ -187,7 +201,7 @@
         float: left;
       }
       
-      .mp-picker-year-button {
+      .mp-picker-site-button {
         display: block;
         background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K");
         background-repeat: no-repeat;
@@ -206,11 +220,11 @@
         }
       }
       
-      .mp-picker-year-next {
+      .mp-picker-site-next {
         transform: rotate(180deg);
       }
       
-      .mp-picker-year-this {
+      .mp-picker-site-this {
         width: ~"calc(100% - 4em)";
         text-align: center;
         font-weight: 600;
@@ -228,7 +242,7 @@
     transition: transform .2s ease,
                 opacity .2s ease;
     
-    &.mp-picker-year-this {
+    &.mp-picker-site-this {
       transition-timing-function: linear;
     }
     

@@ -23,16 +23,22 @@ var monthpicker = new MaterialMonthpicker('input', {
 
 ## Options
 
-* **type** *(default: date)* *[string]* - Datepicker, Monthpicker
-* **lang** *(default: en)* *[string]* - Language
+* **type** *(default: "date")* *[string]* - Datepicker["date"], Monthpicker["month"]
+* **lang** *(default: "en")* *[string]* - Language
+* **orientation** *(default: "landscape")* *[string]* - Orientation of the picker: portait or landscape
+* **primaryColor** *(default: "#80cbc4")* *[string]* - Color of the picker; Html color values
+* **theme** *(default: "light")* *[string]* - Theme of the picker: light or dark
+* **closeAfterClick** *(default: true) *[string]* - Close the picker after choose a date or not
+
 * **date** *(default: today)* *[type: Date Object]* - The initial date of the Picker
-* **outputFormat** *(default: {mm}/{yyyy})* *[string]* - Date-format of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
-* **outputElement** *(default: none)* *[string or Object]* - Returns the date inside a SPAN-tag, P-tag or A-Tag
-* **weekBegin** *(default: sunday)* *[string]* - Beginning weekday of the week: sunday or monday
-* **orientation** *(default: landscape)* *[string]* - Orientation of the picker: portait or landscape
-* **theme** *(default: light)* *[string]* - Theme of the picker: light or dark
-* **primaryColor** *(default: #80cbc4)* *[string]* - Color of the picker; Html color values
+* **weekBegin** *(default: "sunday")* *[string]* - Beginning weekday of the week: sunday or monday
+* **outputFormat** *(default: date "{yyyy}/{mm}/{dd}"; month "{MMMM} {yyyy}")* *[string]* - Date-format of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
+* **topHeaderFormat** *(default: "{YYYY}")* *[string]* - Date-format of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
+* **headerFormat** *(default: date "{DD}, {MMM} {d}"; month "{MMMM}")* *[string]* - Date Format in the header bar
+* **sitePickerFormat** *(default: date "{MMMM} {yyyy}"; month "{yyyy}")* *[string]* - Date Format in the site picker bar
+
 * **onNewDate** *(default: none)* *[function]* - Function called when new Date is picked
+* **outputElement** *(default: none)* *[string or Object]* - Returns the date inside a SPAN-tag, P-tag or A-Tag
 
 
 ### Example

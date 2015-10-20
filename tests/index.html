@@ -10,7 +10,8 @@
 //          
 //        });
         
-/*        window.monthpicker = new MaterialMonthpicker('.material-monthpicker', {
+        window.monthpicker = new MaterialMonthpicker('.material-monthpicker', {
+          type: "month",
           lang: 'en',
           orientation: 'portrait',
           primaryColor: '#795548',
@@ -18,7 +19,7 @@
           onNewDate: function() {
           },
           outputElement: '.month'
-        });*/
+        });
       
         window.datepicker = new MaterialMonthpicker('.material-datepicker', {
           type: "date",
@@ -27,10 +28,10 @@
           primaryColor: '#795548',
           weekBegin: 'monday',
           buttons: true,
+          headerFormat: "{DDD}, {d}. {MMM}",
           onNewDate: function() {
 //            alert();
           },
-          outputElement: '.month'
         });//          
 //        });
       })
