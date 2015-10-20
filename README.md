@@ -28,7 +28,7 @@ var monthpicker = new MaterialMonthpicker('input', {
 * **orientation** *(default: "landscape")* *[string]* - Orientation of the picker: portait or landscape
 * **primaryColor** *(default: "#80cbc4")* *[string]* - Color of the picker; Html color values
 * **theme** *(default: "light")* *[string]* - Theme of the picker: light or dark
-* **closeAfterClick** *(default: true) *[string]* - Close the picker after choose a date or not
+* **closeAfterClick** *(default: true)* *[string]* - Close the picker after choose a date or not
 
 * **date** *(default: today)* *[type: Date Object]* - The initial date of the Picker
 * **weekBegin** *(default: "sunday")* *[string]* - Beginning weekday of the week: sunday or monday
