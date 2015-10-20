@@ -1,5 +1,19 @@
 {
-  "mmm": [
+  "M": [
+    "G",
+    "F",
+    "M",
+    "A",
+    "M",
+    "G",
+    "L",
+    "A",
+    "St",
+    "O",
+    "N",
+    "D"
+  ],
+  "MMM": [
     "Gen",
     "Feb",
     "Mar",
@@ -13,7 +27,7 @@
     "Nov",
     "Dic"
   ],
-  "mmmm": [
+  "MMMM": [
     "Gennaio",
     "Febbraio",
     "Marzo",
@@ -24,10 +38,19 @@
     "Agosto",
     "Settembre",
     "Ottobre",
-    "Novembre ",
-    "Dicembre "
+    "Novembre",
+    "Dicembre"
   ],
-  "ddd": [
+  "D": [
+    "D",
+    "L",
+    "M",
+    "M",
+    "G",
+    "V",
+    "S"
+  ],
+  "DDD": [
     "Dom",
     "Lun",
     "Mar",
@@ -36,7 +59,7 @@
     "Ven",
     "Sab"
   ],
-  "dddd" : [
+  "DDDD" : [
     "Domenica",
     "Lunedi",
     "Martedi",
