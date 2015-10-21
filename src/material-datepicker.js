@@ -88,8 +88,8 @@ var MaterialMonthpicker = (function () {
     }
 
     var xmlhttp = new XMLHttpRequest();
-    //    xmlhttp.open("GET", `https://rawgit.com/FreddyFY/material-datepicker/master/src/translations/${this.settings.lang}.json`, true);
-    xmlhttp.open("GET", "/src/translations/" + this.settings.lang + ".json", true);
+        xmlhttp.open("GET", `https://rawgit.com/FreddyFY/material-datepicker/master/src/translations/${this.settings.lang}.json`, true);
+//    xmlhttp.open("GET", "/src/translations/" + this.settings.lang + ".json", true);
     var i18nn;
     xmlhttp.addEventListener("readystatechange", function () {
       if (xmlhttp.readyState == 4) {
