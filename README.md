@@ -6,7 +6,7 @@ Include the JavaScript file and Stylesheet in your html page.
 
 ```html
   <link rel="stylesheet" type="text/css" href="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker.css">
-  <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/assets/javascript/material-monthpicker.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker.js"></script>
 
 ```
 
