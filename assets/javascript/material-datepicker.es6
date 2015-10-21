@@ -15,7 +15,6 @@ let dateToString = (string, _date, i18n) => {
 
   string = string.replace(/\{MMMM\}/g, i18n.MMMM[monthNumber - 1]);
   string = string.replace(/\{MMM\}/g, i18n.MMM[monthNumber - 1]);
-  console.log(monthNumber);
   string = string.replace(/\{mm\}/g, ("0" + monthNumber).slice(-2));
   string = string.replace(/\{m\}/g, monthNumber);      
 
@@ -25,7 +24,7 @@ let dateToString = (string, _date, i18n) => {
   return string;
 }
 
-class MaterialMonthpicker {
+class MaterialDatepicker {
 
   constructor (element, settings) {
     const defaults = {
@@ -36,22 +35,23 @@ class MaterialMonthpicker {
       primaryColor: 'rgba(0, 150, 136, 1)',
       theme: 'light',
       buttons: true,
+      openOn: 'click',
       closeAfterClick: true,
       
       date: new Date(),
       weekBegin: 'sunday',
       outputFormat: {
-        month: "{MMMM} {yyyy}",
-        date: "{yyyy}/{mm}/{dd}"
+        date: "{yyyy}/{mm}/{dd}",
+        month: "{MMMM} {yyyy}"
       },
       topHeaderFormat: "{YYYY}",
       headerFormat: {
-        month: "{MMMM}",
-        date: "{DDD}, {MMM} {d}"
+        date: "{DDD}, {MMM} {d}",
+        month: "{MMM}"
       },
       sitePickerFormat: {
-        month: "{yyyy}",
-        date: "{MMMM} {yyyy}"
+        date: "{MMMM} {yyyy}",
+        month: "{yyyy}"
       },
       
       onNewDate: '',
@@ -83,7 +83,7 @@ class MaterialMonthpicker {
     xmlhttp.open("GET", `/src/translations/${this.settings.lang}.json`, true);
     var i18nn;
     xmlhttp.addEventListener("readystatechange", () => {
-      if (xmlhttp.readyState == 4) {
+      if (xmlhttp.readyState == 4) { 
         this.i18n = JSON.parse(xmlhttp.responseText);
         loaded();
       }
@@ -111,8 +111,8 @@ class MaterialMonthpicker {
   define() {
     this.createElement();
 
-    this.element.addEventListener('click', () => {
-      this.open();
+    this.element.addEventListener(this.settings.openOn, () => {
+      this.open(this.settings.openOn);
     });
   }
 
@@ -169,95 +169,20 @@ class MaterialMonthpicker {
     const containerPickerChoose = document.createElement('div');
     containerPickerChoose.setAttribute('class', 'mp-picker-choose mp-animate');
     containerPicker.appendChild(containerPickerChoose);
-/*
-    if (this.settings.type == 'date') {
-      const maxMonthLength = 42;
-      const week = 7;
-      
-      //weekday
-      for (let i = 0; i < week; i++) {
-        let weekDay = i;
-        if (this.settings.weekBegin == 'monday') {
-          weekDay = weekDay + 1;
-          if (weekDay >= week) {
-            weekDay = 0;
-          }
-        }
-        
-        const containerPickerChooseWeekDay = document.createElement('span');
-        containerPickerChooseWeekDay.setAttribute('class', `mp-picker-header mp-picker-header-day-${i}`);
-        containerPickerChooseWeekDay.innerHTML = this.i18n.D[weekDay];
-        containerPickerChoose.appendChild(containerPickerChooseWeekDay);
-      }
-      
-      //all days
-      let thisMonthLenght = this.date;
-      thisMonthLenght.setDate(1);
-      thisMonthLenght.setMonth(thisMonthLenght.getMonth() + 1);
-      thisMonthLenght.setDate(0);
-      let firstWeekDay = thisMonthLenght;
-      thisMonthLenght = thisMonthLenght.getDate();
-      firstWeekDay.setDate(1);
-      firstWeekDay = firstWeekDay.getDay();
-    
-      for (let i = 0, num = 1; i < maxMonthLength; i++) {
-        const containerPickerChooseDay = document.createElement('a');
-        containerPickerChooseDay.setAttribute('class', `mp-picker-choose-day`);
-        
-        let boolean = i >= firstWeekDay;
-        if (this.settings.weekBegin == 'monday') {
-          boolean = i + 1 >= firstWeekDay;
-        }
-        
-        if (boolean && num <= thisMonthLenght ) {
-          containerPickerChooseDay.innerHTML = num;
-          containerPickerChooseDay.classList.add(`mp-picker-click-${num}`);
-          num++;
-        } else {
-          containerPickerChooseDay.innerHTML = ' ';
-          containerPickerChooseDay.classList.add('mp-empty');
-        }
-        
-        containerPickerChoose.appendChild(containerPickerChooseDay);
-
-        containerPickerChooseDay.addEventListener('click', (element) => {
-          if (element.path[0].classList.contains('mp-empty')) return;
-          let date = num -1;
-          let nextDate = this.date
-          nextDate.setDate(date);
-          this.newDate(nextDate, 'close');
-        })
-      }
-    } else if (this.settings.type == 'month') {
-      const months = 12;
-      for (let i = 0; i < months; i++) {
-        const containerPickerChooseMonth = document.createElement('a');
-        containerPickerChooseMonth.setAttribute('class', `mp-picker-click-${i} mp-picker-choose-month`);
-        containerPickerChooseMonth.innerHTML = this.i18n.MMM[i];
-        containerPickerChoose.appendChild(containerPickerChooseMonth);
-
-        containerPickerChooseMonth.addEventListener('click', () => {
-          let month = i;
-          let nextDate = this.date
-          nextDate.setMonth(month);
-          this.newDate(nextDate, 'close');
-        })
-      }
-    }*/
 
     //styles
     const newStyle = `
-      .mp-picker.mp-monthpicker:not([data-theme="dark"]) .mp-picker-info {
+      .mp-picker:not([data-theme="dark"]) .mp-picker-info {
         background-color: ${this.settings.primaryColor};
       }
 
-      .mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].active,
-      .mp-picker.mp-monthpicker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-choose-month"].active {
+      .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,
+      .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {
         background-color: ${this.settings.primaryColor};
       }
 
-      .mp-picker.mp-monthpicker .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active),
-      .mp-picker.mp-monthpicker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active) {
+      .mp-picker .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active),
+      .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {
         color: ${this.settings.primaryColor};
       }
     `;
@@ -382,7 +307,13 @@ class MaterialMonthpicker {
     }, 200);
   }
 
-  open() {
+  open(how) {
+    if (how == 'load' && this.settings.element.tagName == 'DIV') {
+      this.settings.element.appendChild(this.picker);
+      this.newDate(null);
+      return;
+    }
+    
     document.body.appendChild(this.picker);
     let top = this.position.top + this.position.height + 5;
     let left = this.position.left;

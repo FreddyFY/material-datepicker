@@ -14,8 +14,8 @@ In its simplest case, Material-Picker can be initialised with a single line of J
 You will probably also specify some options while applying the plugin.
 
 ```js
-var monthpicker = new MaterialMonthpicker('input');
-var monthpicker = new MaterialMonthpicker('input', {
+var monthpicker = new MaterialDatepicker('input');
+var monthpicker = new MaterialDatepicker('input', {
   lang: 'de',
   orientation: 'portrait',
 });
@@ -28,6 +28,7 @@ var monthpicker = new MaterialMonthpicker('input', {
 * **orientation** *(default: "landscape")* *[string]* - Orientation of the picker: portait or landscape
 * **primaryColor** *(default: "#80cbc4")* *[string]* - Color of the picker; Html color values
 * **theme** *(default: "light")* *[string]* - Theme of the picker: light or dark
+* **openOn** *(default: "click")* *[string]* - How to open the picker: events
 * **closeAfterClick** *(default: true)* *[string]* - Close the picker after choose a date or not
 
 * **date** *(default: today)* *[type: Date Object]* - The initial date of the Picker
@@ -43,7 +44,7 @@ var monthpicker = new MaterialMonthpicker('input', {
 
 ### Example
 ```js
-var monthpicker = new MaterialMonthpicker('input', {
+var monthpicker = new MaterialDatepicker('input', {
   lang: 'de',
   orientation: 'portrait',
   theme: 'dark',
