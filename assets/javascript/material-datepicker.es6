@@ -54,6 +54,8 @@ class MaterialDatepicker {
         month: "{yyyy}"
       },
       
+      onLoad: '',
+      onOpen: '',
       onNewDate: '',
       outputElement: '',
     };
@@ -79,8 +81,8 @@ class MaterialDatepicker {
     }
 
     let xmlhttp = new XMLHttpRequest();
-//    xmlhttp.open("GET", `https://rawgit.com/FreddyFY/material-datepicker/master/src/translations/${this.settings.lang}.json`, true);
-    xmlhttp.open("GET", `/src/translations/${this.settings.lang}.json`, true);
+    xmlhttp.open("GET", `https://rawgit.com/FreddyFY/material-datepicker/datepicker/src/translations/${this.settings.lang}.json`, true);
+//    xmlhttp.open("GET", `/src/translations/${this.settings.lang}.json`, true);
     var i18nn;
     xmlhttp.addEventListener("readystatechange", () => {
       if (xmlhttp.readyState == 4) { 
@@ -111,6 +113,11 @@ class MaterialDatepicker {
   define() {
     this.createElement();
 
+    if (this.settings.openOn == 'direct') {
+      this.open(this.settings.openOn);
+      return;
+    }
+    
     this.element.addEventListener(this.settings.openOn, () => {
       this.open(this.settings.openOn);
     });
@@ -181,7 +188,7 @@ class MaterialDatepicker {
         background-color: ${this.settings.primaryColor};
       }
 
-      .mp-picker .mp-picker-choose [class*="mp-picker-choose-month"].today:not(.active),
+      .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),
       .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {
         color: ${this.settings.primaryColor};
       }
@@ -256,7 +263,11 @@ class MaterialDatepicker {
           let date = num -1;
           let nextDate = this.date
           nextDate.setDate(date);
-          this.newDate(nextDate, 'close');
+          if (this.settings.openOn == 'direct') {
+            this.newDate(nextDate);
+          } else {
+            this.newDate(nextDate, 'close');
+          }
         })
       }
     } else if (this.settings.type == 'month') {
@@ -275,6 +286,7 @@ class MaterialDatepicker {
         })
       }
     }
+    this.callbackOnLoad();
   }
 
   _siteChange(direction) {
@@ -308,9 +320,10 @@ class MaterialDatepicker {
   }
 
   open(how) {
-    if (how == 'load' && this.settings.element.tagName == 'DIV') {
-      this.settings.element.appendChild(this.picker);
+    if (how == 'direct' && this.element.tagName == 'DIV') {
+      this.element.appendChild(this.picker);
       this.newDate(null);
+      this.callbackOnOpen();
       return;
     }
     
@@ -332,6 +345,7 @@ class MaterialDatepicker {
     this.picker.style.left = left;
 
     this.newDate(null);
+    this.callbackOnOpen();
   }
 
   close() {
@@ -380,34 +394,41 @@ class MaterialDatepicker {
 
     this.date = dates;
     
-    //write into input field
-    
-    if ( (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') || 
-         (this.settings.outputElement.tagName == 'SPAN') ||
-         (this.settings.outputElement.tagName == 'P') ||
-         (this.settings.outputElement.tagName == 'A') ) {
-      
-      let output = dateToString(this.settings.outputFormat, dates, this.i18n);
-      
-      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
-        this.element.value = output;
-      }
-      
-      if (this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
-        this.settings.outputElement.innerHTML = output;
-      }
+    //write into field
+    let output = dateToString(this.settings.outputFormat, dates, this.i18n);
+
+    if ( (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') ||
+          this.element.tagName == 'DIV') {
+      this.element.value = output;
+    }
+
+    if (this.settings.outputElement.tagName == 'SPAN' ||
+        this.settings.outputElement.tagName == 'P' ||
+        this.settings.outputElement.tagName == 'A') {
+      this.settings.outputElement.innerHTML = output;
     }
     
-
     if (value == 'close') {
       this.close();
       this.callbackOnNewDate();
     }
   }
   
+  callbackOnLoad() {
+    if (typeof(this.settings.onLoad) == 'function') {
+      this.settings.onLoad.call(this, this.date)
+    }
+  }
+  
+  callbackOnOpen() {
+    if (typeof(this.settings.onOpen) == 'function') {
+      this.settings.onOpen.call(this, this.date)
+    }
+  }
+  
   callbackOnNewDate() {
     if (typeof(this.settings.onNewDate) == 'function') {
-        this.settings.onNewDate.call(this, this.date)
-      }
+      this.settings.onNewDate.call(this, this.date)
+    }
   }
 }

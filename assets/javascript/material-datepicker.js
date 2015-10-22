@@ -64,6 +64,8 @@ var MaterialDatepicker = (function () {
         month: "{yyyy}"
       },
 
+      onLoad: '',
+      onOpen: '',
       onNewDate: '',
       outputElement: ''
     };
@@ -88,8 +90,8 @@ var MaterialDatepicker = (function () {
     }
 
     var xmlhttp = new XMLHttpRequest();
-    //    xmlhttp.open("GET", `https://rawgit.com/FreddyFY/material-datepicker/master/src/translations/${this.settings.lang}.json`, true);
-    xmlhttp.open("GET", "/src/translations/" + this.settings.lang + ".json", true);
+    xmlhttp.open("GET", "https://rawgit.com/FreddyFY/material-datepicker/datepicker/src/translations/" + this.settings.lang + ".json", true);
+    //    xmlhttp.open("GET", `/src/translations/${this.settings.lang}.json`, true);
     var i18nn;
     xmlhttp.addEventListener("readystatechange", function () {
       if (xmlhttp.readyState == 4) {
@@ -123,6 +125,11 @@ var MaterialDatepicker = (function () {
       var _this2 = this;
 
       this.createElement();
+
+      if (this.settings.openOn == 'direct') {
+        this.open(this.settings.openOn);
+        return;
+      }
 
       this.element.addEventListener(this.settings.openOn, function () {
         _this2.open(_this2.settings.openOn);
@@ -187,7 +194,7 @@ var MaterialDatepicker = (function () {
       containerPicker.appendChild(containerPickerChoose);
 
       //styles
-      var newStyle = "\n      .mp-picker:not([data-theme=\"dark\"]) .mp-picker-info {\n        background-color: " + this.settings.primaryColor + ";\n      }\n\n      .mp-picker .mp-picker-choose [class*=\"mp-picker-click\"].active,\n      .mp-picker[data-theme=\"dark\"] .mp-picker-choose [class*=\"mp-picker-click\"].active {\n        background-color: " + this.settings.primaryColor + ";\n      }\n\n      .mp-picker .mp-picker-choose [class*=\"mp-picker-choose-month\"].today:not(.active),\n      .mp-picker[data-theme=\"dark\"] .mp-picker-choose .mp-picker-choose [class*=\"mp-picker-click\"].today:not(.active) {\n        color: " + this.settings.primaryColor + ";\n      }\n    ";
+      var newStyle = "\n      .mp-picker:not([data-theme=\"dark\"]) .mp-picker-info {\n        background-color: " + this.settings.primaryColor + ";\n      }\n\n      .mp-picker .mp-picker-choose [class*=\"mp-picker-click\"].active,\n      .mp-picker[data-theme=\"dark\"] .mp-picker-choose [class*=\"mp-picker-click\"].active {\n        background-color: " + this.settings.primaryColor + ";\n      }\n\n      .mp-picker .mp-picker-choose [class*=\"mp-picker-click\"].today:not(.active),\n      .mp-picker[data-theme=\"dark\"] .mp-picker-choose .mp-picker-choose [class*=\"mp-picker-click\"].today:not(.active) {\n        color: " + this.settings.primaryColor + ";\n      }\n    ";
 
       var containerStyle = document.createElement('style');
       containerStyle.type = 'text/css';
@@ -261,7 +268,11 @@ var MaterialDatepicker = (function () {
             var date = _num - 1;
             var nextDate = _this4.date;
             nextDate.setDate(date);
-            _this4.newDate(nextDate, 'close');
+            if (_this4.settings.openOn == 'direct') {
+              _this4.newDate(nextDate);
+            } else {
+              _this4.newDate(nextDate, 'close');
+            }
           });
           num = _num;
         };
@@ -290,6 +301,7 @@ var MaterialDatepicker = (function () {
           _loop2(i);
         }
       }
+      this.callbackOnLoad();
     }
   }, {
     key: "_siteChange",
@@ -326,9 +338,10 @@ var MaterialDatepicker = (function () {
   }, {
     key: "open",
     value: function open(how) {
-      if (how == 'load' && this.settings.element.tagName == 'DIV') {
-        this.settings.element.appendChild(this.picker);
+      if (how == 'direct' && this.element.tagName == 'DIV') {
+        this.element.appendChild(this.picker);
         this.newDate(null);
+        this.callbackOnOpen();
         return;
       }
 
@@ -350,6 +363,7 @@ var MaterialDatepicker = (function () {
       this.picker.style.left = left;
 
       this.newDate(null);
+      this.callbackOnOpen();
     }
   }, {
     key: "close",
@@ -397,24 +411,34 @@ var MaterialDatepicker = (function () {
 
       this.date = dates;
 
-      //write into input field
+      //write into field
+      var output = dateToString(this.settings.outputFormat, dates, this.i18n);
 
-      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text' || this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
+      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text' || this.element.tagName == 'DIV') {
+        this.element.value = output;
+      }
 
-        var output = dateToString(this.settings.outputFormat, dates, this.i18n);
-
-        if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') {
-          this.element.value = output;
-        }
-
-        if (this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
-          this.settings.outputElement.innerHTML = output;
-        }
+      if (this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
+        this.settings.outputElement.innerHTML = output;
       }
 
       if (value == 'close') {
         this.close();
         this.callbackOnNewDate();
+      }
+    }
+  }, {
+    key: "callbackOnLoad",
+    value: function callbackOnLoad() {
+      if (typeof this.settings.onLoad == 'function') {
+        this.settings.onLoad.call(this, this.date);
+      }
+    }
+  }, {
+    key: "callbackOnOpen",
+    value: function callbackOnOpen() {
+      if (typeof this.settings.onOpen == 'function') {
+        this.settings.onOpen.call(this, this.date);
       }
     }
   }, {

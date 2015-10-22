@@ -28,7 +28,7 @@ var monthpicker = new MaterialDatepicker('input', {
 * **orientation** *(default: "landscape")* *[string]* - Orientation of the picker: portait or landscape
 * **primaryColor** *(default: "#80cbc4")* *[string]* - Color of the picker; Html color values
 * **theme** *(default: "light")* *[string]* - Theme of the picker: light or dark
-* **openOn** *(default: "click")* *[string]* - How to open the picker: events
+* **openOn** *(default: "click")* *[string]* - How to open the picker: Click-events or 'direct'
 * **closeAfterClick** *(default: true)* *[string]* - Close the picker after choose a date or not
 
 * **date** *(default: today)* *[type: Date Object]* - The initial date of the Picker
@@ -38,6 +38,8 @@ var monthpicker = new MaterialDatepicker('input', {
 * **headerFormat** *(default: date "{DD}, {MMM} {d}"; month "{MMMM}")* *[string]* - Date Format in the header bar
 * **sitePickerFormat** *(default: date "{MMMM} {yyyy}"; month "{yyyy}")* *[string]* - Date Format in the site picker bar
 
+* **onLoad** *(default: none)* *[function]* - Function called when picker is loaded
+* **onOpen** *(default: none)* *[function]* - Function called when picker is open
 * **onNewDate** *(default: none)* *[function]* - Function called when new Date is picked
 * **outputElement** *(default: none)* *[string or Object]* - Returns the date inside a SPAN-tag, P-tag or A-Tag
 
@@ -51,7 +53,7 @@ var monthpicker = new MaterialDatepicker('input', {
   primary-color: 'red',
   date: new Date(861999834000),
   outputFormat: '{d} - {mm} - {yyyy} - {timestamp}',
-  outputElment: '.month'
+  outputElment: '.month',
   onNewDate: function() {
                alert('New Date!!')
              }
