@@ -32,8 +32,6 @@ var dateToString = function dateToString(string, _date, i18n) {
 
 var MaterialDatepicker = (function () {
   function MaterialDatepicker(element, settings) {
-    var _this = this;
-
     _classCallCheck(this, MaterialDatepicker);
 
     var defaults = {
@@ -88,40 +86,28 @@ var MaterialDatepicker = (function () {
       this.settings.sitePickerFormat = this.settings.sitePickerFormat[this.settings.type];
     }
 
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "https://rawgit.com/FreddyFY/material-datepicker/datepicker/src/translations/" + this.settings.lang + ".json", true);
-    //    xmlhttp.open("GET", `/src/translations/${this.settings.lang}.json`, true);
-    var i18nn;
-    xmlhttp.addEventListener("readystatechange", function () {
-      if (xmlhttp.readyState == 4) {
-        _this.i18n = JSON.parse(xmlhttp.responseText);
-        loaded();
-      }
-    });
-    xmlhttp.send();
+    this.i18n = lang[this.settings.lang];
 
-    var loaded = function loaded() {
-      _this.element = element;
-      if (typeof _this.element == 'string') {
-        _this.element = document.querySelector("" + element);
-        if (_this.element == null) {
-          console.warn("Object is not defined");
-          return;
-        }
+    this.element = element;
+    if (typeof this.element == 'string') {
+      this.element = document.querySelector("" + element);
+      if (this.element == null) {
+        console.warn("Object is not defined");
+        return;
       }
+    }
 
-      if (typeof _this.settings.outputElement == 'string' && _this.settings.outputElement != '') {
-        _this.settings.outputElement = document.querySelector("" + _this.settings.outputElement);
-      }
+    if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
+      this.settings.outputElement = document.querySelector("" + this.settings.outputElement);
+    }
 
-      _this.define();
-    };
+    this.define();
   }
 
   _createClass(MaterialDatepicker, [{
     key: "define",
     value: function define() {
-      var _this2 = this;
+      var _this = this;
 
       this.createElement();
 
@@ -131,13 +117,13 @@ var MaterialDatepicker = (function () {
       }
 
       this.element.addEventListener(this.settings.openOn, function () {
-        _this2.open(_this2.settings.openOn);
+        _this.open(_this.settings.openOn);
       });
     }
   }, {
     key: "createElement",
     value: function createElement(time) {
-      var _this3 = this;
+      var _this2 = this;
 
       this.position = this.element.getBoundingClientRect();
 
@@ -174,7 +160,7 @@ var MaterialDatepicker = (function () {
       containerPickerYearBefore.setAttribute('class', 'mp-picker-site-before mp-picker-site-button');
       containerPickerYear.appendChild(containerPickerYearBefore);
       containerPickerYearBefore.addEventListener('click', function () {
-        _this3._siteChange(-1);
+        _this2._siteChange(-1);
       });
 
       var containerPickerYearThis = document.createElement('span');
@@ -185,7 +171,7 @@ var MaterialDatepicker = (function () {
       containerPickerYearNext.setAttribute('class', 'mp-picker-site-next mp-picker-site-button');
       containerPickerYear.appendChild(containerPickerYearNext);
       containerPickerYearNext.addEventListener('click', function () {
-        _this3._siteChange(+1);
+        _this2._siteChange(+1);
       });
 
       var containerPickerChoose = document.createElement('div');
@@ -207,7 +193,7 @@ var MaterialDatepicker = (function () {
   }, {
     key: "_updatePicker",
     value: function _updatePicker() {
-      var _this4 = this;
+      var _this3 = this;
 
       var containerPickerChoose = this.picker.querySelector('.mp-picker-choose');
       containerPickerChoose.innerHTML = '';
@@ -247,7 +233,7 @@ var MaterialDatepicker = (function () {
           containerPickerChooseDay.setAttribute('class', "mp-picker-choose-day");
 
           var boolean = i >= firstWeekDay;
-          if (_this4.settings.weekBegin == 'monday') {
+          if (_this3.settings.weekBegin == 'monday') {
             boolean = i + 1 >= firstWeekDay;
           }
 
@@ -265,12 +251,12 @@ var MaterialDatepicker = (function () {
           containerPickerChooseDay.addEventListener('click', function (element) {
             if (element.path[0].classList.contains('mp-empty')) return;
             var date = _num - 1;
-            var nextDate = _this4.date;
+            var nextDate = _this3.date;
             nextDate.setDate(date);
-            if (_this4.settings.openOn == 'direct') {
-              _this4.newDate(nextDate);
+            if (_this3.settings.openOn == 'direct') {
+              _this3.newDate(nextDate);
             } else {
-              _this4.newDate(nextDate, 'close');
+              _this3.newDate(nextDate, 'close');
             }
           });
           num = _num;
@@ -285,14 +271,14 @@ var MaterialDatepicker = (function () {
         var _loop2 = function (i) {
           var containerPickerChooseMonth = document.createElement('a');
           containerPickerChooseMonth.setAttribute('class', "mp-picker-click-" + i + " mp-picker-choose-month");
-          containerPickerChooseMonth.innerHTML = _this4.i18n.MMM[i];
+          containerPickerChooseMonth.innerHTML = _this3.i18n.MMM[i];
           containerPickerChoose.appendChild(containerPickerChooseMonth);
 
           containerPickerChooseMonth.addEventListener('click', function () {
             var month = i;
-            var nextDate = _this4.date;
+            var nextDate = _this3.date;
             nextDate.setMonth(month);
-            _this4.newDate(nextDate, 'close');
+            _this3.newDate(nextDate, 'close');
           });
         };
 
@@ -305,7 +291,7 @@ var MaterialDatepicker = (function () {
   }, {
     key: "_siteChange",
     value: function _siteChange(direction) {
-      var _this5 = this;
+      var _this4 = this;
 
       var directions = { '-1': 'left', '1': 'right' };
       var directionsNot = { '-1': 'right', '1': 'left' };
@@ -319,18 +305,18 @@ var MaterialDatepicker = (function () {
       this.picker.querySelectorAll(".mp-animate")[1].classList.add("mp-animate-" + directions[direction]);
 
       setTimeout(function () {
-        _this5.picker.querySelectorAll(".mp-animate")[0].classList.remove("mp-animate-" + directions[direction]);
-        _this5.picker.querySelectorAll(".mp-animate")[0].classList.add("mp-animate-" + directionsNot[direction]);
-        _this5.picker.querySelectorAll(".mp-animate")[1].classList.remove("mp-animate-" + directions[direction]);
-        _this5.picker.querySelectorAll(".mp-animate")[1].classList.add("mp-animate-" + directionsNot[direction]);
+        _this4.picker.querySelectorAll(".mp-animate")[0].classList.remove("mp-animate-" + directions[direction]);
+        _this4.picker.querySelectorAll(".mp-animate")[0].classList.add("mp-animate-" + directionsNot[direction]);
+        _this4.picker.querySelectorAll(".mp-animate")[1].classList.remove("mp-animate-" + directions[direction]);
+        _this4.picker.querySelectorAll(".mp-animate")[1].classList.add("mp-animate-" + directionsNot[direction]);
 
-        _this5._updatePicker();
+        _this4._updatePicker();
 
         setTimeout(function () {
-          _this5.picker.querySelectorAll(".mp-animate")[0].classList.remove("mp-animate-" + directionsNot[direction]);
-          _this5.picker.querySelectorAll(".mp-animate")[1].classList.remove("mp-animate-" + directionsNot[direction]);
+          _this4.picker.querySelectorAll(".mp-animate")[0].classList.remove("mp-animate-" + directionsNot[direction]);
+          _this4.picker.querySelectorAll(".mp-animate")[1].classList.remove("mp-animate-" + directionsNot[direction]);
 
-          _this5.newDate(_this5.date);
+          _this4.newDate(_this4.date);
         }, 200);
       }, 200);
     }
@@ -397,7 +383,7 @@ var MaterialDatepicker = (function () {
       }
 
       if (boolean) {
-        this.picker.querySelector(".mp-picker-click-" + new Date().getMonth() * 1).classList.add('today');
+        this.picker.querySelector(".mp-picker-click-" + new Date().getDate() * 1).classList.add('today');
       } else if (this.picker.querySelector(".mp-picker-click-" + new Date().getMonth() * 1 + ".today") != null) {
         this.picker.querySelector(".mp-picker-click-" + new Date().getMonth() * 1 + ".today").classList.remove('today');
       }

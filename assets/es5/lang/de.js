@@ -1,4 +1,4 @@
-var lang_de = {
+lang['de'] = {
   "M": [
     "J",
     "F",
@@ -68,4 +68,4 @@ var lang_de = {
     "Freitag",
     "Samstag"
   ]
-}
+};

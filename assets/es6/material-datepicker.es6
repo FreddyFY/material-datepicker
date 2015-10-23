@@ -80,34 +80,22 @@ class MaterialDatepicker {
       this.settings.sitePickerFormat = this.settings.sitePickerFormat[this.settings.type];
     }
 
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `https://rawgit.com/FreddyFY/material-datepicker/datepicker/src/translations/${this.settings.lang}.json`, true);
-//    xmlhttp.open("GET", `/src/translations/${this.settings.lang}.json`, true);
-    var i18nn;
-    xmlhttp.addEventListener("readystatechange", () => {
-      if (xmlhttp.readyState == 4) { 
-        this.i18n = JSON.parse(xmlhttp.responseText);
-        loaded();
-      }
-    });
-    xmlhttp.send();
+    this.i18n = lang[this.settings.lang];
 
-    let loaded = () => {
-      this.element = element;
-      if (typeof this.element == 'string') {
-        this.element = document.querySelector(`${element}`);
-        if (this.element == null) {
-          console.warn("Object is not defined");
-          return;
-        }
+    this.element = element;
+    if (typeof this.element == 'string') {
+      this.element = document.querySelector(`${element}`);
+      if (this.element == null) {
+        console.warn("Object is not defined");
+        return;
       }
-      
-      if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
-        this.settings.outputElement = document.querySelector(`${this.settings.outputElement}`);
-      }
-      
-      this.define();
     }
+
+    if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
+      this.settings.outputElement = document.querySelector(`${this.settings.outputElement}`);
+    }
+
+    this.define();
   }
 
   define() {
@@ -381,7 +369,7 @@ class MaterialDatepicker {
     }
 
     if (boolean) {
-      this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}`).classList.add('today');
+      this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}`).classList.add('today');
     } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
       this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`).classList.remove('today');
     }
