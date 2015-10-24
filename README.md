@@ -33,10 +33,10 @@ var monthpicker = new MaterialDatepicker('input', {
 
 * **date** *(default: today or string inside input)* *[type: Date Object]* - The initial date of the Picker
 * **weekBegin** *(default: "sunday")* *[string]* - Beginning weekday of the week: sunday or monday
-* **outputFormat** *(default: date "{yyyy}/{mm}/{dd}"; month "{MMMM} {yyyy}")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
-* **topHeaderFormat** *(default: "{YYYY}")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
-* **headerFormat** *(default: date "{DD}, {MMM} {d}"; month "{MMMM}")* *[string]* - Date format&#42; in the header bar&#42;
-* **sitePickerFormat** *(default: date "{MMMM} {yyyy}"; month "{yyyy}")* *[string]* - Date format&#42; in the site picker bar&#42;
+* **outputFormat** *(default: date "YYYY/MM/DD"; month "MMMM YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
+* **topHeaderFormat** *(default: "YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
+* **headerFormat** *(default: date "ddd, MMM D"; month "MMMM")* *[string]* - Date format&#42; in the header bar&#42;
+* **sitePickerFormat** *(default: date "MMMM YYYY"; month "YYYY")* *[string]* - Date format&#42; in the site picker bar&#42;
 
 * **onLoad** *(default: none)* *[function]* - Function called when picker is loaded
 * **onOpen** *(default: none)* *[function]* - Function called when picker is open

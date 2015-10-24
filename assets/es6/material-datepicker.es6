@@ -68,8 +68,7 @@ lass MaterialDatepicker {
     let elementVal = this.element.value;
     
     if (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') && elementVal != '') {
-      let momentString = this.settings.outputFormat.replace(/\{/g, '').replace(/\}/g, '');
-      this.date = moment(elementVal, momentString).toDate();
+      this.date = moment(elementVal, this.settings.outputFormat).toDate();
     } else {
       this.date = this.settings.date;
     }
