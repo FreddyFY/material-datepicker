@@ -4,11 +4,6 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var dateToString = function dateToString(string, _date, i18n) {
-
-  return moment(_date).format(string);
-};
-
 var MaterialDatepicker = (function () {
   function MaterialDatepicker(element, settings) {
     _classCallCheck(this, MaterialDatepicker);
@@ -32,7 +27,7 @@ var MaterialDatepicker = (function () {
       },
       topHeaderFormat: "YYYY",
       headerFormat: {
-        date: "DDD, MMM d",
+        date: "ddd, MMM D",
         month: "MMM"
       },
       sitePickerFormat: {
@@ -69,7 +64,7 @@ var MaterialDatepicker = (function () {
     if (typeof this.element == 'string') {
       this.element = document.querySelector('' + element);
       if (this.element == null) {
-        console.warn("Object is not defined");
+        console.warn(" Material Datepicker could not initialize because, Object is not defined");
         return;
       }
     }
@@ -79,8 +74,7 @@ var MaterialDatepicker = (function () {
     var elementVal = this.element.value;
 
     if (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') && elementVal != '') {
-      var momentString = this.settings.outputFormat.replace(/\{/g, '').replace(/\}/g, '');
-      this.date = moment(elementVal, momentString).toDate();
+      this.date = moment(elementVal, this.settings.outputFormat).toDate();
     } else {
       this.date = this.settings.date;
     }
@@ -346,12 +340,9 @@ var MaterialDatepicker = (function () {
     key: 'newDate',
     value: function newDate(date, value) {
       var dates = date || this.date;
-      var year = dates.getYear() + 1900 + '';
-      var month = dates.getMonth();
-      var day = dates.getDay();
-      var datee = dates.getDate();
 
       this.picker.querySelector('.mp-info-first').innerHTML = year;
+      moment.locale(this.settings.lang);
       this.picker.querySelector('.mp-info-second').innerHTML = moment(dates).format(this.settings.headerFormat);
       this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(dates).format(this.settings.sitePickerFormat);
 
