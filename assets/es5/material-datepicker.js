@@ -13,8 +13,9 @@ var MaterialDatepicker = (function () {
 
       lang: 'en',
       orientation: 'landscape',
-      primaryColor: 'rgba(0, 150, 136, 1)',
+      color: 'rgba(0, 150, 136, 1)',
       theme: 'light',
+      zIndex: '100',
       buttons: true,
       openOn: 'click',
       closeAfterClick: true,
@@ -161,7 +162,7 @@ var MaterialDatepicker = (function () {
       containerPicker.appendChild(containerPickerChoose);
 
       //styles
-      var newStyle = '\n      .mp-picker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,\n      .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),\n      .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {\n        color: ' + this.settings.primaryColor + ';\n      }\n    ';
+      var newStyle = '\n      .mp-picker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.color + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,\n      .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {\n        background-color: ' + this.settings.color + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),\n      .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {\n        color: ' + this.settings.color + ';\n      }\n    ';
 
       var containerStyle = document.createElement('style');
       containerStyle.type = 'text/css';
@@ -327,6 +328,7 @@ var MaterialDatepicker = (function () {
 
       this.picker.style.top = top;
       this.picker.style.left = left;
+      this.picker.style.zIndex = this.settings.zIndex;
 
       this.newDate(null);
       this.callbackOnOpen();
@@ -341,8 +343,7 @@ var MaterialDatepicker = (function () {
     value: function newDate(date, value) {
       var dates = date || this.date;
 
-      this.picker.querySelector('.mp-info-first').innerHTML = year;
-      moment.locale(this.settings.lang);
+      this.picker.querySelector('.mp-info-first').innerHTML = moment(dates).format(this.settings.topHeaderFormat);
       this.picker.querySelector('.mp-info-second').innerHTML = moment(dates).format(this.settings.headerFormat);
       this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(dates).format(this.settings.sitePickerFormat);
 

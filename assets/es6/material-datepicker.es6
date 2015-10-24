@@ -6,8 +6,9 @@ class MaterialDatepicker {
       
       lang: 'en',
       orientation: 'landscape',
-      primaryColor: 'rgba(0, 150, 136, 1)',
+      color: 'rgba(0, 150, 136, 1)',
       theme: 'light',
+      zIndex: '100',
       buttons: true,
       openOn: 'click',
       closeAfterClick: true,
@@ -150,17 +151,17 @@ class MaterialDatepicker {
     //styles
     const newStyle = `
       .mp-picker:not([data-theme="dark"]) .mp-picker-info {
-        background-color: ${this.settings.primaryColor};
+        background-color: ${this.settings.color};
       }
 
       .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,
       .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {
-        background-color: ${this.settings.primaryColor};
+        background-color: ${this.settings.color};
       }
 
       .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),
       .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {
-        color: ${this.settings.primaryColor};
+        color: ${this.settings.color};
       }
     `;
 
@@ -312,6 +313,7 @@ class MaterialDatepicker {
     
     this.picker.style.top = top;
     this.picker.style.left = left;
+    this.picker.style.zIndex = this.settings.zIndex;
 
     this.newDate(null);
     this.callbackOnOpen();
@@ -324,8 +326,7 @@ class MaterialDatepicker {
   newDate(date, value) {
     let dates = date || this.date;
   
-    this.picker.querySelector('.mp-info-first').innerHTML = year;
-    moment.locale(this.settings.lang);
+    this.picker.querySelector('.mp-info-first').innerHTML = moment(dates).format(this.settings.topHeaderFormat);
     this.picker.querySelector('.mp-info-second').innerHTML = moment(dates).format(this.settings.headerFormat);
     this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(dates).format(this.settings.sitePickerFormat);
 

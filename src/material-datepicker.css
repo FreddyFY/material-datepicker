@@ -8,6 +8,7 @@
   height: 12.5em;
   position: absolute;
   display: table;
+  z-index: 100;
 }
 .mp-picker:before,
 .mp-picker:after {

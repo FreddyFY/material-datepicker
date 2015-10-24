@@ -6737,8 +6737,9 @@ var _createClass = function() {
             type: "date",
             lang: "en",
             orientation: "landscape",
-            primaryColor: "rgba(0, 150, 136, 1)",
+            color: "rgba(0, 150, 136, 1)",
             theme: "light",
+            zIndex: "100",
             buttons: !0,
             openOn: "click",
             closeAfterClick: !0,
@@ -6815,7 +6816,7 @@ var _createClass = function() {
             });
             var containerPickerChoose = document.createElement("div");
             containerPickerChoose.setAttribute("class", "mp-picker-choose mp-animate"), containerPicker.appendChild(containerPickerChoose);
-            var newStyle = '\n      .mp-picker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,\n      .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {\n        background-color: ' + this.settings.primaryColor + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),\n      .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {\n        color: ' + this.settings.primaryColor + ";\n      }\n    ", containerStyle = document.createElement("style");
+            var newStyle = '\n      .mp-picker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.color + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,\n      .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {\n        background-color: ' + this.settings.color + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),\n      .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {\n        color: ' + this.settings.color + ";\n      }\n    ", containerStyle = document.createElement("style");
             containerStyle.type = "text/css", containerStyle.appendChild(document.createTextNode(newStyle)), 
             document.querySelector("head").appendChild(containerStyle), this._updatePicker();
         }
@@ -6895,8 +6896,8 @@ var _createClass = function() {
             document.body.appendChild(this.picker);
             var top = this.position.top + this.position.height + 5, left = this.position.left, body = document.body.getBoundingClientRect(), picker = this.picker.getBoundingClientRect();
             left + picker.width + 50 > body.width && (left = left - picker.width - 5), top + picker.height + 20 > body.height && (top = top - picker.height - this.position.height - 5), 
-            this.picker.style.top = top, this.picker.style.left = left, this.newDate(null), 
-            this.callbackOnOpen();
+            this.picker.style.top = top, this.picker.style.left = left, this.picker.style.zIndex = this.settings.zIndex, 
+            this.newDate(null), this.callbackOnOpen();
         }
     }, {
         key: "close",
@@ -6907,7 +6908,7 @@ var _createClass = function() {
         key: "newDate",
         value: function(date, value) {
             var dates = date || this.date;
-            this.picker.querySelector(".mp-info-first").innerHTML = year, moment.locale(this.settings.lang), 
+            this.picker.querySelector(".mp-info-first").innerHTML = moment(dates).format(this.settings.topHeaderFormat), 
             this.picker.querySelector(".mp-info-second").innerHTML = moment(dates).format(this.settings.headerFormat), 
             this.picker.querySelector(".mp-picker-site-this").innerHTML = moment(dates).format(this.settings.sitePickerFormat), 
             null != this.picker.querySelector('[class*="mp-picker-click"].active') && this.picker.querySelector('[class*="mp-picker-click"].active').classList.remove("active"), 

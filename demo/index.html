@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/src/material-datepicker.min.css">
-    <script type="text/javascript" src="/src/material-datepicker.min.js"></script>
+    <script type="text/javascript" src="/src/material-datepicker.js"></script>
     
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function () {
@@ -13,7 +13,7 @@
         window.monthpicker = new MaterialDatepicker('.material-monthpicker', {
           type: "month",
           orientation: 'portrait',
-          primaryColor: '#795548',
+          color: '#795548',
           buttons: true,
           onNewDate: function() {
           },
@@ -24,7 +24,7 @@
           type: "date",
           outputFormat: 'DD.MM.YYYY',
           orientation: 'portrait',
-          primaryColor: '#795548',
+          color: '#BADA55',
           weekBegin: 'monday',
           buttons: true,
           headerFormat: "ddd, Do MMM",
