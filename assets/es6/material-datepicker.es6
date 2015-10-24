@@ -58,7 +58,7 @@ class MaterialDatepicker {
     if (typeof this.element == 'string') {
       this.element = document.querySelector(`${element}`);
       if (this.element == null) {
-        console.warn(" Material Datepicker could not initialize because, Object is not defined");
+        console.warn(`Material Datepicker could not initialize because, Object: "${element}" is not defined`);
         return;
       }
     }

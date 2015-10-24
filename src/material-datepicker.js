@@ -6768,7 +6768,7 @@ var _createClass = function() {
         "object" == typeof this.settings.outputFormat && (this.settings.outputFormat = this.settings.outputFormat[this.settings.type]), 
         "object" == typeof this.settings.sitePickerFormat && (this.settings.sitePickerFormat = this.settings.sitePickerFormat[this.settings.type]), 
         this.element = element, "string" == typeof this.element && (this.element = document.querySelector("" + element), 
-        null == this.element)) return void console.warn(" Material Datepicker could not initialize because, Object is not defined");
+        null == this.element)) return void console.warn('Material Datepicker could not initialize because, Object: "' + element + '" is not defined');
         var elementTag = this.element.tagName, elementType = this.element.getAttribute("type"), elementVal = this.element.value;
         "INPUT" != elementTag || "date" != elementType && "number" != elementType && "text" != elementType || "" == elementVal ? this.date = this.settings.date : this.date = moment(elementVal, this.settings.outputFormat).toDate(), 
         "string" == typeof this.settings.outputElement && "" != this.settings.outputElement && (this.settings.outputElement = document.querySelector("" + this.settings.outputElement)), 
