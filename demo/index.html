@@ -12,7 +12,6 @@
         
         window.monthpicker = new MaterialDatepicker('.material-monthpicker', {
           type: "month",
-          lang: 'en',
           orientation: 'portrait',
           primaryColor: '#795548',
           buttons: true,
@@ -23,12 +22,12 @@
       
         window.datepicker = new MaterialDatepicker('.material-datepicker', {
           type: "date",
-          lang: 'de',
+          outputFormat: 'DD.MM.YYYY',
           orientation: 'portrait',
           primaryColor: '#795548',
           weekBegin: 'monday',
           buttons: true,
-          headerFormat: "{DDD}, {d}. {MMM}",
+          headerFormat: "ddd, Do MMM",
           onNewDate: function() {
 //            alert();
           },
@@ -40,7 +39,7 @@
   </head>
   <body>
     <span>datepicker</span>
-    <input type="text" class="material-datepicker">
+    <input type="text" value="25.04.2016" class="material-datepicker">
     <br>
     <span>monthpicker</span>
     <input type="button" class="material-monthpicker" value="Month">

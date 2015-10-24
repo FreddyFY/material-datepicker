@@ -1,30 +1,4 @@
-let dateToString = (string, _date, i18n) => {
-  let timeNumber = _date.getTime();
-  let monthNumber = _date.getMonth() + 1;
-  let yearNumber = _date.getYear() + 1900;
-  let dayNumber = _date.getDay();
-  let dateNumber = _date.getDate();
-
-  string = string.replace(/\{timestamp\}/g, timeNumber);
-
-  string = string.replace(/\{DDDD\}/g, i18n.DDDD[dayNumber]);
-  string = string.replace(/\{DDD\}/g, i18n.DDD[dayNumber]);
-  string = string.replace(/\{D\}/g, i18n.D[dayNumber]);
-  string = string.replace(/\{dd\}/g, ("0" + dateNumber).slice(-2));
-  string = string.replace(/\{d\}/g, dateNumber);
-
-  string = string.replace(/\{MMMM\}/g, i18n.MMMM[monthNumber - 1]);
-  string = string.replace(/\{MMM\}/g, i18n.MMM[monthNumber - 1]);
-  string = string.replace(/\{mm\}/g, ("0" + monthNumber).slice(-2));
-  string = string.replace(/\{m\}/g, monthNumber);      
-
-  string = string.replace(/\{yyyy\}/g, ("0" + yearNumber).slice(-4));
-  string = string.replace(/\{yy\}/g, ("0" + yearNumber).slice(-2));
-  
-  return string;
-}
-
-class MaterialDatepicker {
+lass MaterialDatepicker {
 
   constructor (element, settings) {
     const defaults = {
@@ -41,17 +15,17 @@ class MaterialDatepicker {
       date: new Date(),
       weekBegin: 'sunday',
       outputFormat: {
-        date: "{yyyy}/{mm}/{dd}",
-        month: "{MMMM} {yyyy}"
+        date: "YYYY/MM/DD",
+        month: "MMMM YYYY"
       },
-      topHeaderFormat: "{YYYY}",
+      topHeaderFormat: "YYYY",
       headerFormat: {
-        date: "{DDD}, {MMM} {d}",
-        month: "{MMM}"
+        date: "ddd, MMM D",
+        month: "MMM"
       },
       sitePickerFormat: {
-        date: "{MMMM} {yyyy}",
-        month: "{yyyy}"
+        date: "MMMM YYYY",
+        month: "YYYY"
       },
       
       onLoad: '',
@@ -61,7 +35,7 @@ class MaterialDatepicker {
     };
 
     this.settings = Object.assign(defaults, settings);
-    this.date = this.settings.date;
+    moment.locale(this.settings.lang);
     
     if (typeof this.settings.topHeaderFormat == 'object') {
       this.settings.topHeaderFormat = this.settings.topHeaderFormat[this.settings.type];
@@ -80,8 +54,6 @@ class MaterialDatepicker {
       this.settings.sitePickerFormat = this.settings.sitePickerFormat[this.settings.type];
     }
 
-    this.i18n = lang[this.settings.lang];
-
     this.element = element;
     if (typeof this.element == 'string') {
       this.element = document.querySelector(`${element}`);
@@ -90,16 +62,27 @@ class MaterialDatepicker {
         return;
       }
     }
+    
+    let elementTag = this.element.tagName;
+    let elementType = this.element.getAttribute('type');
+    let elementVal = this.element.value;
+    
+    if (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') && elementVal != '') {
+      let momentString = this.settings.outputFormat.replace(/\{/g, '').replace(/\}/g, '');
+      this.date = moment(elementVal, momentString).toDate();
+    } else {
+      this.date = this.settings.date;
+    }
 
     if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
       this.settings.outputElement = document.querySelector(`${this.settings.outputElement}`);
     }
 
-    this.define();
+    this._define();
   }
 
-  define() {
-    this.createElement();
+  _define() {
+    this._createElement();
 
     if (this.settings.openOn == 'direct') {
       this.open(this.settings.openOn);
@@ -111,7 +94,7 @@ class MaterialDatepicker {
     });
   }
 
-  createElement(time) {
+  _createElement(time) {
     this.position = this.element.getBoundingClientRect();
 
     this.picker = document.createElement('div');
@@ -188,8 +171,6 @@ class MaterialDatepicker {
     document.querySelector('head').appendChild(containerStyle);
     
     this._updatePicker();
-
-//    this.newDate();
   }
   
   _updatePicker() {
@@ -212,12 +193,13 @@ class MaterialDatepicker {
         
         const containerPickerChooseWeekDay = document.createElement('span');
         containerPickerChooseWeekDay.setAttribute('class', `mp-picker-header mp-picker-header-day-${i}`);
-        containerPickerChooseWeekDay.innerHTML = this.i18n.D[weekDay];
+        containerPickerChooseWeekDay.innerHTML = moment.weekdaysMin()[weekDay].substr(0, 1);
         containerPickerChoose.appendChild(containerPickerChooseWeekDay);
       }
       
       //all days
-      let thisMonthLenght = this.date;
+      let thisMonthLenght = this.date.getTime();
+      thisMonthLenght = new Date(thisMonthLenght);
       thisMonthLenght.setDate(1);
       thisMonthLenght.setMonth(thisMonthLenght.getMonth() + 1);
       thisMonthLenght.setDate(0);
@@ -263,7 +245,7 @@ class MaterialDatepicker {
       for (let i = 0; i < months; i++) {
         const containerPickerChooseMonth = document.createElement('a');
         containerPickerChooseMonth.setAttribute('class', `mp-picker-click-${i} mp-picker-choose-month`);
-        containerPickerChooseMonth.innerHTML = this.i18n.MMM[i];
+        containerPickerChooseMonth.innerHTML = moment.monthsShort('-MMM-')[i];
         containerPickerChoose.appendChild(containerPickerChooseMonth);
 
         containerPickerChooseMonth.addEventListener('click', () => {
@@ -341,37 +323,36 @@ class MaterialDatepicker {
   }
 
   newDate(date, value) {
-    let dates = date || this.settings.date;
-    let i18n = this.i18n;
-    let year = (dates.getYear() + 1900) + '';
-    let month = dates.getMonth();
-    let day = dates.getDay();
-    let datee = dates.getDate();
-
-
-    
+    let dates = date || this.date;
+  
     this.picker.querySelector('.mp-info-first').innerHTML = year;
-    this.picker.querySelector('.mp-info-second').innerHTML = dateToString(this.settings.headerFormat, dates, this.i18n);
-    this.picker.querySelector('.mp-picker-site-this').innerHTML = dateToString(this.settings.sitePickerFormat, dates, this.i18n);
+    moment.locale(this.settings.lang);
+    this.picker.querySelector('.mp-info-second').innerHTML = moment(dates).format(this.settings.headerFormat);
+    this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(dates).format(this.settings.sitePickerFormat);
 
     if (this.picker.querySelector(`[class*="mp-picker-click"].active`) != null) {
       this.picker.querySelector(`[class*="mp-picker-click"].active`).classList.remove('active');
     }
 
     
-    let boolean;
     if (this.settings.type == 'date') {
-      boolean = new Date().getYear() == dates.getYear() && new Date().getMonth() == dates.getMonth();
+      
+      if (new Date().getYear() == dates.getYear() && new Date().getMonth() == dates.getMonth()) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}`).classList.add('today');
+      } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}.today`).classList.remove('today');
+      }
+      
       this.picker.querySelector(`.mp-picker-click-${dates.getDate() * 1}`).classList.add('active');
     } else if (this.settings.type == 'month') {
-      boolean = new Date().getYear() == dates.getYear();
+      
+      if (new Date().getYear() == dates.getYear()) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}`).classList.add('today');
+      } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`).classList.remove('today');
+      }
+      
       this.picker.querySelector(`.mp-picker-click-${dates.getMonth() * 1}`).classList.add('active');
-    }
-
-    if (boolean) {
-      this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}`).classList.add('today');
-    } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
-      this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`).classList.remove('today');
     }
 
     //set to 0:00:00
@@ -383,7 +364,7 @@ class MaterialDatepicker {
     this.date = dates;
     
     //write into field
-    let output = dateToString(this.settings.outputFormat, dates, this.i18n);
+    let output = moment(dates).format(this.settings.outputFormat);
 
     if ( (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') ||
           this.element.tagName == 'DIV') {

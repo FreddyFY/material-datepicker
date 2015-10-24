@@ -1,10 +1,6 @@
 var fileList = [
-  'assets/es5/lang.js',
-  'assets/es5/lang/en.js',
-  'assets/es5/lang/de.js',
-  'assets/es5/lang/it.js',
+  'assets/vendor/moment-with-locales.js',
   'assets/es5/material-datepicker.js',
-  'assets/vendor/moment.min.js'
 ];
 
 module.exports = function (grunt) {
