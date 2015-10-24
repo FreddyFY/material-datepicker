@@ -367,7 +367,8 @@ class MaterialDatepicker {
     let output = moment(dates).format(this.settings.outputFormat);
 
     if ( (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') ||
-          this.element.tagName == 'DIV') {
+          this.element.tagName == 'DIV' || 
+          this.element.tagName == 'PAPER-INPUT') {
       this.element.value = output;
     }
 

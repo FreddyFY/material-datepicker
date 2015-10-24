@@ -6918,7 +6918,7 @@ var _createClass = function() {
             dates.setMilliseconds(0), dates.setSeconds(0), dates.setMinutes(0), dates.setHours(0), 
             this.date = dates;
             var output = moment(dates).format(this.settings.outputFormat);
-            ("INPUT" == this.element.tagName && "text" == this.element.getAttribute("type") || "DIV" == this.element.tagName) && (this.element.value = output), 
+            ("INPUT" == this.element.tagName && "text" == this.element.getAttribute("type") || "DIV" == this.element.tagName || "PAPER-INPUT" == this.element.tagName) && (this.element.value = output), 
             ("SPAN" == this.settings.outputElement.tagName || "P" == this.settings.outputElement.tagName || "A" == this.settings.outputElement.tagName) && (this.settings.outputElement.innerHTML = output), 
             "close" == value && (this.close(), this.callbackOnNewDate());
         }
