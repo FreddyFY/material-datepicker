@@ -96,13 +96,17 @@ class MaterialDatepicker {
 
   _createElement(time) {
     this.position = this.element.getBoundingClientRect();
+    let randomNumber = new Date().getTime() + Math.round(Math.random() + 2);
 
     this.picker = document.createElement('div');
     this.picker.setAttribute('class', `mp-${this.settings.type}picker mp-picker`);
+    this.picker.setAttribute('id', `mp-${randomNumber}`);
     this.picker.setAttribute('data-theme', this.settings.theme);
-    this.picker.setAttribute('data-orientation', this.settings.orientation);
-    this.picker.style.top = this.position.top + this.position.height + 10 + 'px';
-    this.picker.style.left = this.position.left + 'px';
+//    this.picker.setAttribute('data-orientation', this.settings.orientation);
+//    if (this.settings.openOn != 'direct') {
+//      this.picker.style.top = this.position.top + this.position.height + 10 + 'px';
+//      this.picker.style.left = this.position.left + 'px';
+//    }
 
     let containerInfo = document.createElement('div');
     containerInfo.setAttribute('class', 'mp-picker-info');
@@ -150,17 +154,17 @@ class MaterialDatepicker {
 
     //styles
     const newStyle = `
-      .mp-picker:not([data-theme="dark"]) .mp-picker-info {
+      #mp-${randomNumber}.mp-picker:not([data-theme="dark"]) .mp-picker-info {
         background-color: ${this.settings.color};
       }
 
-      .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,
-      .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {
+      #mp-${randomNumber}.mp-picker .mp-picker-choose [class*="mp-picker-click"].active,
+      #mp-${randomNumber}.mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {
         background-color: ${this.settings.color};
       }
 
-      .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),
-      .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {
+      #mp-${randomNumber}.mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),
+      #mp-${randomNumber}.mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {
         color: ${this.settings.color};
       }
     `;

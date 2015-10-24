@@ -6787,10 +6787,10 @@ var _createClass = function() {
         key: "_createElement",
         value: function(time) {
             var _this2 = this;
-            this.position = this.element.getBoundingClientRect(), this.picker = document.createElement("div"), 
-            this.picker.setAttribute("class", "mp-" + this.settings.type + "picker mp-picker"), 
-            this.picker.setAttribute("data-theme", this.settings.theme), this.picker.setAttribute("data-orientation", this.settings.orientation), 
-            this.picker.style.top = this.position.top + this.position.height + 10 + "px", this.picker.style.left = this.position.left + "px";
+            this.position = this.element.getBoundingClientRect();
+            var randomNumber = new Date().getTime() + Math.round(Math.random() + 2);
+            this.picker = document.createElement("div"), this.picker.setAttribute("class", "mp-" + this.settings.type + "picker mp-picker"), 
+            this.picker.setAttribute("id", "mp-" + randomNumber), this.picker.setAttribute("data-theme", this.settings.theme);
             var containerInfo = document.createElement("div");
             containerInfo.setAttribute("class", "mp-picker-info"), this.picker.appendChild(containerInfo);
             var containerPicker = document.createElement("div");
@@ -6816,7 +6816,7 @@ var _createClass = function() {
             });
             var containerPickerChoose = document.createElement("div");
             containerPickerChoose.setAttribute("class", "mp-picker-choose mp-animate"), containerPicker.appendChild(containerPickerChoose);
-            var newStyle = '\n      .mp-picker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.color + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].active,\n      .mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {\n        background-color: ' + this.settings.color + ';\n      }\n\n      .mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),\n      .mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {\n        color: ' + this.settings.color + ";\n      }\n    ", containerStyle = document.createElement("style");
+            var newStyle = "\n      #mp-" + randomNumber + '.mp-picker:not([data-theme="dark"]) .mp-picker-info {\n        background-color: ' + this.settings.color + ";\n      }\n\n      #mp-" + randomNumber + '.mp-picker .mp-picker-choose [class*="mp-picker-click"].active,\n      #mp-' + randomNumber + '.mp-picker[data-theme="dark"] .mp-picker-choose [class*="mp-picker-click"].active {\n        background-color: ' + this.settings.color + ";\n      }\n\n      #mp-" + randomNumber + '.mp-picker .mp-picker-choose [class*="mp-picker-click"].today:not(.active),\n      #mp-' + randomNumber + '.mp-picker[data-theme="dark"] .mp-picker-choose .mp-picker-choose [class*="mp-picker-click"].today:not(.active) {\n        color: ' + this.settings.color + ";\n      }\n    ", containerStyle = document.createElement("style");
             containerStyle.type = "text/css", containerStyle.appendChild(document.createTextNode(newStyle)), 
             document.querySelector("head").appendChild(containerStyle), this._updatePicker();
         }
