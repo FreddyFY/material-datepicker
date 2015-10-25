@@ -6771,7 +6771,7 @@ var _createClass = function() {
         this.element = element, "string" == typeof this.element && (this.element = document.querySelector("" + element), 
         null == this.element)) return void console.warn('Material Datepicker could not initialize because, Object: "' + element + '" is not defined');
         var elementTag = this.element.tagName, elementType = this.element.getAttribute("type"), elementVal = this.element.value;
-        "INPUT" != elementTag || "date" != elementType && "number" != elementType && "text" != elementType || "" == elementVal ? this.date = this.settings.date : this.date = moment(elementVal, this.settings.outputFormat).toDate(), 
+        ("INPUT" != elementTag || "date" != elementType && "number" != elementType && "text" != elementType) && "PAPER-INPUT" != elementTag || "" == elementVal ? this.date = this.settings.date : this.date = moment(elementVal, this.settings.outputFormat).toDate(), 
         "string" == typeof this.settings.outputElement && "" != this.settings.outputElement && (this.settings.outputElement = document.querySelector("" + this.settings.outputElement)), 
         this._define();
     }
@@ -6786,9 +6786,7 @@ var _createClass = function() {
     }, {
         key: "_createElement",
         value: function(time) {
-            var _this2 = this;
-            this.position = this.element.getBoundingClientRect();
-            var randomNumber = new Date().getTime() + Math.round(Math.random() + 2);
+            var _this2 = this, randomNumber = new Date().getTime() + Math.round(Math.random() + 2);
             this.picker = document.createElement("div"), this.picker.setAttribute("class", "mp-" + this.settings.type + "picker mp-picker"), 
             this.picker.setAttribute("id", "mp-" + randomNumber), this.picker.setAttribute("data-theme", this.settings.theme);
             var containerInfo = document.createElement("div");
@@ -6893,9 +6891,11 @@ var _createClass = function() {
         value: function(how) {
             if ("direct" == how && "DIV" == this.element.tagName) return this.element.appendChild(this.picker), 
             this.newDate(null), void this.callbackOnOpen();
+            var elementTag = this.element.tagName, elementType = this.element.getAttribute("type"), elementVal = this.element.value;
+            ("INPUT" != elementTag || "date" != elementType && "number" != elementType && "text" != elementType) && "PAPER-INPUT" != elementTag || "" == elementVal || (this.date = moment(elementVal, this.settings.outputFormat).toDate()), 
             document.body.appendChild(this.picker);
-            var top = this.position.top + this.position.height + 5, left = this.position.left, body = document.body.getBoundingClientRect(), picker = this.picker.getBoundingClientRect();
-            left + picker.width + 50 > body.width && (left = left - picker.width - 5), top + picker.height + 20 > body.height && (top = top - picker.height - this.position.height - 5), 
+            var elementPosition = this.element.getBoundingClientRect(), top = elementPosition.top + elementPosition.height + 5, left = elementPosition.left, body = document.body.getBoundingClientRect(), picker = this.picker.getBoundingClientRect();
+            left + picker.width + 50 > body.width && (left = left - picker.width - 5), top + picker.height + 20 > body.height && (top = top - picker.height - elementPosition.height - 5), 
             this.picker.style.top = top, this.picker.style.left = left, this.picker.style.zIndex = this.settings.zIndex, 
             this.newDate(null), this.callbackOnOpen();
         }

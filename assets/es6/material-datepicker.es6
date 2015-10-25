@@ -68,7 +68,7 @@ class MaterialDatepicker {
     let elementType = this.element.getAttribute('type');
     let elementVal = this.element.value;
     
-    if (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') && elementVal != '') {
+    if ( ( (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') ) || (elementTag == 'PAPER-INPUT')) && elementVal != '') {
       this.date = moment(elementVal, this.settings.outputFormat).toDate();
     } else {
       this.date = this.settings.date;
@@ -95,18 +95,12 @@ class MaterialDatepicker {
   }
 
   _createElement(time) {
-    this.position = this.element.getBoundingClientRect();
     let randomNumber = new Date().getTime() + Math.round(Math.random() + 2);
 
     this.picker = document.createElement('div');
     this.picker.setAttribute('class', `mp-${this.settings.type}picker mp-picker`);
     this.picker.setAttribute('id', `mp-${randomNumber}`);
     this.picker.setAttribute('data-theme', this.settings.theme);
-//    this.picker.setAttribute('data-orientation', this.settings.orientation);
-//    if (this.settings.openOn != 'direct') {
-//      this.picker.style.top = this.position.top + this.position.height + 10 + 'px';
-//      this.picker.style.left = this.position.left + 'px';
-//    }
 
     let containerInfo = document.createElement('div');
     containerInfo.setAttribute('class', 'mp-picker-info');
@@ -301,9 +295,18 @@ class MaterialDatepicker {
       return;
     }
     
+    let elementTag = this.element.tagName;
+    let elementType = this.element.getAttribute('type');
+    let elementVal = this.element.value;
+    
+    if ( ( (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') ) || (elementTag == 'PAPER-INPUT')) && elementVal != '') {
+      this.date = moment(elementVal, this.settings.outputFormat).toDate();
+    }
+    
     document.body.appendChild(this.picker);
-    let top = this.position.top + this.position.height + 5;
-    let left = this.position.left;
+    let elementPosition = this.element.getBoundingClientRect();
+    let top = elementPosition.top + elementPosition.height + 5;
+    let left = elementPosition.left;
     let body = document.body.getBoundingClientRect();
     let picker = this.picker.getBoundingClientRect();
     
@@ -312,7 +315,7 @@ class MaterialDatepicker {
     }
     
     if (top + picker.height + 20 > body.height) {
-      top = top - picker.height - this.position.height - 5;
+      top = top - picker.height - elementPosition.height - 5;
     }
     
     this.picker.style.top = top;

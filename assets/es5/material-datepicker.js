@@ -74,7 +74,7 @@ var MaterialDatepicker = (function () {
     var elementType = this.element.getAttribute('type');
     var elementVal = this.element.value;
 
-    if (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') && elementVal != '') {
+    if ((elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') || elementTag == 'PAPER-INPUT') && elementVal != '') {
       this.date = moment(elementVal, this.settings.outputFormat).toDate();
     } else {
       this.date = this.settings.date;
@@ -108,18 +108,12 @@ var MaterialDatepicker = (function () {
     value: function _createElement(time) {
       var _this2 = this;
 
-      this.position = this.element.getBoundingClientRect();
       var randomNumber = new Date().getTime() + Math.round(Math.random() + 2);
 
       this.picker = document.createElement('div');
       this.picker.setAttribute('class', 'mp-' + this.settings.type + 'picker mp-picker');
       this.picker.setAttribute('id', 'mp-' + randomNumber);
       this.picker.setAttribute('data-theme', this.settings.theme);
-      //    this.picker.setAttribute('data-orientation', this.settings.orientation);
-      //    if (this.settings.openOn != 'direct') {
-      //      this.picker.style.top = this.position.top + this.position.height + 10 + 'px';
-      //      this.picker.style.left = this.position.left + 'px';
-      //    }
 
       var containerInfo = document.createElement('div');
       containerInfo.setAttribute('class', 'mp-picker-info');
@@ -316,9 +310,18 @@ var MaterialDatepicker = (function () {
         return;
       }
 
+      var elementTag = this.element.tagName;
+      var elementType = this.element.getAttribute('type');
+      var elementVal = this.element.value;
+
+      if ((elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') || elementTag == 'PAPER-INPUT') && elementVal != '') {
+        this.date = moment(elementVal, this.settings.outputFormat).toDate();
+      }
+
       document.body.appendChild(this.picker);
-      var top = this.position.top + this.position.height + 5;
-      var left = this.position.left;
+      var elementPosition = this.element.getBoundingClientRect();
+      var top = elementPosition.top + elementPosition.height + 5;
+      var left = elementPosition.left;
       var body = document.body.getBoundingClientRect();
       var picker = this.picker.getBoundingClientRect();
 
@@ -327,7 +330,7 @@ var MaterialDatepicker = (function () {
       }
 
       if (top + picker.height + 20 > body.height) {
-        top = top - picker.height - this.position.height - 5;
+        top = top - picker.height - elementPosition.height - 5;
       }
 
       this.picker.style.top = top;
