@@ -3,10 +3,20 @@
 ## Usage
 
 Include the JavaScript file and Stylesheet in your html page.
+This plugin works with [moment.js](http://momentjs.com/).
+There are two ways to include the Material-Datepicker.
 
+**Method 1**
 ```html
   <link rel="stylesheet" type="text/css" href="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker.css">
-  <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker.js"></script>
+  <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker.min.js"></script>
+```
+
+**Method 2**
+```html
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker.css">
+  <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker-with-moment-js.min.js"></script>
 
 ```
 

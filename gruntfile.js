@@ -12,20 +12,36 @@ module.exports = function (grunt) {
       }
     },
     uglify: {
-      merge: {
+      merge_only: {
+        options: {
+          beautify: true,
+          mangle: false
+        },
+        files: [{
+          src: fileList[1],
+          dest: 'src/material-datepicker.js'
+        }]
+      },
+      merge_moment_js: {
         options: {
           beautify: true,
           mangle: false
         },
         files: [{
           src: fileList,
-          dest: 'src/material-datepicker.js'
+          dest: 'src/material-datepicker-with-moment-js.js'
         }]
       },
-      min: {
+      min_only: {
         files: [{
           src: 'src/material-datepicker.js',
           dest: 'src/material-datepicker.min.js'
+        }]
+      },
+      min_moment_js: {
+        files: [{
+          src: 'src/material-datepicker-with-moment-js.js',
+          dest: 'src/material-datepicker-with-moment-js.min.js'
         }]
       }
     },
@@ -48,5 +64,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   
-  grunt.registerTask('default',['babel', 'uglify:merge', 'uglify:min', 'less', 'cssmin']);
+  grunt.registerTask('default',[
+                                'babel',
+                                'uglify:merge_moment_js', 'uglify:min_moment_js',
+                                'uglify:merge_only', 'uglify:min_only',
+                                'less', 'cssmin'
+                               ]);
 };
