@@ -1,14 +1,14 @@
 var fileList = [
-  'assets/vendor/moment-with-locales.js',
-  'assets/es5/material-datepicker.js',
+  'src/vendor/moment-with-locales.js',
+  'tmp/javascript/material-datepicker.js',
 ];
 
 module.exports = function (grunt) {
   grunt.initConfig({
     babel: {
       dist: {
-        src: 'assets/es6/material-datepicker.es6',
-        dest: 'assets/es5/material-datepicker.js'
+        src: 'src/javascript/material-datepicker.es6',
+        dest: 'tmp/javascript/material-datepicker.js'
       }
     },
     uglify: {
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         },
         files: [{
           src: fileList[1],
-          dest: 'src/material-datepicker.js'
+          dest: 'dist/material-datepicker.js'
         }]
       },
       merge_moment_js: {
@@ -29,45 +29,53 @@ module.exports = function (grunt) {
         },
         files: [{
           src: fileList,
-          dest: 'src/material-datepicker-with-moment-js.js'
+          dest: 'dist/material-datepicker-with-moment-js.js'
         }]
       },
       min_only: {
         files: [{
-          src: 'src/material-datepicker.js',
-          dest: 'src/material-datepicker.min.js'
+          src: 'dist/material-datepicker.js',
+          dest: 'dist/material-datepicker.min.js'
         }]
       },
       min_moment_js: {
         files: [{
-          src: 'src/material-datepicker-with-moment-js.js',
-          dest: 'src/material-datepicker-with-moment-js.min.js'
+          src: 'dist/material-datepicker-with-moment-js.js',
+          dest: 'dist/material-datepicker-with-moment-js.min.js'
         }]
       }
     },
     less: {
       dist: {
-        src: 'assets/stylesheet/main.less',
-        dest: 'src/material-datepicker.css'
+        src: 'src/stylesheet/main.less',
+        dest: 'dist/material-datepicker.css'
       }
     },
     cssmin: {
       dist: {
-        src: 'src/material-datepicker.css',
-        dest: 'src/material-datepicker.min.css'
+        src: 'dist/material-datepicker.css',
+        dest: 'dist/material-datepicker.min.css'
       }
-    }
+    },
+    clean: [
+      'tmp/'
+    ]
   });
   
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   
-  grunt.registerTask('default',[
+  grunt.registerTask('default', [
                                 'babel',
                                 'uglify:merge_moment_js', 'uglify:min_moment_js',
                                 'uglify:merge_only', 'uglify:min_only',
-                                'less', 'cssmin'
+                                'less', 'cssmin',
+                                'clean'
                                ]);
+  grunt.registerTask('development', [
+    
+  ])
 };

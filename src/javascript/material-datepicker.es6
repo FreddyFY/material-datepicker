@@ -41,7 +41,7 @@ class MaterialDatepicker {
     if (typeof this.settings.topHeaderFormat == 'object') {
       this.settings.topHeaderFormat = this.settings.topHeaderFormat[this.settings.type];
     }
-    
+        
     if (typeof this.settings.headerFormat == 'object') {
       this.settings.headerFormat = this.settings.headerFormat[this.settings.type];
     }
