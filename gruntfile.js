@@ -59,7 +59,11 @@ module.exports = function (grunt) {
     },
     clean: [
       'tmp/'
-    ]
+    ],
+    watch: {
+      files: ['src/**/*.es6', 'src/**/*.less'],
+      task: ['development'],
+    }
   });
   
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -68,6 +72,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   
   grunt.registerTask('default', ['babel', 'concat', 'uglify', 'less', 'cssmin', 'clean']);
   grunt.registerTask('development', ['babel', 'concat', 'less', 'clean'])
