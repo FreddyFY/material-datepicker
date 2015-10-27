@@ -11,34 +11,34 @@ module.exports = function (grunt) {
         dest: 'tmp/javascript/material-datepicker.js'
       }
     },
-    uglify: {
-      merge_only: {
+    concat: {
+      only: {
         options: {
-          beautify: true,
-          mangle: false
+          separator: ';',
         },
         files: [{
           src: fileList[1],
           dest: 'dist/material-datepicker.js'
         }]
       },
-      merge_moment_js: {
+      moment_js: {
         options: {
-          beautify: true,
-          mangle: false
+          separator: ';',
         },
         files: [{
           src: fileList,
           dest: 'dist/material-datepicker-with-moment-js.js'
         }]
       },
-      min_only: {
+    },
+    uglify: {
+      only: {
         files: [{
           src: 'dist/material-datepicker.js',
           dest: 'dist/material-datepicker.min.js'
         }]
       },
-      min_moment_js: {
+      moment_js: {
         files: [{
           src: 'dist/material-datepicker-with-moment-js.js',
           dest: 'dist/material-datepicker-with-moment-js.min.js'
@@ -67,15 +67,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   
-  grunt.registerTask('default', [
-                                'babel',
-                                'uglify:merge_moment_js', 'uglify:min_moment_js',
-                                'uglify:merge_only', 'uglify:min_only',
-                                'less', 'cssmin',
-                                'clean'
-                               ]);
-  grunt.registerTask('development', [
-    
-  ])
+  grunt.registerTask('default', ['babel', 'concat', 'uglify', 'less', 'cssmin', 'clean']);
+  grunt.registerTask('development', ['babel', 'concat', 'less', 'clean'])
 };
