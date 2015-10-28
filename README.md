@@ -4,7 +4,7 @@
 
 Include the JavaScript file and Stylesheet in your html page.
 This plugin works with [moment.js](http://momentjs.com/).
-There are two Methods to include the Material-Datepicker.
+There are two methods to include the Material-Datepicker.
 
 **Method 1**
 ```html
@@ -65,7 +65,7 @@ var monthpicker = new MaterialDatepicker('input', {
   lang: 'de',
   orientation: 'portrait',
   theme: 'dark',
-  primary-color: 'red',
+  color: 'red',
   date: new Date(861999834000),
   outputFormat: '{d} - {mm} - {yyyy} - {timestamp}',
   outputElment: '.month',

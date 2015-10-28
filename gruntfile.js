@@ -61,8 +61,19 @@ module.exports = function (grunt) {
       'tmp/'
     ],
     watch: {
-      files: ['src/**/*.es6', 'src/**/*.less'],
-      task: ['development'],
+      scripts: {
+        files: ['src/**/*.es6', 'src/**/*.less'],
+        tasks: ['development'],
+        options: {
+         interrupt: true
+        }
+      },
+      configFiles: {
+        files: ["gruntfile.js"],
+        options:  {
+          reload: true
+        }
+      }
     }
   });
   
