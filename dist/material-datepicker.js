@@ -36,10 +36,10 @@ var MaterialDatepicker = (function () {
         month: "YYYY"
       },
 
-      onLoad: '',
-      onOpen: '',
-      onNewDate: '',
-      outputElement: ''
+      onLoad: null,
+      onOpen: null,
+      onNewDate: null,
+      outputElement: null
     };
 
     this.settings = Object.assign(defaults, settings);
