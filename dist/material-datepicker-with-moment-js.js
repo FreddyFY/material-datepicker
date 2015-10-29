@@ -5182,6 +5182,12 @@
             doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
+                     
+    var moment_with_locales = _moment__default;
+    moment_with_locales.locale('en');
+
+    return moment_with_locales;
+
 }));
 ;'use strict';
 
@@ -5225,7 +5231,7 @@ var MaterialDatepicker = (function () {
       onLoad: null,
       onOpen: null,
       onNewDate: null,
-      outputElement: null
+      outputElement: ''
     };
 
     this.settings = Object.assign(defaults, settings);

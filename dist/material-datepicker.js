@@ -40,7 +40,7 @@ var MaterialDatepicker = (function () {
       onLoad: null,
       onOpen: null,
       onNewDate: null,
-      outputElement: null
+      outputElement: ''
     };
 
     this.settings = Object.assign(defaults, settings);

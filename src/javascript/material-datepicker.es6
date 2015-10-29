@@ -33,7 +33,7 @@ class MaterialDatepicker {
       onLoad: null,
       onOpen: null,
       onNewDate: null,
-      outputElement: null,
+      outputElement: '',
     };
 
     this.settings = Object.assign(defaults, settings);
