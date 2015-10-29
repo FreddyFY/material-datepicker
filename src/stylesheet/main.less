@@ -1,27 +1,26 @@
-@color-primary: #009688;
-@color-text-inverted: rgba(255, 255, 255, 1);
-@color-text-inverted-secondary: rgba(255, 255, 255, .7);
-@color-text: rgba(0, 0, 0, .87);
-@color-background: #fafafa;
-
-@color-dark-primary: #80cbc4;
-@color-dark-text: rgba(255, 255, 255, 1);
-@color-dark-background: #424242;
-@color-dark-background-secondary: #555;
-
-.clearfix() {
-  &:before,
-  &:after {
-    content: " ";
-    display: table;
-  }
-  &:after {
-    clear: both;
-  }
-}
-
-
 .mp-picker {
+  @color-primary: #009688;
+  @color-text-inverted: rgba(255, 255, 255, 1);
+  @color-text-inverted-secondary: rgba(255, 255, 255, .7);
+  @color-text: rgba(0, 0, 0, .87);
+  @color-background: #fafafa;
+
+  @color-dark-primary: #80cbc4;
+  @color-dark-text: rgba(255, 255, 255, 1);
+  @color-dark-background: #424242;
+  @color-dark-background-secondary: #555;
+  
+  .clearfix() {
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+  }
+
   .clearfix();
   font-family: 'roboto', sans-serif;
   font-size: 15px;
