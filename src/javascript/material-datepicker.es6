@@ -322,7 +322,7 @@ class MaterialDatepicker {
     this.picker.style.top = top;
     this.picker.style.left = left;
     this.picker.style.zIndex = this.settings.zIndex;
-    if (this.settings.position =! null) {
+    if (this.settings.position != null) {
       this.picker.style.position = this.settings.position;
     }
 
