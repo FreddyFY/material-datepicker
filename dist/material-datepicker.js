@@ -103,6 +103,12 @@ var MaterialDatepicker = (function () {
       this.element.addEventListener(this.settings.openOn, function () {
         _this.open(_this.settings.openOn);
       });
+
+      if (this.settings.openOn != 'direct') {
+        this.element.addEventListener('blur', function () {
+          _this.close();
+        });
+      }
     }
   }, {
     key: '_createElement',

@@ -93,6 +93,12 @@ class MaterialDatepicker {
     this.element.addEventListener(this.settings.openOn, () => {
       this.open(this.settings.openOn);
     });
+    
+    if (this.settings.openOn != 'direct') { 
+      this.element.addEventListener('blur', () => {
+        this.close();
+      });
+    }
   }
 
   _createElement(time) {
