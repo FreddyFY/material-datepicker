@@ -9,6 +9,7 @@ class MaterialDatepicker {
       color: 'rgba(0, 150, 136, 1)',
       theme: 'light',
       zIndex: '100',
+      position: null,
       buttons: true,
       openOn: 'click',
       closeAfterClick: true,
@@ -321,6 +322,9 @@ class MaterialDatepicker {
     this.picker.style.top = top;
     this.picker.style.left = left;
     this.picker.style.zIndex = this.settings.zIndex;
+    if (this.settings.position =! null) {
+      this.picker.style.position = this.settings.position;
+    }
 
     this.newDate(null);
     this.callbackOnOpen();

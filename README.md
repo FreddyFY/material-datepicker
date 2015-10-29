@@ -40,6 +40,7 @@ var monthpicker = new MaterialDatepicker('input', {
 * **orientation** *(default: "landscape")* *[string]* - Orientation of the picker: portait or landscape
 * **color** *(default: "#80cbc4")* *[string]* - Color of the picker; Html color values
 * **zIndex** *(default: "100")* *[number]* - z-index of the picker 
+* **position** *(default: "absolute")* *[string]* - position of the picker [fixed, static, ..] 
 * **theme** *(default: "light")* *[string]* - Theme of the picker: light or dark
 * **openOn** *(default: "click")* *[string]* - How to open the picker: Click-events or 'direct'
 * **closeAfterClick** *(default: true)* *[string]* - Close the picker after choose a date or not
