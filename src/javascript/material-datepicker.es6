@@ -95,9 +95,28 @@ class MaterialDatepicker {
     });
     
     if (this.settings.openOn != 'direct') { 
-      this.element.addEventListener('blur', () => {
-        this.close();
+      document.addEventListener('keyup', (e) => {
+        if (e.keyCode == 9) {
+          if (document.activeElement == this.element) {
+            this.open();
+          } else {
+            this.close();
+          }
+        }
       });
+      
+      document.addEventListener('mouseup', (e) => {
+        let isPicker = false;
+        for (let i = 0; i < e.path.length; i++) {
+          if (e.path[i] == this.picker) {
+            isPicker = true;
+            break;
+          }
+        }
+        if (isPicker == false) {
+          this.close();
+        }
+      })
     }
   }
 
@@ -135,7 +154,7 @@ class MaterialDatepicker {
     containerPickerYearBefore.setAttribute('class', 'mp-picker-site-before mp-picker-site-button');
     containerPickerYear.appendChild(containerPickerYearBefore);
     containerPickerYearBefore.addEventListener('click', () => {
-      this._siteChange(-1)
+      this._siteChange(-1);
     })
 
     const containerPickerYearThis = document.createElement('span');
@@ -146,7 +165,7 @@ class MaterialDatepicker {
     containerPickerYearNext.setAttribute('class', 'mp-picker-site-next mp-picker-site-button');
     containerPickerYear.appendChild(containerPickerYearNext);
     containerPickerYearNext.addEventListener('click', () => {
-      this._siteChange(+1)
+      this._siteChange(+1);
     })
 
     const containerPickerChoose = document.createElement('div');

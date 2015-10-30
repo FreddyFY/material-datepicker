@@ -105,8 +105,27 @@ var MaterialDatepicker = (function () {
       });
 
       if (this.settings.openOn != 'direct') {
-        this.element.addEventListener('blur', function () {
-          _this.close();
+        document.addEventListener('keyup', function (e) {
+          if (e.keyCode == 9) {
+            if (document.activeElement == _this.element) {
+              _this.open();
+            } else {
+              _this.close();
+            }
+          }
+        });
+
+        document.addEventListener('mouseup', function (e) {
+          var isPicker = false;
+          for (var i = 0; i < e.path.length; i++) {
+            if (e.path[i] == _this.picker) {
+              isPicker = true;
+              break;
+            }
+          }
+          if (isPicker == false) {
+            _this.close();
+          }
         });
       }
     }
