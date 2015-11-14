@@ -51,7 +51,6 @@ class MaterialDatepicker {
       this.settings.outputFormat = this.settings.outputFormat[this.settings.type];
     }
     
-    
     if (typeof this.settings.sitePickerFormat == 'object') {
       this.settings.sitePickerFormat = this.settings.sitePickerFormat[this.settings.type];
     }
@@ -67,14 +66,11 @@ class MaterialDatepicker {
     
     let elementTag = this.element.tagName;
     let elementType = this.element.getAttribute('type');
-    let elementVal = this.element.value;
+    let elementVal = this.element.value || this.element.innerHTML;
+    let newDate = moment(elementVal, this.settings.outputFormat).toDate();
+  
+    this.date = newDate;
     
-    if ( ( (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') ) || (elementTag == 'PAPER-INPUT')) && elementVal != '') {
-      this.date = moment(elementVal, this.settings.outputFormat).toDate();
-    } else {
-      this.date = this.settings.date;
-    }
-
     if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
       this.settings.outputElement = document.querySelector(`${this.settings.outputElement}`);
     }
@@ -94,19 +90,27 @@ class MaterialDatepicker {
       this.open(this.settings.openOn);
     });
     
-    if (this.settings.openOn != 'direct') { 
+    if (this.settings.openOn != 'direct') {
       document.addEventListener('keyup', (e) => {
         if (e.keyCode == 9) {
+          // TAB watch
           if (document.activeElement == this.element) {
             this.open();
           } else {
             this.close();
           }
+        } else {
+          let elementVal = this.element.value;
+          let newDate = moment(elementVal, this.settings.outputFormat).toDate();
+
+          this.newDate(newDate)
+//          this.draw();
         }
       });
       
-      document.addEventListener('mouseup', (e) => {
+      document.addEventListener('mouseup', (e, f) => {
         let isPicker = false;
+        var event = e;
         for (let i = 0; i < e.path.length; i++) {
           if (e.path[i] == this.picker) {
             isPicker = true;
@@ -116,7 +120,7 @@ class MaterialDatepicker {
         if (isPicker == false) {
           this.close();
         }
-      })
+      });
     }
   }
 
@@ -194,12 +198,22 @@ class MaterialDatepicker {
     containerStyle.appendChild(document.createTextNode(newStyle));
     document.querySelector('head').appendChild(containerStyle);
     
-    this._updatePicker();
+    this.draw();
+    this.callbackOnLoad();
   }
   
-  _updatePicker() {
+  draw() {
     const containerPickerChoose = this.picker.querySelector('.mp-picker-choose');
     containerPickerChoose.innerHTML = '';
+    
+    // write in header area
+    this.picker.querySelector('.mp-info-first').innerHTML = moment(this.date).format(this.settings.topHeaderFormat);
+    this.picker.querySelector('.mp-info-second').innerHTML = moment(this.date).format(this.settings.headerFormat);
+    this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(this.date).format(this.settings.sitePickerFormat);
+
+    if (this.picker.querySelector(`[class*="mp-picker-click"].active`) != null) {
+      this.picker.querySelector(`[class*="mp-picker-click"].active`).classList.remove('active');
+    }
     
     if (this.settings.type == 'date') {
       const maxMonthLength = 42;
@@ -254,9 +268,10 @@ class MaterialDatepicker {
 
         containerPickerChooseDay.addEventListener('click', (element) => {
           if (element.path[0].classList.contains('mp-empty')) return;
-          let date = num -1;
+          let date = num - 1;
           let nextDate = this.date
           nextDate.setDate(date);
+          
           if (this.settings.openOn == 'direct') {
             this.newDate(nextDate);
           } else {
@@ -264,23 +279,45 @@ class MaterialDatepicker {
           }
         })
       }
+      
+      //set Today
+      if (new Date().getYear() == this.date.getYear() && new Date().getMonth() == this.date.getMonth()) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}`).classList.add('today');
+      } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}.today`).classList.remove('today');
+      }
+      
+      this.picker.querySelector(`.mp-picker-click-${this.date.getDate() * 1}`).classList.add('active');
     } else if (this.settings.type == 'month') {
       const months = 12;
       for (let i = 0; i < months; i++) {
         const containerPickerChooseMonth = document.createElement('a');
         containerPickerChooseMonth.setAttribute('class', `mp-picker-click-${i} mp-picker-choose-month`);
-        containerPickerChooseMonth.innerHTML = moment.monthsShort('-MMM-')[i];
+        containerPickerChooseMonth.innerHTML = moment.monthsShort('-MMM-')[i].replace('.', '');
         containerPickerChoose.appendChild(containerPickerChooseMonth);
 
         containerPickerChooseMonth.addEventListener('click', () => {
           let month = i;
           let nextDate = this.date
           nextDate.setMonth(month);
-          this.newDate(nextDate, 'close');
-        })
+          
+          if (this.settings.openOn == 'direct') {
+            this.newDate(nextDate);
+          } else {
+            this.newDate(nextDate, 'close');
+          }
+        });
       }
+      
+      // set today
+      if (new Date().getYear() == this.date.getYear()) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}`).classList.add('today');
+      } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
+        this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`).classList.remove('today');
+      }
+      
+      this.picker.querySelector(`.mp-picker-click-${this.date.getMonth() * 1}`).classList.add('active');
     }
-    this.callbackOnLoad();
   }
 
   _siteChange(direction) {
@@ -301,7 +338,7 @@ class MaterialDatepicker {
       this.picker.querySelectorAll(`.mp-animate`)[1].classList.remove(`mp-animate-${directions[direction]}`);
       this.picker.querySelectorAll(`.mp-animate`)[1].classList.add(`mp-animate-${directionsNot[direction]}`);
       
-      this._updatePicker();
+      this.draw();
 
       setTimeout( () => {
         this.picker.querySelectorAll(`.mp-animate`)[0].classList.remove(`mp-animate-${directionsNot[direction]}`);
@@ -358,50 +395,9 @@ class MaterialDatepicker {
   close() {
     this.picker && this.picker.parentNode && this.picker.parentNode.removeChild(this.picker);
   }
-
-  newDate(date, value) {
-    let dates = date || this.date;
   
-    this.picker.querySelector('.mp-info-first').innerHTML = moment(dates).format(this.settings.topHeaderFormat);
-    this.picker.querySelector('.mp-info-second').innerHTML = moment(dates).format(this.settings.headerFormat);
-    this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(dates).format(this.settings.sitePickerFormat);
-
-    if (this.picker.querySelector(`[class*="mp-picker-click"].active`) != null) {
-      this.picker.querySelector(`[class*="mp-picker-click"].active`).classList.remove('active');
-    }
-
-    
-    if (this.settings.type == 'date') {
-      
-      if (new Date().getYear() == dates.getYear() && new Date().getMonth() == dates.getMonth()) {
-        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}`).classList.add('today');
-      } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
-        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}.today`).classList.remove('today');
-      }
-      
-      this.picker.querySelector(`.mp-picker-click-${dates.getDate() * 1}`).classList.add('active');
-    } else if (this.settings.type == 'month') {
-      
-      if (new Date().getYear() == dates.getYear()) {
-        this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}`).classList.add('today');
-      } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
-        this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`).classList.remove('today');
-      }
-      
-      this.picker.querySelector(`.mp-picker-click-${dates.getMonth() * 1}`).classList.add('active');
-    }
-
-    //set to 0:00:00
-    dates.setMilliseconds(0);
-    dates.setSeconds(0);
-    dates.setMinutes(0);
-    dates.setHours(0);
-
-    this.date = dates;
-    
-    //write into field
-    let output = moment(dates).format(this.settings.outputFormat);
-
+  _writeInElement() {
+    let output = moment(this.date).format(this.settings.outputFormat);
     if ( (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') ||
           this.element.tagName == 'DIV' || 
           this.element.tagName == 'PAPER-INPUT') {
@@ -413,11 +409,27 @@ class MaterialDatepicker {
         this.settings.outputElement.tagName == 'A') {
       this.settings.outputElement.innerHTML = output;
     }
+  }
+
+  newDate(date, value) {
+    let dates = date || this.date;
+
+    //set to 0:00:00
+    dates.setMilliseconds(0);
+    dates.setSeconds(0);
+    dates.setMinutes(0);
+    dates.setHours(0);
+
+    this.date = dates;
+      
+    this.draw();
+    this._writeInElement();
     
     if (value == 'close') {
       this.close();
       this.callbackOnNewDate();
     }
+    
   }
   
   callbackOnLoad() {

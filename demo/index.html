@@ -15,6 +15,7 @@
           orientation: 'portrait',
           color: '#795548',
           buttons: true,
+          lang: 'de',
           onNewDate: function() {
           },
           outputElement: '.month'
@@ -31,7 +32,12 @@
           onNewDate: function() {
 //            alert();
           },
-        });         
+        });
+        
+        window.fixDatepicker = new MaterialDatepicker('.fixDays', {
+          openOn: 'direct',
+          outputFormat: 'DD/MM/YYYY'
+        })
       })
       
     </script>
@@ -43,6 +49,8 @@
     <span>monthpicker</span>
     <input type="button" class="material-monthpicker" value="Month">
     <span class="month"></span>
+    <br><br>
+    <span class="fixDays">Hallo</span>
     <br>
 <!--
     <span>yearpicker</span>

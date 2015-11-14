@@ -5264,13 +5264,10 @@ var MaterialDatepicker = (function () {
 
     var elementTag = this.element.tagName;
     var elementType = this.element.getAttribute('type');
-    var elementVal = this.element.value;
+    var elementVal = this.element.value || this.element.innerHTML;
+    var newDate = moment(elementVal, this.settings.outputFormat).toDate();
 
-    if ((elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') || elementTag == 'PAPER-INPUT') && elementVal != '') {
-      this.date = moment(elementVal, this.settings.outputFormat).toDate();
-    } else {
-      this.date = this.settings.date;
-    }
+    this.date = newDate;
 
     if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
       this.settings.outputElement = document.querySelector('' + this.settings.outputElement);
@@ -5298,16 +5295,24 @@ var MaterialDatepicker = (function () {
       if (this.settings.openOn != 'direct') {
         document.addEventListener('keyup', function (e) {
           if (e.keyCode == 9) {
+            // TAB watch
             if (document.activeElement == _this.element) {
               _this.open();
             } else {
               _this.close();
             }
+          } else {
+            var elementVal = _this.element.value;
+            var newDate = moment(elementVal, _this.settings.outputFormat).toDate();
+
+            _this.newDate(newDate);
+            //          this.draw();
           }
         });
 
-        document.addEventListener('mouseup', function (e) {
+        document.addEventListener('mouseup', function (e, f) {
           var isPicker = false;
+          var event = e;
           for (var i = 0; i < e.path.length; i++) {
             if (e.path[i] == _this.picker) {
               isPicker = true;
@@ -5384,15 +5389,25 @@ var MaterialDatepicker = (function () {
       containerStyle.appendChild(document.createTextNode(newStyle));
       document.querySelector('head').appendChild(containerStyle);
 
-      this._updatePicker();
+      this.draw();
+      this.callbackOnLoad();
     }
   }, {
-    key: '_updatePicker',
-    value: function _updatePicker() {
+    key: 'draw',
+    value: function draw() {
       var _this3 = this;
 
       var containerPickerChoose = this.picker.querySelector('.mp-picker-choose');
       containerPickerChoose.innerHTML = '';
+
+      // write in header area
+      this.picker.querySelector('.mp-info-first').innerHTML = moment(this.date).format(this.settings.topHeaderFormat);
+      this.picker.querySelector('.mp-info-second').innerHTML = moment(this.date).format(this.settings.headerFormat);
+      this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(this.date).format(this.settings.sitePickerFormat);
+
+      if (this.picker.querySelector('[class*="mp-picker-click"].active') != null) {
+        this.picker.querySelector('[class*="mp-picker-click"].active').classList.remove('active');
+      }
 
       if (this.settings.type == 'date') {
         var maxMonthLength = 42;
@@ -5450,6 +5465,7 @@ var MaterialDatepicker = (function () {
             var date = _num - 1;
             var nextDate = _this3.date;
             nextDate.setDate(date);
+
             if (_this3.settings.openOn == 'direct') {
               _this3.newDate(nextDate);
             } else {
@@ -5462,28 +5478,50 @@ var MaterialDatepicker = (function () {
         for (var i = 0, num = 1; i < maxMonthLength; i++) {
           _loop(i, num);
         }
+
+        //set Today
+        if (new Date().getYear() == this.date.getYear() && new Date().getMonth() == this.date.getMonth()) {
+          this.picker.querySelector('.mp-picker-click-' + new Date().getDate() * 1).classList.add('today');
+        } else if (this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today') != null) {
+          this.picker.querySelector('.mp-picker-click-' + new Date().getDate() * 1 + '.today').classList.remove('today');
+        }
+
+        this.picker.querySelector('.mp-picker-click-' + this.date.getDate() * 1).classList.add('active');
       } else if (this.settings.type == 'month') {
         var months = 12;
 
         var _loop2 = function (i) {
           var containerPickerChooseMonth = document.createElement('a');
           containerPickerChooseMonth.setAttribute('class', 'mp-picker-click-' + i + ' mp-picker-choose-month');
-          containerPickerChooseMonth.innerHTML = moment.monthsShort('-MMM-')[i];
+          containerPickerChooseMonth.innerHTML = moment.monthsShort('-MMM-')[i].replace('.', '');
           containerPickerChoose.appendChild(containerPickerChooseMonth);
 
           containerPickerChooseMonth.addEventListener('click', function () {
             var month = i;
             var nextDate = _this3.date;
             nextDate.setMonth(month);
-            _this3.newDate(nextDate, 'close');
+
+            if (_this3.settings.openOn == 'direct') {
+              _this3.newDate(nextDate);
+            } else {
+              _this3.newDate(nextDate, 'close');
+            }
           });
         };
 
         for (var i = 0; i < months; i++) {
           _loop2(i);
         }
+
+        // set today
+        if (new Date().getYear() == this.date.getYear()) {
+          this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1).classList.add('today');
+        } else if (this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today') != null) {
+          this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today').classList.remove('today');
+        }
+
+        this.picker.querySelector('.mp-picker-click-' + this.date.getMonth() * 1).classList.add('active');
       }
-      this.callbackOnLoad();
     }
   }, {
     key: '_siteChange',
@@ -5507,7 +5545,7 @@ var MaterialDatepicker = (function () {
         _this4.picker.querySelectorAll('.mp-animate')[1].classList.remove('mp-animate-' + directions[direction]);
         _this4.picker.querySelectorAll('.mp-animate')[1].classList.add('mp-animate-' + directionsNot[direction]);
 
-        _this4._updatePicker();
+        _this4.draw();
 
         setTimeout(function () {
           _this4.picker.querySelectorAll('.mp-animate')[0].classList.remove('mp-animate-' + directionsNot[direction]);
@@ -5566,37 +5604,21 @@ var MaterialDatepicker = (function () {
       this.picker && this.picker.parentNode && this.picker.parentNode.removeChild(this.picker);
     }
   }, {
+    key: '_writeInElement',
+    value: function _writeInElement() {
+      var output = moment(this.date).format(this.settings.outputFormat);
+      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text' || this.element.tagName == 'DIV' || this.element.tagName == 'PAPER-INPUT') {
+        this.element.value = output;
+      }
+
+      if (this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
+        this.settings.outputElement.innerHTML = output;
+      }
+    }
+  }, {
     key: 'newDate',
     value: function newDate(date, value) {
       var dates = date || this.date;
-
-      this.picker.querySelector('.mp-info-first').innerHTML = moment(dates).format(this.settings.topHeaderFormat);
-      this.picker.querySelector('.mp-info-second').innerHTML = moment(dates).format(this.settings.headerFormat);
-      this.picker.querySelector('.mp-picker-site-this').innerHTML = moment(dates).format(this.settings.sitePickerFormat);
-
-      if (this.picker.querySelector('[class*="mp-picker-click"].active') != null) {
-        this.picker.querySelector('[class*="mp-picker-click"].active').classList.remove('active');
-      }
-
-      if (this.settings.type == 'date') {
-
-        if (new Date().getYear() == dates.getYear() && new Date().getMonth() == dates.getMonth()) {
-          this.picker.querySelector('.mp-picker-click-' + new Date().getDate() * 1).classList.add('today');
-        } else if (this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today') != null) {
-          this.picker.querySelector('.mp-picker-click-' + new Date().getDate() * 1 + '.today').classList.remove('today');
-        }
-
-        this.picker.querySelector('.mp-picker-click-' + dates.getDate() * 1).classList.add('active');
-      } else if (this.settings.type == 'month') {
-
-        if (new Date().getYear() == dates.getYear()) {
-          this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1).classList.add('today');
-        } else if (this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today') != null) {
-          this.picker.querySelector('.mp-picker-click-' + new Date().getMonth() * 1 + '.today').classList.remove('today');
-        }
-
-        this.picker.querySelector('.mp-picker-click-' + dates.getMonth() * 1).classList.add('active');
-      }
 
       //set to 0:00:00
       dates.setMilliseconds(0);
@@ -5606,16 +5628,8 @@ var MaterialDatepicker = (function () {
 
       this.date = dates;
 
-      //write into field
-      var output = moment(dates).format(this.settings.outputFormat);
-
-      if (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text' || this.element.tagName == 'DIV' || this.element.tagName == 'PAPER-INPUT') {
-        this.element.value = output;
-      }
-
-      if (this.settings.outputElement.tagName == 'SPAN' || this.settings.outputElement.tagName == 'P' || this.settings.outputElement.tagName == 'A') {
-        this.settings.outputElement.innerHTML = output;
-      }
+      this.draw();
+      this._writeInElement();
 
       if (value == 'close') {
         this.close();
