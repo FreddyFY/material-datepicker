@@ -99,14 +99,16 @@ class MaterialDatepicker {
           } else {
             this.close();
           }
-        } else {
-          let elementVal = this.element.value;
-          let newDate = moment(elementVal, this.settings.outputFormat).toDate();
-
-          this.newDate(newDate)
-//          this.draw();
         }
       });
+      
+      document.addEventListener('keyup', (e) => {
+        let elementVal = this.element.value;
+        let newDate = moment(elementVal, this.settings.outputFormat).toDate();
+
+        this.newDate(newDate);
+      });
+
       
       document.addEventListener('mouseup', (e, f) => {
         let isPicker = false;

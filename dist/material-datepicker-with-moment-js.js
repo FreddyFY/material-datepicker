@@ -5301,13 +5301,14 @@ var MaterialDatepicker = (function () {
             } else {
               _this.close();
             }
-          } else {
-            var elementVal = _this.element.value;
-            var newDate = moment(elementVal, _this.settings.outputFormat).toDate();
-
-            _this.newDate(newDate);
-            //          this.draw();
           }
+        });
+
+        document.addEventListener('keyup', function (e) {
+          var elementVal = _this.element.value;
+          var newDate = moment(elementVal, _this.settings.outputFormat).toDate();
+
+          _this.newDate(newDate);
         });
 
         document.addEventListener('mouseup', function (e, f) {
