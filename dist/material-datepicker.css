@@ -28,6 +28,7 @@
 }
 .mp-picker .mp-picker-choose a {
   color: rgba(0, 0, 0, 0.87);
+  text-decoration: none;
 }
 .mp-picker .mp-picker-choose [class*="mp-picker-click"] {
   cursor: pointer;

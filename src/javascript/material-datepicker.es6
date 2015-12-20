@@ -369,22 +369,24 @@ class MaterialDatepicker {
     }
     
     document.body.appendChild(this.picker);
-    let elementPosition = this.element.getBoundingClientRect();
-    let top = elementPosition.top + elementPosition.height + 5;
+    const pickerOffset = 10;
+    
+    let elementPosition = this._findTotalOffset(this.element);
+    let top = elementPosition.top + elementPosition.height + pickerOffset;
     let left = elementPosition.left;
-    let body = document.body.getBoundingClientRect();
-    let picker = this.picker.getBoundingClientRect();
+    let body = this._findTotalOffset(document.body);
+    let picker = this._findTotalOffset(this.picker);
     
     if (left + picker.width + 50 > body.width) {
-      left = left - picker.width - 5;
+      left = left - picker.width - pickerOffset;
     }
     
     if (top + picker.height + 20 > body.height) {
-      top = top - picker.height - elementPosition.height - 5;
+      top = top - picker.height - elementPosition.height - pickerOffset;
     }
     
-    this.picker.style.top = top;
-    this.picker.style.left = left;
+    this.picker.style.top = `${top}px`;
+    this.picker.style.left = `${left}px`;
     this.picker.style.zIndex = this.settings.zIndex;
     if (this.settings.position != null) {
       this.picker.style.position = this.settings.position;
@@ -451,4 +453,18 @@ class MaterialDatepicker {
       this.settings.onNewDate.call(this, this.date)
     }
   }
+  
+  _findTotalOffset(obj) {
+    let ol = ot = 0;
+    let offset = obj.getBoundingClientRect();
+
+    if (obj.offsetParent) {
+      do {
+        ol += obj.offsetLeft;
+        ot += obj.offsetTop;
+      } while (obj = obj.offsetParent);
+    }
+    return { left: ol, top: ot, height: offset.height, width: offset.width };
+  }
+
 }

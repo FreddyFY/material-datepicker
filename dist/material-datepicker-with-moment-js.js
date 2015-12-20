@@ -5575,22 +5575,24 @@ var MaterialDatepicker = (function () {
       }
 
       document.body.appendChild(this.picker);
-      var elementPosition = this.element.getBoundingClientRect();
-      var top = elementPosition.top + elementPosition.height + 5;
+      var pickerOffset = 10;
+
+      var elementPosition = this._findTotalOffset(this.element);
+      var top = elementPosition.top + elementPosition.height + pickerOffset;
       var left = elementPosition.left;
-      var body = document.body.getBoundingClientRect();
-      var picker = this.picker.getBoundingClientRect();
+      var body = this._findTotalOffset(document.body);
+      var picker = this._findTotalOffset(this.picker);
 
       if (left + picker.width + 50 > body.width) {
-        left = left - picker.width - 5;
+        left = left - picker.width - pickerOffset;
       }
 
       if (top + picker.height + 20 > body.height) {
-        top = top - picker.height - elementPosition.height - 5;
+        top = top - picker.height - elementPosition.height - pickerOffset;
       }
 
-      this.picker.style.top = top;
-      this.picker.style.left = left;
+      this.picker.style.top = top + 'px';
+      this.picker.style.left = left + 'px';
       this.picker.style.zIndex = this.settings.zIndex;
       if (this.settings.position != null) {
         this.picker.style.position = this.settings.position;
@@ -5657,6 +5659,20 @@ var MaterialDatepicker = (function () {
       if (typeof this.settings.onNewDate == 'function') {
         this.settings.onNewDate.call(this, this.date);
       }
+    }
+  }, {
+    key: '_findTotalOffset',
+    value: function _findTotalOffset(obj) {
+      var ol = ot = 0;
+      var offset = obj.getBoundingClientRect();
+
+      if (obj.offsetParent) {
+        do {
+          ol += obj.offsetLeft;
+          ot += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+      }
+      return { left: ol, top: ot, height: offset.height, width: offset.width };
     }
   }]);
 
