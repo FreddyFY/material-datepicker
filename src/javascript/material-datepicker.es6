@@ -106,7 +106,7 @@ class MaterialDatepicker {
         let elementVal = this.element.value;
         let newDate = moment(elementVal, this.settings.outputFormat).toDate();
 
-        this.newDate(newDate);
+        this.newDate(newDate, '', false);
       });
 
       
@@ -374,14 +374,15 @@ class MaterialDatepicker {
     let elementPosition = this._findTotalOffset(this.element);
     let top = elementPosition.top + elementPosition.height + pickerOffset;
     let left = elementPosition.left;
-    let body = this._findTotalOffset(document.body);
+    let bodyWidth = bodyWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    let bodyHeight = bodyHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     let picker = this._findTotalOffset(this.picker);
     
-    if (left + picker.width + 50 > body.width) {
+    if (left + picker.width + 50 > bodyWidth) {
       left = left - picker.width - pickerOffset;
     }
     
-    if (top + picker.height + 20 > body.height) {
+    if (top + picker.height + 20 > bodyHeight) {
       top = top - picker.height - elementPosition.height - pickerOffset;
     }
     
@@ -415,7 +416,7 @@ class MaterialDatepicker {
     }
   }
 
-  newDate(date, value) {
+  newDate(date, value, rewrite = true) {
     let dates = date || this.date;
 
     //set to 0:00:00
@@ -427,7 +428,10 @@ class MaterialDatepicker {
     this.date = dates;
       
     this.draw();
-    this._writeInElement();
+    
+    if (rewrite) {
+      this._writeInElement();
+    }
     
     if (value == 'close') {
       this.close();

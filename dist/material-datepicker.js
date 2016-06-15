@@ -117,7 +117,7 @@ var MaterialDatepicker = (function () {
           var elementVal = _this.element.value;
           var newDate = moment(elementVal, _this.settings.outputFormat).toDate();
 
-          _this.newDate(newDate);
+          _this.newDate(newDate, '', false);
         });
 
         document.addEventListener('mouseup', function (e, f) {
@@ -389,14 +389,15 @@ var MaterialDatepicker = (function () {
       var elementPosition = this._findTotalOffset(this.element);
       var top = elementPosition.top + elementPosition.height + pickerOffset;
       var left = elementPosition.left;
-      var body = this._findTotalOffset(document.body);
+      var bodyWidth = bodyWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      var bodyHeight = bodyHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
       var picker = this._findTotalOffset(this.picker);
 
-      if (left + picker.width + 50 > body.width) {
+      if (left + picker.width + 50 > bodyWidth) {
         left = left - picker.width - pickerOffset;
       }
 
-      if (top + picker.height + 20 > body.height) {
+      if (top + picker.height + 20 > bodyHeight) {
         top = top - picker.height - elementPosition.height - pickerOffset;
       }
 
@@ -430,6 +431,8 @@ var MaterialDatepicker = (function () {
   }, {
     key: 'newDate',
     value: function newDate(date, value) {
+      var rewrite = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
+
       var dates = date || this.date;
 
       //set to 0:00:00
@@ -441,7 +444,10 @@ var MaterialDatepicker = (function () {
       this.date = dates;
 
       this.draw();
-      this._writeInElement();
+
+      if (rewrite) {
+        this._writeInElement();
+      }
 
       if (value == 'close') {
         this.close();
