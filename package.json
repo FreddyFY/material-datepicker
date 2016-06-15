@@ -1,6 +1,6 @@
 {
   "name": "material-datepicker",
-  "version": "1.0.0",
+  "version": "0.1",
   "description": "Datepicker, Monthpicker in Google Material Design",
   "main": "gruntfile.js",
   "directories": {
