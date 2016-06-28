@@ -8,7 +8,7 @@ There are two methods to include the Material-Datepicker.
 
 **Method 1**
 ```html
-  <link rel="stylesheet" type="text/css" href="https://rawgit.com/FreddyFY/material-datepicker/master/src/material-datepicker.css">
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.css">
   <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
   <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.min.js"></script>
 ```
@@ -47,8 +47,8 @@ var monthpicker = new MaterialDatepicker('input', {
 
 * **date** *(default: today or string inside input)* *[type: Date Object]* - The initial date of the Picker
 * **weekBegin** *(default: "sunday")* *[string]* - Beginning weekday of the week: sunday or monday
-* **outputFormat** *(default: date "YYYY/MM/DD"; month "MMMM YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
-* **topHeaderFormat** *(default: "YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]: Uppercase is a string, Lowercase is a number
+* **outputFormat** *(default: date "YYYY/MM/DD"; month "MMMM YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]
+* **topHeaderFormat** *(default: "YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]
 * **headerFormat** *(default: date "ddd, MMM D"; month "MMMM")* *[string]* - Date format&#42; in the header bar&#42;
 * **sitePickerFormat** *(default: date "MMMM YYYY"; month "YYYY")* *[string]* - Date format&#42; in the site picker bar&#42;
 
