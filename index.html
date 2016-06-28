@@ -1,0 +1,145 @@
+<!doctype HTML>
+<html>
+  <head>
+    <title>Material Datepicker</title>
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.css">
+    <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.js"></script>
+    
+    <!-- Vendor -->
+    <link rel="stylesheet" type="text/css" href="src/vendor/prism.css">
+    <script type="text/javascript" src="src/vendor/prism.js" data-manual></script>
+    <script>
+      // Code Style Changing
+      function codeToText() {
+        var codeFields = document.querySelectorAll('pre code');
+
+        for (var i = 0; i < codeFields.length; i++ ) {
+          var code = codeFields[i].innerHTML;
+          code = code.replace(/\</g, '&lt;');
+          code = code.replace(/\>/g, '&gt;');
+          codeFields[i].innerHTML = code;
+
+          Prism.highlightElement(codeFields[i]);
+        }
+      }
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        codeToText();
+      })
+    </script>
+
+  </head>
+  <body>
+    <section contents>
+      <ol>        
+        <li>
+          <a href="#options">Options</a>
+          <ol>
+            <li>
+              <a href="#options-type">type</a>
+            </li>
+            <li>
+              <a href="#options-lang">lang</a>
+            </li>
+            <li>
+              <a href="#options-orientation">orientation</a>
+            </li>
+            <li>
+              <a href="#options-color">color</a>
+            </li>
+            <li>
+              <a href="#options-zIndex">zIndex</a>
+            </li>
+            <li>
+              <a href="#options-position">position</a>
+            </li>
+            <li>
+              <a href="#options-theme">theme</a>
+            </li>
+            <li>
+              <a href="#options-openOn">openOn</a>
+            </li>
+            <li>
+              <a href="#options-closeAfterClick">closeAfterClick</a>
+            </li>
+            <li>
+              <a href="#options-date">date</a>
+            </li>
+            <li>
+              <a href="#options-weekBegin">weekBegin</a>
+            </li>
+            <li>
+              <a href="#options-outputFormat">outputFormat</a>
+            </li>
+            <li>
+              <a href="#options-topHeaderFormat">topHeaderFormat</a>
+            </li>
+            <li>
+              <a href="#options-headerFormat">headerFormat</a>
+            </li>
+            <li>
+              <a href="#options-sitePickerFormat">sitePickerFormat</a>
+            </li>
+            <li>
+              <a href="#options-onLoad">onLoad</a>
+            </li>
+            <li>
+              <a href="#options-onOpen">onOpen</a>
+            </li>
+            <li>
+              <a href="#options-onNewDate">onNewDate</a>
+            </li>
+            <li>
+              <a href="#options-outputElement">outputElement</a>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <a href="#api">API</a>
+          <ol>
+            <li>
+              <a href="#api-open">open</a>
+            </li>
+            <li>
+              <a href="#api-close">close</a>
+            </li>
+            <li>
+              <a href="#api-newDate">newDate</a>
+            </li>
+            <li>
+              <a href="#api-date">date</a>
+            </li>
+            <li>
+              <a href="#api-element">element</a>
+            </li>
+            <li>
+              <a href="#api-picker">picker</a>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </section>
+    <main>
+      <h1>Material-Datepicker</h1>
+      <section options>
+        <h2 id="options">Option</h2>
+        <article>
+          <h3 id="options-type">Type</h3>
+          <aside demo>
+            <part html>
+              <input type="text" id="datepicker001" value="2016/06/28">
+            </part>
+            <part>
+              <script>
+                window.datepicker001 = new MaterialDatepicker('#datepicker001', {
+                  type: 'monthpicher'
+                })
+              </script>
+            </part>
+          </aside>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
