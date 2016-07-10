@@ -2,13 +2,18 @@
 <html>
   <head>
     <title>Material Datepicker</title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="https://rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.css">
-    <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.js"></script>
+<!--    <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>-->
+    <script type="text/javascript" src="https://rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker-with-moment-js.js"></script>
+  <link rel="stylesheet" type="text/css" href="src/main.css">
     
     <!-- Vendor -->
     <link rel="stylesheet" type="text/css" href="src/vendor/prism.css">
+    <link rel="stylesheet" type="text/css" href="src/vendor/prism-custom.css">
     <script type="text/javascript" src="src/vendor/prism.js" data-manual></script>
+    <!-- /Vendor -->
+    
     <script>
       // Code Style Changing
       function codeToText() {
@@ -24,11 +29,25 @@
         }
       }
       
+      function scriptToText() {
+        var articles = document.querySelectorAll('main article');
+        
+        for (var i = 0; i < articles.length; i++) {
+          var article = articles[i];
+          var js = article.querySelector('part[js] script').innerHTML;
+          var html = article.querySelector('part[html]').innerHTML;
+          
+          var newCode = '<h4>Code:</h4><pre><code class="language-html">' + html + '</code></pre><pre><code class="language-js">' + js + '</code></pre>';
+          
+          article.querySelector('aside[code]').innerHTML = newCode;
+        }
+      }
+      
       document.addEventListener('DOMContentLoaded', function () {
+        scriptToText();
         codeToText();
-      })
+      });
     </script>
-
   </head>
   <body>
     <section contents>
@@ -123,21 +142,29 @@
     <main>
       <h1>Material-Datepicker</h1>
       <section options>
-        <h2 id="options">Option</h2>
-        <article>
-          <h3 id="options-type">Type</h3>
-          <aside demo>
-            <part html>
-              <input type="text" id="datepicker001" value="2016/06/28">
-            </part>
-            <part>
-              <script>
-                window.datepicker001 = new MaterialDatepicker('#datepicker001', {
-                  type: 'monthpicher'
-                })
-              </script>
-            </part>
-          </aside>
+        <h2 id="options">Options</h2>
+        <article class="card">
+          <h3 id="options-type"><a href="#type">Type</a></h3>
+          <description>
+            <em>type</em>: string<br>
+            <em>default: </em> "date"
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="datepicker001">
+                </part>
+                <part js>
+                  <script>
+                    window.materialPicker001 = new MaterialDatepicker('#datepicker001');
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
         </article>
       </section>
     </main>

@@ -1,0 +1,10 @@
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: 'Source Code Pro',
+               Consolas,
+               Monaco, 
+               'Andale Mono',
+               'Ubuntu Mono',
+               monospace;
+  font-size: .95em;
+}
