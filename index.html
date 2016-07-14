@@ -27,7 +27,7 @@
 
           Prism.highlightElement(codeFields[i]);
         }
-      }
+      } 
       
       function scriptToText() {
         var articles = document.querySelectorAll('main article');
@@ -144,10 +144,8 @@
       <section options>
         <h2 id="options">Options</h2>
         <article class="card">
-          <h3 id="options-type"><a href="#type">Type</a></h3>
+          <h3 id="options-default"><a href="#options-default">Default</a></h3>
           <description>
-            <em>type</em>: string<br>
-            <em>default: </em> "date"
           </description>
           <div class="tabs">
             <aside code></aside>
@@ -155,11 +153,94 @@
               <h4>Output:</h4>
               <div class="output">
                 <part html>
-                  Date: <input type="text" id="datepicker001">
+                  Date: <input type="text" id="materialpicker001">
                 </part>
                 <part js>
                   <script>
-                    window.materialPicker001 = new MaterialDatepicker('#datepicker001');
+                    var materialPicker001 = new MaterialDatepicker('#materialpicker001');
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-type"><a href="#options-type">Type</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>"date"</em>
+            <ul>
+              <li><em>"date"</em></li>
+              <li><em>"month"</em></li>
+            </ul>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Month: <input type="text" id="materialpicker002">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker002 = new MaterialDatepicker('#materialpicker002', {
+                      type: "month"
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-lang"><a href="#options-lang">Lang</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>"en"</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Datum: <input type="text" id="materialpicker003">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker003 = new MaterialDatepicker('#materialpicker003', {
+                      lang: "de"
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-orientation"><a href="#options-orientation">Orientation</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>"landscape"</em>
+            <ul>
+              <li><em>"landscape"</em></li>
+              <li><em>"portrait"</em></li>
+            </ul>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker004">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker004 = new MaterialDatepicker('#materialpicker004', {
+                      orientation: "portrait"
+                    });
                   </script>
                 </part>
               </div>

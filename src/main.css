@@ -57,6 +57,10 @@ body {
   padding: 24px 0;
   padding-right: 4em;
   z-index: 1;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
   -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
           box-shadow: 0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
 }
@@ -88,6 +92,7 @@ main {
       -ms-flex: auto;
           flex: auto;
   padding: 0 2em;
+  margin-left: 210px;
 }
 
 main h1 {
@@ -110,6 +115,7 @@ main article {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  margin-bottom: 2em;
 }
 
 main article h3 {
@@ -151,11 +157,21 @@ main article description {
   display: block;
 }
 
-main article description em {
+main article description b {
   font-style: normal;
   font-weight: 500; 
 }
 
+main article description em {
+  font-style: normal;
+  font-family: "source code pro", monospace;
+  background-color: #f5f2f0;
+  color: #009688;
+}
+
+main article description ul {
+  padding-left: 20px;
+}
 
 main article h4 {
   font-weight: 700;
