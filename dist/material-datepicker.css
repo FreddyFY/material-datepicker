@@ -66,7 +66,7 @@
   width: 14.28571429%;
 }
 .mp-picker[data-theme="dark"] .mp-picker-info {
-  background: #555555;
+  background: #555;
 }
 .mp-picker[data-theme="dark"] .mp-picker-picker {
   background-color: #424242;

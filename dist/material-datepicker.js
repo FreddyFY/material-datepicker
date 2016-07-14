@@ -146,6 +146,7 @@ var MaterialDatepicker = (function () {
       this.picker.setAttribute('class', 'mp-' + this.settings.type + 'picker mp-picker');
       this.picker.setAttribute('id', 'mp-' + randomNumber);
       this.picker.setAttribute('data-theme', this.settings.theme);
+      this.picker.setAttribute('data-orientation', this.settings.orientation);
 
       var containerInfo = document.createElement('div');
       containerInfo.setAttribute('class', 'mp-picker-info');
