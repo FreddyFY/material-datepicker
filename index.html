@@ -168,10 +168,10 @@
           <h3 id="options-type"><a href="#options-type">Type</a></h3>
           <description>
             <b>type:</b> string<br>
-            <b>default:</b> <em>"date"</em>
+            <b>default:</b> <em>date</em>
             <ul>
-              <li><em>"date"</em></li>
-              <li><em>"month"</em></li>
+              <li><em>date</em></li>
+              <li><em>month</em></li>
             </ul>
           </description>
           <div class="tabs">
@@ -197,7 +197,7 @@
           <h3 id="options-lang"><a href="#options-lang">Lang</a></h3>
           <description>
             <b>type:</b> string<br>
-            <b>default:</b> <em>"en"</em>
+            <b>default:</b> <em>en</em>
           </description>
           <div class="tabs">
             <aside code></aside>
@@ -222,10 +222,10 @@
           <h3 id="options-orientation"><a href="#options-orientation">Orientation</a></h3>
           <description>
             <b>type:</b> string<br>
-            <b>default:</b> <em>"landscape"</em>
+            <b>default:</b> <em>landscape</em>
             <ul>
-              <li><em>"landscape"</em></li>
-              <li><em>"portrait"</em></li>
+              <li><em>landscape</em></li>
+              <li><em>portrait</em></li>
             </ul>
           </description>
           <div class="tabs">
@@ -240,6 +240,94 @@
                   <script>
                     var materialPicker004 = new MaterialDatepicker('#materialpicker004', {
                       orientation: "portrait"
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-color"><a href="#options-color">Color</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>#80cbc4</em>
+            <ul>
+              <li><b>Name</b> - e.g. <em>green</em></li>
+              <li><b>Hex</b> - e.g. <em>#62b22f</em></li>
+              <li><b>rgb</b> - e.g. <em>rgb(98, 178, 47)</em></li>
+              <li><b>rgba</b> - e.g. <em>rgb(98, 178, 47, 8)</em></li>
+              <li><b>hsl</b> - e.g. <em>hsl(97, 58%, 44%)</em></li>
+            </ul>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker005">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker005 = new MaterialDatepicker('#materialpicker005', {
+                      color: "#62b22f"
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-zIndex"><a href="#options-zIndex">zIndex</a></h3>
+          <description>
+            <b>type:</b> number<br>
+            <b>default:</b> <em>100</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker006">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker006 = new MaterialDatepicker('#materialpicker006', {
+                      zIndex: 20
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-position"><a href="#options-position">Position</a></h3>
+          <description>
+            <b>type:</b> number<br>
+            <b>default:</b> <em>absolute</em>
+            <ul>
+              <li><em>fixed</em></li>
+              <li><em>relative</em></li>
+            </ul>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker007">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker007 = new MaterialDatepicker('#materialpicker007', {
+                      position: "static"
                     });
                   </script>
                 </part>
