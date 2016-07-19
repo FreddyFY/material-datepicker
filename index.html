@@ -115,25 +115,25 @@
           </ol>
         </li>
         <li>
-          <a href="#api">API</a>
+          <a href="#methods">Methods</a>
           <ol>
             <li>
-              <a href="#api-open">open</a>
+              <a href="#methods-open">open()</a>
             </li>
             <li>
-              <a href="#api-close">close</a>
+              <a href="#methods-close">close()</a>
             </li>
             <li>
-              <a href="#api-newDate">newDate</a>
+              <a href="#methods-newDate">newDate()</a>
             </li>
             <li>
-              <a href="#api-date">date</a>
+              <a href="#methods-date">date()</a>
             </li>
             <li>
-              <a href="#api-element">element</a>
+              <a href="#methods-element">element()</a>
             </li>
             <li>
-              <a href="#api-picker">picker</a>
+              <a href="#methods-picker">picker()</a>
             </li>
           </ol>
         </li>
@@ -308,7 +308,7 @@
         <article class="card">
           <h3 id="options-position"><a href="#options-position">Position</a></h3>
           <description>
-            <b>type:</b> number<br>
+            <b>type:</b> string<br>
             <b>default:</b> <em>absolute</em>
             <ul>
               <li><em>fixed</em></li>
@@ -328,6 +328,457 @@
                   <script>
                     var materialPicker007 = new MaterialDatepicker('#materialpicker007', {
                       position: "static"
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-theme"><a href="#options-theme">Theme</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>light</em>
+            <ul>
+              <li><em>light</em></li>
+              <li><em>dark</em></li>
+            </ul>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker008">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker008 = new MaterialDatepicker('#materialpicker008', {
+                      theme: "dark"
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-openOn"><a href="#options-openOn">openOn</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>click</em>
+            <ul>
+              <li>events</li>
+              <li><em>"direct"</em></li>
+            </ul>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker009">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker009 = new MaterialDatepicker('#materialpicker009', {
+                      openOn: "direct"
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-closeAfterClick"><a href="#options-closeAfterClick">closeAfterClick</a></h3>
+          <description>
+            <b>type:</b> boolean<br>
+            <b>default:</b> <em>true</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker010">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker010 = new MaterialDatepicker('#materialpicker010', {
+                      closeAfterClick: false
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-date"><a href="#options-date">Date</a></h3>
+          <description>
+            <b>type:</b> Date Object<br>
+            <b>default:</b> string inside outputElement or <em>new Date()</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker011">
+                  <br>
+                  Date: <input type="text" id="materialpicker012" value="2024/02/02">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker011 = new MaterialDatepicker('#materialpicker011', {
+                      date: new Date('2024-02-02')
+                    });
+                    
+                    var materialPicker012 = new MaterialDatepicker('#materialpicker012');
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-weekBegin"><a href="#options-weekBegin">weekBegin</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>sunday</em>
+            <ul>
+              <li><em>sunday</em></li>
+              <li><em>monday</em></li>
+            </ul>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker013">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker013 = new MaterialDatepicker('#materialpicker013', {
+                      weekBegin: 'monday'
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-outputFormat"><a href="#options-outputFormat">outputFormat</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default [datepicker]:</b> <em>YYYY/MM/DD</em><br>
+            <b>default [monthpicker]:</b> <em>MMMM YYYY</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker014">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker014 = new MaterialDatepicker('#materialpicker014', {
+                      outputFormat: 'DD.MM.YY'
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-topHeaderFormat"><a href="#options-topHeaderFormat">topHeaderFormat</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default:</b> <em>YYYY</em><br>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker015">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker015 = new MaterialDatepicker('#materialpicker015', {
+                      topHeaderFormat: 'Q [Quarter] YYYY'
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-headerFormat"><a href="#options-headerFormat">headerFormat</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default [datepicker]:</b> <em>ddd, MMM D</em><br>
+            <b>default [monthpicker]:</b> <em>MMMM</em><br>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker016">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker016 = new MaterialDatepicker('#materialpicker016', {
+                      topHeaderFormat: 'MMMM YYYY',
+                      headerFormat: 'Do'
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-sitePickerFormat"><a href="#options-sitePickerFormat">sitePickerFormat</a></h3>
+          <description>
+            <b>type:</b> string<br>
+            <b>default [datepicker]:</b> <em>MMMM YYYY</em><br>
+            <b>default [monthpicker]:</b> <em>YYYY</em><br>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker017">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker017 = new MaterialDatepicker('#materialpicker017', {
+                      sitePickerFormat: 'MMM YYYY'
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-onLoad"><a href="#options-onLoad">onLoad</a></h3>
+          <description>
+            <b>type:</b> function<br>
+            <b>default:</b> <em>none</em><br>
+            <b>parameter:</b> <em>date</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker018">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker018 = new MaterialDatepicker('#materialpicker018', {
+                      onLoad: function (date) {
+                        console.log('Loaded');
+                      }
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-onOpen"><a href="#options-onOpen">onOpen</a></h3>
+          <description>
+            <b>type:</b> function<br>
+            <b>default:</b> <em>none</em><br>
+            <b>parameter:</b> <em>date</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker019">
+                  
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker019 = new MaterialDatepicker('#materialpicker019', {
+                      onOpen: function (date) {
+                        alert('Opened');
+                      }
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-onNewDate"><a href="#options-onNewDate">onNewDate</a></h3>
+          <description>
+            <b>type:</b> function<br>
+            <b>default:</b> <em>none</em><br>
+            <b>parameter:</b> <em>date</em>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker020">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker020 = new MaterialDatepicker('#materialpicker020', {
+                      onNewDate: function (date) {
+                        alert('New Date!');
+                      }
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="options-outputElement"><a href="#options-outputElement">outputElement</a></h3>
+          <description>
+            <b>type:</b> string or Object<br>
+            <b>default:</b> <em>none</em><br>
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  <input type="button" value="Set Date" id="materialpicker021">
+                  <span id="picker-output021">Select a date</span>
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker021 = new MaterialDatepicker('#materialpicker021', {
+                      outputElement: '#picker-output021'
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <h2 id="methods">Methods</h2>
+        <article class="card">
+          <h3 id="methods-open"><a href="#methods-open">open()</a></h3>
+          <description>
+            Open the picker
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker022">
+                  <input type="button" value="Open picker" id="open-picker022">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker022 = new MaterialDatepicker('#materialpicker022');
+                    
+                    document.querySelector('#open-picker022').addEventListener('click', function () {
+                      materialPicker022.open();
+                    })
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="methods-close"><a href="#methods-close">close()</a></h3>
+          <description>
+            Close the picker
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker023">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker023 = new MaterialDatepicker('#materialpicker023', {
+                      onOpen: function (date) {
+                        setTimeout(function () {
+                          materialPicker023.close();
+                        }, 500);
+                      }
+                    });
+                  </script>
+                </part>
+              </div>
+            </aside>
+          </div>
+        </article>
+        <article class="card">
+          <h3 id="methods-newDate"><a href="#methods-newDate">newDate()</a></h3>
+          <description>
+            <b>Type: </b> Date-object
+            Close the picker
+          </description>
+          <div class="tabs">
+            <aside code></aside>
+            <aside demo>
+              <h4>Output:</h4>
+              <div class="output">
+                <part html>
+                  Date: <input type="text" id="materialpicker023">
+                </part>
+                <part js>
+                  <script>
+                    var materialPicker023 = new MaterialDatepicker('#materialpicker023', {
+                      onOpen: function (date) {
+                        setTimeout(function () {
+                          materialPicker023.close();
+                        }, 500);
+                      }
                     });
                   </script>
                 </part>
