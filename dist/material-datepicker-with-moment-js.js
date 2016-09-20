@@ -5264,7 +5264,18 @@ var MaterialDatepicker = (function () {
 
     var elementTag = this.element.tagName;
     var elementType = this.element.getAttribute('type');
-    var elementVal = this.element.value || this.element.innerHTML;
+    var elementVal = moment().format(this.settings.outputFormat);
+
+    if (elementTag == "INPUT") {
+      elementVal = this.element.value;
+    } else if (elementTag == "DIV" || elementTag == "A" || elementTag == "SPAN" || elementTag == "P") {
+      if (this.element.children == 0) {
+        elementVal = this.element.innerHTML;
+      }
+    } else if (elementTag == "PAPER-INPUT") {
+      elementVal = this.element.value;
+    }
+
     var newDate = moment(elementVal, this.settings.outputFormat).toDate();
 
     this.date = newDate;

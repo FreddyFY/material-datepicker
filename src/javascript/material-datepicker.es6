@@ -66,7 +66,18 @@ class MaterialDatepicker {
     
     let elementTag = this.element.tagName;
     let elementType = this.element.getAttribute('type');
-    let elementVal = this.element.value || this.element.innerHTML;
+    let elementVal = moment().format(this.settings.outputFormat);
+    
+    if (elementTag == "INPUT") {
+      elementVal = this.element.value
+    } else if (elementTag == "DIV" || elementTag == "A" || elementTag == "SPAN" || elementTag == "P") {
+      if (this.element.children == 0) {
+        elementVal = this.element.innerHTML;
+      }
+    } else if (elementTag == "PAPER-INPUT") {
+      elementVal = this.element.value
+    }
+    
     let newDate = moment(elementVal, this.settings.outputFormat).toDate();
   
     this.date = newDate;
