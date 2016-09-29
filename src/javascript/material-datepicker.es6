@@ -367,44 +367,43 @@ class MaterialDatepicker {
   open(how) {
     if (how == 'direct' && this.element.tagName == 'DIV') {
       this.element.appendChild(this.picker);
-      this.newDate(null);
-      this.callbackOnOpen();
-      return;
+    } else {
+    
+      let elementTag = this.element.tagName;
+      let elementType = this.element.getAttribute('type');
+      let elementVal = this.element.value;
+
+      if ( ( (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') ) || (elementTag == 'PAPER-INPUT')) && elementVal != '') {
+        this.date = moment(elementVal, this.settings.outputFormat).toDate();
+      }
+
+      document.body.appendChild(this.picker);
+      const pickerOffset = 10;
+
+      let elementPosition = this._findTotalOffset(this.element);
+      let top = elementPosition.top + elementPosition.height + pickerOffset;
+      let left = elementPosition.left;
+      let bodyWidth = bodyWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      let bodyHeight = bodyHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      let picker = this._findTotalOffset(this.picker);
+
+      if (left + picker.width + 50 > bodyWidth) {
+        left = left - picker.width - pickerOffset;
+      }
+
+      if (top + picker.height + 20 > bodyHeight) {
+        top = top - picker.height - elementPosition.height - pickerOffset;
+      }
+
+      this.picker.style.top = `${top}px`;
+      this.picker.style.left = `${left}px`;
     }
     
-    let elementTag = this.element.tagName;
-    let elementType = this.element.getAttribute('type');
-    let elementVal = this.element.value;
-    
-    if ( ( (elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') ) || (elementTag == 'PAPER-INPUT')) && elementVal != '') {
-      this.date = moment(elementVal, this.settings.outputFormat).toDate();
-    }
-    
-    document.body.appendChild(this.picker);
-    const pickerOffset = 10;
-    
-    let elementPosition = this._findTotalOffset(this.element);
-    let top = elementPosition.top + elementPosition.height + pickerOffset;
-    let left = elementPosition.left;
-    let bodyWidth = bodyWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    let bodyHeight = bodyHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    let picker = this._findTotalOffset(this.picker);
-    
-    if (left + picker.width + 50 > bodyWidth) {
-      left = left - picker.width - pickerOffset;
-    }
-    
-    if (top + picker.height + 20 > bodyHeight) {
-      top = top - picker.height - elementPosition.height - pickerOffset;
-    }
-    
-    this.picker.style.top = `${top}px`;
-    this.picker.style.left = `${left}px`;
     this.picker.style.zIndex = this.settings.zIndex;
     if (this.settings.position != null) {
       this.picker.style.position = this.settings.position;
     }
-
+    
     this.newDate(null);
     this.callbackOnOpen();
   }

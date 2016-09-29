@@ -5573,39 +5573,38 @@ var MaterialDatepicker = (function () {
     value: function open(how) {
       if (how == 'direct' && this.element.tagName == 'DIV') {
         this.element.appendChild(this.picker);
-        this.newDate(null);
-        this.callbackOnOpen();
-        return;
+      } else {
+
+        var elementTag = this.element.tagName;
+        var elementType = this.element.getAttribute('type');
+        var elementVal = this.element.value;
+
+        if ((elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') || elementTag == 'PAPER-INPUT') && elementVal != '') {
+          this.date = moment(elementVal, this.settings.outputFormat).toDate();
+        }
+
+        document.body.appendChild(this.picker);
+        var pickerOffset = 10;
+
+        var elementPosition = this._findTotalOffset(this.element);
+        var _top = elementPosition.top + elementPosition.height + pickerOffset;
+        var left = elementPosition.left;
+        var bodyWidth = bodyWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        var bodyHeight = bodyHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        var picker = this._findTotalOffset(this.picker);
+
+        if (left + picker.width + 50 > bodyWidth) {
+          left = left - picker.width - pickerOffset;
+        }
+
+        if (_top + picker.height + 20 > bodyHeight) {
+          _top = _top - picker.height - elementPosition.height - pickerOffset;
+        }
+
+        this.picker.style.top = _top + 'px';
+        this.picker.style.left = left + 'px';
       }
 
-      var elementTag = this.element.tagName;
-      var elementType = this.element.getAttribute('type');
-      var elementVal = this.element.value;
-
-      if ((elementTag == 'INPUT' && (elementType == 'date' || elementType == 'number' || elementType == 'text') || elementTag == 'PAPER-INPUT') && elementVal != '') {
-        this.date = moment(elementVal, this.settings.outputFormat).toDate();
-      }
-
-      document.body.appendChild(this.picker);
-      var pickerOffset = 10;
-
-      var elementPosition = this._findTotalOffset(this.element);
-      var top = elementPosition.top + elementPosition.height + pickerOffset;
-      var left = elementPosition.left;
-      var bodyWidth = bodyWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      var bodyHeight = bodyHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-      var picker = this._findTotalOffset(this.picker);
-
-      if (left + picker.width + 50 > bodyWidth) {
-        left = left - picker.width - pickerOffset;
-      }
-
-      if (top + picker.height + 20 > bodyHeight) {
-        top = top - picker.height - elementPosition.height - pickerOffset;
-      }
-
-      this.picker.style.top = top + 'px';
-      this.picker.style.left = left + 'px';
       this.picker.style.zIndex = this.settings.zIndex;
       if (this.settings.position != null) {
         this.picker.style.position = this.settings.position;
