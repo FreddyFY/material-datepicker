@@ -338,9 +338,9 @@ class MaterialDatepicker {
     let directions = {'-1': 'left', '1': 'right'};
     let directionsNot = {'-1': 'right', '1': 'left'};
     if (this.settings.type == 'date') {
-      this.date.setMonth(this.date.getMonth() + direction);
+      this.date = moment(this.date).add(direction, 'month').toDate();
     } else if (this.settings.type == 'month') {
-      this.date.setYear(this.date.getYear() + 1900 + direction);
+      this.date = moment(this.date).add(direction, 'year').toDate();
     }
 
     this.picker.querySelectorAll(`.mp-animate`)[0].classList.add(`mp-animate-${directions[direction]}`);
