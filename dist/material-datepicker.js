@@ -87,6 +87,10 @@ var MaterialDatepicker = (function () {
 
     var newDate = moment(elementVal, this.settings.outputFormat).toDate();
 
+    if (isNaN(newDate.getTime())) {
+      newDate = moment().toDate();
+    }
+
     this.date = newDate;
 
     if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
@@ -489,7 +493,8 @@ var MaterialDatepicker = (function () {
   }, {
     key: '_findTotalOffset',
     value: function _findTotalOffset(obj) {
-      var ol = ot = 0;
+      var ol = undefined,
+          ot = 0;
       var offset = obj.getBoundingClientRect();
 
       if (obj.offsetParent) {

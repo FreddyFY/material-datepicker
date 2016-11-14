@@ -79,6 +79,10 @@ class MaterialDatepicker {
     }
     
     let newDate = moment(elementVal, this.settings.outputFormat).toDate();
+    
+    if (isNaN(newDate.getTime())) {
+      newDate = moment().toDate();
+    }
   
     this.date = newDate;
     
@@ -470,7 +474,7 @@ class MaterialDatepicker {
   }
   
   _findTotalOffset(obj) {
-    let ol = ot = 0;
+    let ol, ot = 0;
     let offset = obj.getBoundingClientRect();
 
     if (obj.offsetParent) {
