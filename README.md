@@ -101,3 +101,15 @@ var monthpicker = new MaterialDatepicker('input', {
 ![alt tag](https://raw.githubusercontent.com/FreddyFY/material-datepicker/master/links/images/screenshots/png/monthpicker-portrait.png)
 ![alt tag](https://raw.githubusercontent.com/FreddyFY/material-datepicker/master/links/images/screenshots/png/monthpicker-primary.png)
 
+
+## Building from source
+
+1. Clone the repository
+ - `git clone https://github.com/FreddyFY/material-datepicker.git`
+2. Install dependencies
+ - `npm install`
+3. Install grunt (as root - use sudo on Linux or OSX)
+ - `npm install -g grunt-cli`
+4. Run grunt
+ - `grunt`
+5. Output is in dist/
