@@ -40,6 +40,7 @@ var MaterialDatepicker = (function () {
       onLoad: null,
       onOpen: null,
       onNewDate: null,
+      onChange: null,
       outputElement: ''
     };
 
@@ -464,6 +465,8 @@ var MaterialDatepicker = (function () {
         this._writeInElement();
       }
 
+      this.callbackOnChange();
+
       if (value == 'close') {
         this.close();
         this.callbackOnNewDate();
@@ -488,6 +491,13 @@ var MaterialDatepicker = (function () {
     value: function callbackOnNewDate() {
       if (typeof this.settings.onNewDate == 'function') {
         this.settings.onNewDate.call(this, this.date);
+      }
+    }
+  }, {
+    key: 'callbackOnChange',
+    value: function callbackOnChange() {
+      if (typeof this.settings.onChange == 'function') {
+        this.settings.onChange.call(this, this.date);
       }
     }
   }, {

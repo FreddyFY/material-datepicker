@@ -33,6 +33,7 @@ class MaterialDatepicker {
       onLoad: null,
       onOpen: null,
       onNewDate: null,
+      onChange: null,
       outputElement: '',
     };
 
@@ -448,6 +449,8 @@ class MaterialDatepicker {
       this._writeInElement();
     }
     
+    this.callbackOnChange();
+
     if (value == 'close') {
       this.close();
       this.callbackOnNewDate();
@@ -470,6 +473,12 @@ class MaterialDatepicker {
   callbackOnNewDate() {
     if (typeof(this.settings.onNewDate) == 'function') {
       this.settings.onNewDate.call(this, this.date)
+    }
+  }
+  
+  callbackOnChange() {
+    if (typeof(this.settings.onChange) == 'function') {
+      this.settings.onChange.call(this, this.date)
     }
   }
   
