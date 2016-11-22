@@ -54,7 +54,8 @@ var monthpicker = new MaterialDatepicker('input', {
 
 * **onLoad** *(default: none)* *[function]* - Function called when picker is loaded
 * **onOpen** *(default: none)* *[function]* - Function called when picker is open
-* **onNewDate** *(default: none)* *[function]* - Function called when new Date is picked
+* **onNewDate** *(default: none)* *[function]* - Function called when new Date is picked and the picker is closed
+* **onChange** *(default: none)* *[function]* - Function called when the Date is changed, even if the picker is still open
 * **outputElement** *(default: none)* *[string or Object]* - Returns the date inside a SPAN-tag, P-tag or A-Tag
 
 
@@ -70,8 +71,11 @@ var monthpicker = new MaterialDatepicker('input', {
   date: new Date(861999834000),
   outputFormat: 'd-mm-yyyy',
   outputElment: '.month',
+  onChange: function() {
+               alert('Date Changed!!')
+             },
   onNewDate: function() {
-               alert('New Date!!')
+               alert('New Date Chosen!!')
              }
 });
 ```
