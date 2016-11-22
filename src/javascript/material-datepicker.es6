@@ -483,7 +483,8 @@ class MaterialDatepicker {
   }
   
   _findTotalOffset(obj) {
-    let ol, ot = 0;
+    let ol, ot;
+    ol = ot = 0;
     let offset = obj.getBoundingClientRect();
 
     if (obj.offsetParent) {
@@ -492,6 +493,7 @@ class MaterialDatepicker {
         ot += obj.offsetTop;
       } while (obj = obj.offsetParent);
     }
+    
     return { left: ol, top: ot, height: offset.height, width: offset.width };
   }
 

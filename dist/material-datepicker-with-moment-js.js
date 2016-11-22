@@ -5695,7 +5695,8 @@ var MaterialDatepicker = (function () {
     key: '_findTotalOffset',
     value: function _findTotalOffset(obj) {
       var ol = undefined,
-          ot = 0;
+          ot = undefined;
+      ol = ot = 0;
       var offset = obj.getBoundingClientRect();
 
       if (obj.offsetParent) {
@@ -5704,6 +5705,7 @@ var MaterialDatepicker = (function () {
           ot += obj.offsetTop;
         } while (obj = obj.offsetParent);
       }
+
       return { left: ol, top: ot, height: offset.height, width: offset.width };
     }
   }]);
