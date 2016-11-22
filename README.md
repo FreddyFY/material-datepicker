@@ -114,6 +114,8 @@ var monthpicker = new MaterialDatepicker('input', {
  - `npm install`
 3. Install grunt (as root - use sudo on Linux or OSX)
  - `npm install -g grunt-cli`
-4. Run grunt
+4. Run grunt watch for development
+ - `grunt watch`
+5. Run default grunt before a Pull Request
  - `grunt`
-5. Output is in dist/
+6. Output is in dist/
