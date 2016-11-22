@@ -1,5 +1,8 @@
 # material-datepicker
 
+## Demo
+[Demo Page](http://freddyfy.github.io/material-datepicker/);
+
 ## Usage
 
 Include the JavaScript file and Stylesheet in your html page.
@@ -61,6 +64,7 @@ var monthpicker = new MaterialDatepicker('input', {
 
 &#42; http://momentjs.com/docs/#/displaying/format/
 
+
 ### Example
 ```js
 var monthpicker = new MaterialDatepicker('input', {
@@ -80,7 +84,6 @@ var monthpicker = new MaterialDatepicker('input', {
 });
 ```
 
-
 ## API
 
 `.open()`
@@ -94,16 +97,6 @@ var monthpicker = new MaterialDatepicker('input', {
 `.element` returns the choosen element
 
 `.picker` returns the picker element
-
-
-
-## Screenshots
-### Material Monthpicker
-
-![alt tag](https://raw.githubusercontent.com/FreddyFY/material-datepicker/master/links/images/screenshots/png/monthpicker-landscape.png)
-![alt tag](https://raw.githubusercontent.com/FreddyFY/material-datepicker/master/links/images/screenshots/png/monthpicker-dark.png)
-![alt tag](https://raw.githubusercontent.com/FreddyFY/material-datepicker/master/links/images/screenshots/png/monthpicker-portrait.png)
-![alt tag](https://raw.githubusercontent.com/FreddyFY/material-datepicker/master/links/images/screenshots/png/monthpicker-primary.png)
 
 
 ## Building from source
