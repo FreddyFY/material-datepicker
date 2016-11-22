@@ -1,7 +1,7 @@
 # material-datepicker
 
 ## Demo
-[Demo Page](http://freddyfy.github.io/material-datepicker/);
+[Demo Page](http://freddyfy.github.io/material-datepicker/)
 
 ## Usage
 
