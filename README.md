@@ -19,7 +19,7 @@ There are two methods to include the Material-Datepicker.
 **Method 2**
 ```html
   <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.css">
-  <script type="text/javascript" src="https://cdnrawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker-with-moment-js.min.js"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker-with-moment-js.min.js"></script>
 
 ```
 
