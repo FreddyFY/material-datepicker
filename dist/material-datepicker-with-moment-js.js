@@ -5636,6 +5636,10 @@ var MaterialDatepicker = (function () {
 
       var dates = date || this.date;
 
+      if (isNaN(dates.valueOf())) {
+        dates = this.settings.date;
+      }
+
       //set to 0:00:00
       dates.setMilliseconds(0);
       dates.setSeconds(0);

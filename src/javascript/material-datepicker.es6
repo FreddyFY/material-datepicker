@@ -428,6 +428,10 @@ class MaterialDatepicker {
 
   newDate(date, value, rewrite = true) {
     let dates = date || this.date;
+    
+    if (isNaN(dates.valueOf())) {
+      dates = this.settings.date;
+    }
 
     //set to 0:00:00
     dates.setMilliseconds(0);
