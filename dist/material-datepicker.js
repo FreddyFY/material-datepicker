@@ -357,20 +357,20 @@ var MaterialDatepicker = (function () {
         this.date = moment(this.date).add(direction, 'year').toDate();
       }
 
-      this.picker.querySelectorAll('.mp-animate')[0].classList.add('mp-animate-' + directions[direction]);
-      this.picker.querySelectorAll('.mp-animate')[1].classList.add('mp-animate-' + directions[direction]);
+      this.picker.querySelectorAll('.mp-animate')[0].classList.add('mp-animate-' + directionsNot[direction]);
+      this.picker.querySelectorAll('.mp-animate')[1].classList.add('mp-animate-' + directionsNot[direction]);
 
       setTimeout(function () {
-        _this4.picker.querySelectorAll('.mp-animate')[0].classList.remove('mp-animate-' + directions[direction]);
-        _this4.picker.querySelectorAll('.mp-animate')[0].classList.add('mp-animate-' + directionsNot[direction]);
-        _this4.picker.querySelectorAll('.mp-animate')[1].classList.remove('mp-animate-' + directions[direction]);
-        _this4.picker.querySelectorAll('.mp-animate')[1].classList.add('mp-animate-' + directionsNot[direction]);
+        _this4.picker.querySelectorAll('.mp-animate')[0].classList.remove('mp-animate-' + directionsNot[direction]);
+        _this4.picker.querySelectorAll('.mp-animate')[0].classList.add('mp-animate-' + directions[direction]);
+        _this4.picker.querySelectorAll('.mp-animate')[1].classList.remove('mp-animate-' + directionsNot[direction]);
+        _this4.picker.querySelectorAll('.mp-animate')[1].classList.add('mp-animate-' + directions[direction]);
 
         _this4.draw();
 
         setTimeout(function () {
-          _this4.picker.querySelectorAll('.mp-animate')[0].classList.remove('mp-animate-' + directionsNot[direction]);
-          _this4.picker.querySelectorAll('.mp-animate')[1].classList.remove('mp-animate-' + directionsNot[direction]);
+          _this4.picker.querySelectorAll('.mp-animate')[0].classList.remove('mp-animate-' + directions[direction]);
+          _this4.picker.querySelectorAll('.mp-animate')[1].classList.remove('mp-animate-' + directions[direction]);
 
           _this4.newDate(_this4.date);
         }, 200);
