@@ -136,16 +136,10 @@ var MaterialDatepicker = (function () {
           _this.newDate(newDate, '', false);
         });
 
-        document.addEventListener('mouseup', function (e, f) {
+        document.addEventListener('mouseup', function (event) {
           var isPicker = false;
-          var event = e;
-          for (var i = 0; i < e.path.length; i++) {
-            if (e.path[i] == _this.picker) {
-              isPicker = true;
-              break;
-            }
-          }
-          if (isPicker == false) {
+          var ePath = _this._getPath(event);
+          if (ePath.indexOf(_this.picker) == -1) {
             _this.close();
           }
         });
@@ -287,8 +281,8 @@ var MaterialDatepicker = (function () {
 
           containerPickerChoose.appendChild(containerPickerChooseDay);
 
-          containerPickerChooseDay.addEventListener('click', function (element) {
-            if (element.path[0].classList.contains('mp-empty')) return;
+          containerPickerChooseDay.addEventListener('click', function (event) {
+            if (_this3._getPath(event)[0].classList.contains('mp-empty')) return;
             var date = _num - 1;
             var nextDate = _this3.date;
             nextDate.setDate(date);
@@ -516,6 +510,25 @@ var MaterialDatepicker = (function () {
       }
 
       return { left: ol, top: ot, height: offset.height, width: offset.width };
+    }
+  }, {
+    key: '_getPath',
+    value: function _getPath(event) {
+      var path = [];
+      var currentElem = event.target;
+      while (currentElem) {
+        path.push(currentElem);
+        currentElem = currentElem.parentElement;
+      }
+
+      if (path.indexOf(window) === -1 && path.indexOf(document) === -1) {
+        path.push(document);
+      }
+
+      if (path.indexOf(window) === -1) {
+        path.push(window);
+      }
+      return path;
     }
   }]);
 
