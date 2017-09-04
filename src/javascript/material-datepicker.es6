@@ -419,9 +419,7 @@ class MaterialDatepicker {
       this.element.value = output;
     }
 
-    if (this.settings.outputElement.tagName == 'SPAN' ||
-        this.settings.outputElement.tagName == 'P' ||
-        this.settings.outputElement.tagName == 'A') {
+    if (this.settings.outputElement.tagName != 'INPUT') {
       this.settings.outputElement.innerHTML = output;
     }
   }
