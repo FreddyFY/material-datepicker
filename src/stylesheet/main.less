@@ -33,6 +33,13 @@
   display: table;
   z-index: 100;
   
+  @media (max-width: 650px), (max-height: 650px) {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  
   * {
     box-sizing: border-box;
   }

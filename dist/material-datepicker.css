@@ -18,6 +18,14 @@
 .mp-picker:after {
   clear: both;
 }
+@media (max-width: 650px), (max-height: 650px) {
+  .mp-picker {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
 .mp-picker * {
   box-sizing: border-box;
 }
