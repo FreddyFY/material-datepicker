@@ -98,8 +98,8 @@
   color: #424242;
 }
 .mp-picker[data-orientation="portrait"] {
-  width: 225px;
-  height: 325px;
+  width: 226px;
+  height: 326px;
   display: block;
 }
 .mp-picker[data-orientation="portrait"] .mp-picker-info {
