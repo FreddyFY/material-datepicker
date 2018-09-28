@@ -42,14 +42,14 @@
 }
 .mp-picker .mp-picker-choose [class*="mp-picker-click"] {
   cursor: pointer;
-  margin-bottom: .6em;
+  margin-bottom: 0.6em;
   border-radius: 1em;
   transition: background-color 0.2s ease;
 }
 .mp-picker .mp-picker-choose [class*="mp-picker-click"].mp-picker-choose-day {
-  font-size: .8em;
+  font-size: 0.8em;
   margin: 0;
-  padding: .3em 0;
+  padding: 0.3em 0;
 }
 .mp-picker .mp-picker-choose [class*="mp-picker-click"].mp-empty {
   background-color: transparent !important;
@@ -66,9 +66,9 @@
   background-color: #009688;
 }
 .mp-picker .mp-picker-choose .mp-picker-header {
-  margin-bottom: .6em;
-  font-size: .8em;
-  opacity: .57;
+  margin-bottom: 0.6em;
+  font-size: 0.8em;
+  opacity: 0.57;
 }
 .mp-picker .mp-picker-choose .mp-picker-header[class*="mp-picker-header-day"] {
   width: 14.28571429%;
@@ -155,7 +155,7 @@
 }
 .mp-picker .mp-picker-picker .mp-picker-site {
   margin-bottom: 1em;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 .mp-picker .mp-picker-picker .mp-picker-site:before,
 .mp-picker .mp-picker-picker .mp-picker-site:after {
@@ -172,13 +172,13 @@
   display: block;
   background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K");
   background-repeat: no-repeat;
-  background-size: .5em;
+  background-size: 0.5em;
   background-position: center;
   height: 2em;
   width: 2em;
-  margin: .25em 0;
+  margin: 0.25em 0;
   cursor: pointer;
-  opacity: .8;
+  opacity: 0.8;
   transition: background-color 0.2s ease;
   border-radius: 2em;
 }
@@ -204,8 +204,7 @@
 }
 .mp-picker .mp-animate {
   transform: translate(0);
-  transition: transform .2s ease,
-                opacity .2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .mp-picker .mp-animate.mp-picker-site-this {
   transition-timing-function: linear;

@@ -6,6 +6,9 @@ var fileList = [
 module.exports = function (grunt) {
   grunt.initConfig({
     babel: {
+      options: {
+        presets: ['@babel/preset-env']
+      },
       dist: {
         src: 'src/javascript/material-datepicker.es6',
         dest: 'tmp/javascript/material-datepicker.js'
