@@ -44,3 +44,4 @@ Temporary Items
 node_modules/traceur/traceur
 
 node_modules/
+.idea/
