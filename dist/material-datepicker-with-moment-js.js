@@ -5269,7 +5269,7 @@ function () {
 
     var elementTag = this.element.tagName;
     var elementType = this.element.getAttribute('type');
-    var elementVal = moment().format(this.settings.outputFormat);
+    var elementVal = "";
 
     if (elementTag == "INPUT") {
       elementVal = this.element.value;
@@ -5281,17 +5281,18 @@ function () {
       elementVal = this.element.value;
     }
 
-    var newDate = moment(elementVal, this.settings.outputFormat).toDate();
+    var valueDate = moment(elementVal, this.settings.outputFormat);
+    this.date = this.settings.date;
 
-    if (isNaN(newDate.getTime())) {
-      newDate = moment().toDate();
+    if (valueDate.isValid()) {
+      this.date = valueDate.getDate();
     }
-
-    this.date = newDate;
 
     if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
       this.settings.outputElement = document.querySelector("".concat(this.settings.outputElement));
     }
+
+    this._writeInElement();
 
     this._define();
   }

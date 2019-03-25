@@ -3,7 +3,7 @@ class MaterialDatepicker {
   constructor (element, settings) {
     const defaults = {
       type: "date",
-      
+
       lang: 'en',
       orientation: 'landscape',
       color: 'rgba(0, 150, 136, 1)',
@@ -13,7 +13,7 @@ class MaterialDatepicker {
       buttons: true,
       openOn: 'click',
       closeAfterClick: true,
-      
+
       date: new Date(),
       weekBegin: 'sunday',
       outputFormat: {
@@ -29,7 +29,7 @@ class MaterialDatepicker {
         date: "MMMM YYYY",
         month: "YYYY"
       },
-      
+
       onLoad: null,
       onOpen: null,
       onNewDate: null,
@@ -39,19 +39,19 @@ class MaterialDatepicker {
 
     this.settings = Object.assign(defaults, settings);
     moment.locale(this.settings.lang);
-    
+
     if (typeof this.settings.topHeaderFormat == 'object') {
       this.settings.topHeaderFormat = this.settings.topHeaderFormat[this.settings.type];
     }
-        
+
     if (typeof this.settings.headerFormat == 'object') {
       this.settings.headerFormat = this.settings.headerFormat[this.settings.type];
     }
-    
+
     if (typeof this.settings.outputFormat == 'object') {
       this.settings.outputFormat = this.settings.outputFormat[this.settings.type];
     }
-    
+
     if (typeof this.settings.sitePickerFormat == 'object') {
       this.settings.sitePickerFormat = this.settings.sitePickerFormat[this.settings.type];
     }
@@ -64,11 +64,11 @@ class MaterialDatepicker {
         return;
       }
     }
-    
+
     let elementTag = this.element.tagName;
     let elementType = this.element.getAttribute('type');
-    let elementVal = moment().format(this.settings.outputFormat);
-    
+    let elementVal = "";
+
     if (elementTag == "INPUT") {
       elementVal = this.element.value
     } else if (elementTag == "DIV" || elementTag == "A" || elementTag == "SPAN" || elementTag == "P") {
@@ -76,21 +76,21 @@ class MaterialDatepicker {
         elementVal = this.element.innerHTML;
       }
     } else if (elementTag == "PAPER-INPUT") {
-      elementVal = this.element.value
+      elementVal = this.element.value;
     }
-    
-    let newDate = moment(elementVal, this.settings.outputFormat).toDate();
-    
-    if (isNaN(newDate.getTime())) {
-      newDate = moment().toDate();
+
+    const valueDate = moment(elementVal, this.settings.outputFormat);
+    this.date = this.settings.date;
+
+    if (valueDate.isValid()) {
+      this.date = valueDate.getDate();
     }
-  
-    this.date = newDate;
-    
+
     if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
       this.settings.outputElement = document.querySelector(`${this.settings.outputElement}`);
     }
 
+      this._writeInElement()
     this._define();
   }
 
@@ -101,11 +101,11 @@ class MaterialDatepicker {
       this.open(this.settings.openOn);
       return;
     }
-    
+
     this.element.addEventListener(this.settings.openOn, () => {
       this.open(this.settings.openOn);
     });
-    
+
     if (this.settings.openOn != 'direct') {
       document.addEventListener('keyup', (e) => {
         if (e.keyCode == 9) {
@@ -117,7 +117,7 @@ class MaterialDatepicker {
           }
         }
       });
-      
+
       document.addEventListener('keyup', (e) => {
         let elementVal = this.element.value;
         let newDate = moment(elementVal, this.settings.outputFormat).toDate();
@@ -125,7 +125,7 @@ class MaterialDatepicker {
         this.newDate(newDate, '', false);
       });
 
-      
+
       document.addEventListener('mouseup', (event) => {
         let isPicker = false;
         var ePath = this._getPath(event);
@@ -210,15 +210,15 @@ class MaterialDatepicker {
     containerStyle.type = 'text/css';
     containerStyle.appendChild(document.createTextNode(newStyle));
     document.querySelector('head').appendChild(containerStyle);
-    
+
     this.draw();
     this.callbackOnLoad();
   }
-  
+
   draw() {
     const containerPickerChoose = this.picker.querySelector('.mp-picker-choose');
     containerPickerChoose.innerHTML = '';
-    
+
     // write in header area
     this.picker.querySelector('.mp-info-first').innerHTML = moment(this.date).format(this.settings.topHeaderFormat);
     this.picker.querySelector('.mp-info-second').innerHTML = moment(this.date).format(this.settings.headerFormat);
@@ -227,11 +227,11 @@ class MaterialDatepicker {
     if (this.picker.querySelector(`[class*="mp-picker-click"].active`) != null) {
       this.picker.querySelector(`[class*="mp-picker-click"].active`).classList.remove('active');
     }
-    
+
     if (this.settings.type == 'date') {
       const maxMonthLength = 42;
       const week = 7;
-      
+
       //weekday
       for (let i = 0; i < week; i++) {
         let weekDay = i;
@@ -241,13 +241,13 @@ class MaterialDatepicker {
             weekDay = 0;
           }
         }
-        
+
         const containerPickerChooseWeekDay = document.createElement('span');
         containerPickerChooseWeekDay.setAttribute('class', `mp-picker-header mp-picker-header-day-${i}`);
         containerPickerChooseWeekDay.innerHTML = moment.weekdaysMin()[weekDay].substr(0, 1);
         containerPickerChoose.appendChild(containerPickerChooseWeekDay);
       }
-      
+
       //all days
       let thisMonthLenght = this.date.getTime();
       thisMonthLenght = new Date(thisMonthLenght);
@@ -258,16 +258,16 @@ class MaterialDatepicker {
       thisMonthLenght = thisMonthLenght.getDate();
       firstWeekDay.setDate(1);
       firstWeekDay = firstWeekDay.getDay();
-    
+
       for (let i = 0, num = 1; i < maxMonthLength; i++) {
         const containerPickerChooseDay = document.createElement('a');
         containerPickerChooseDay.setAttribute('class', `mp-picker-choose-day`);
-        
+
         let boolean = i >= firstWeekDay;
         if (this.settings.weekBegin == 'monday') {
           boolean = i + 1 >= firstWeekDay;
         }
-        
+
         if (boolean && num <= thisMonthLenght ) {
           containerPickerChooseDay.innerHTML = num;
           containerPickerChooseDay.classList.add(`mp-picker-click-${num}`);
@@ -276,7 +276,7 @@ class MaterialDatepicker {
           containerPickerChooseDay.innerHTML = ' ';
           containerPickerChooseDay.classList.add('mp-empty');
         }
-        
+
         containerPickerChoose.appendChild(containerPickerChooseDay);
 
         containerPickerChooseDay.addEventListener('click', (event) => {
@@ -284,7 +284,7 @@ class MaterialDatepicker {
           let date = num - 1;
           let nextDate = this.date
           nextDate.setDate(date);
-          
+
           if (this.settings.openOn == 'direct') {
             this.newDate(nextDate);
           } else {
@@ -292,14 +292,14 @@ class MaterialDatepicker {
           }
         })
       }
-      
+
       //set Today
       if (new Date().getYear() == this.date.getYear() && new Date().getMonth() == this.date.getMonth()) {
         this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}`).classList.add('today');
       } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
         this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}.today`).classList.remove('today');
       }
-      
+
       this.picker.querySelector(`.mp-picker-click-${this.date.getDate() * 1}`).classList.add('active');
     } else if (this.settings.type == 'month') {
       const months = 12;
@@ -313,7 +313,7 @@ class MaterialDatepicker {
           let month = i;
           let nextDate = this.date
           nextDate.setMonth(month);
-          
+
           if (this.settings.openOn == 'direct') {
             this.newDate(nextDate);
           } else {
@@ -321,14 +321,14 @@ class MaterialDatepicker {
           }
         });
       }
-      
+
       // set today
       if (new Date().getYear() == this.date.getYear()) {
         this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}`).classList.add('today');
       } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
         this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`).classList.remove('today');
       }
-      
+
       this.picker.querySelector(`.mp-picker-click-${this.date.getMonth() * 1}`).classList.add('active');
     }
   }
@@ -350,7 +350,7 @@ class MaterialDatepicker {
       this.picker.querySelectorAll(`.mp-animate`)[0].classList.add(`mp-animate-${directions[direction]}`);
       this.picker.querySelectorAll(`.mp-animate`)[1].classList.remove(`mp-animate-${directionsNot[direction]}`);
       this.picker.querySelectorAll(`.mp-animate`)[1].classList.add(`mp-animate-${directions[direction]}`);
-      
+
       this.draw();
 
       setTimeout( () => {
@@ -367,7 +367,7 @@ class MaterialDatepicker {
     if (how == 'direct' && this.element.tagName == 'DIV') {
       this.element.appendChild(this.picker);
     } else {
-    
+
       let elementTag = this.element.tagName;
       let elementType = this.element.getAttribute('type');
       let elementVal = this.element.value;
@@ -397,12 +397,12 @@ class MaterialDatepicker {
       this.picker.style.top = `${top}px`;
       this.picker.style.left = `${left}px`;
     }
-    
+
     this.picker.style.zIndex = this.settings.zIndex;
     if (this.settings.position != null) {
       this.picker.style.position = this.settings.position;
     }
-    
+
     this.newDate(null);
     this.callbackOnOpen();
   }
@@ -410,11 +410,11 @@ class MaterialDatepicker {
   close() {
     this.picker && this.picker.parentNode && this.picker.parentNode.removeChild(this.picker);
   }
-  
+
   _writeInElement() {
     let output = moment(this.date).format(this.settings.outputFormat);
     if ( (this.element.tagName == 'INPUT' && this.element.getAttribute('type') == 'text') ||
-          this.element.tagName == 'DIV' || 
+          this.element.tagName == 'DIV' ||
           this.element.tagName == 'PAPER-INPUT') {
       this.element.value = output;
     }
@@ -426,7 +426,7 @@ class MaterialDatepicker {
 
   newDate(date, value, rewrite = true) {
     let dates = date || this.date;
-    
+
     if (isNaN(dates.valueOf())) {
       dates = this.settings.date;
     }
@@ -438,46 +438,46 @@ class MaterialDatepicker {
     dates.setHours(0);
 
     this.date = dates;
-      
+
     this.draw();
-    
+
     if (rewrite) {
       this._writeInElement();
     }
-    
+
     this.callbackOnChange();
 
     if (value == 'close') {
       this.close();
       this.callbackOnNewDate();
     }
-    
+
   }
-  
+
   callbackOnLoad() {
     if (typeof(this.settings.onLoad) == 'function') {
       this.settings.onLoad.call(this, this.date)
     }
   }
-  
+
   callbackOnOpen() {
     if (typeof(this.settings.onOpen) == 'function') {
       this.settings.onOpen.call(this, this.date)
     }
   }
-  
+
   callbackOnNewDate() {
     if (typeof(this.settings.onNewDate) == 'function') {
       this.settings.onNewDate.call(this, this.date)
     }
   }
-  
+
   callbackOnChange() {
     if (typeof(this.settings.onChange) == 'function') {
       this.settings.onChange.call(this, this.date)
     }
   }
-  
+
   _findTotalOffset(obj) {
     let ol, ot;
     ol = ot = 0;
@@ -489,10 +489,10 @@ class MaterialDatepicker {
         ot += obj.offsetTop;
       } while (obj = obj.offsetParent);
     }
-    
+
     return { left: ol, top: ot, height: offset.height, width: offset.width };
   }
-  
+
   _getPath(event) {
     var path = [];
     var currentElem = event.target;
@@ -500,12 +500,12 @@ class MaterialDatepicker {
       path.push(currentElem);
       currentElem = currentElem.parentElement;
     }
-    
+
     if (path.indexOf(window) === -1 && path.indexOf(document) === -1) {
       path.push(document);
     }
-    
-    if (path.indexOf(window) === -1) { 
+
+    if (path.indexOf(window) === -1) {
       path.push(window);
     }
     return path;
