@@ -94,7 +94,7 @@ function () {
     this.date = this.settings.date;
 
     if (valueDate.isValid()) {
-      this.date = valueDate.getDate();
+      this.date = valueDate.toDate();
     }
 
     if (typeof this.settings.outputElement == 'string' && this.settings.outputElement != '') {
