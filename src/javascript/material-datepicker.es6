@@ -10,7 +10,6 @@ class MaterialDatepicker {
       theme: 'light',
       zIndex: '100',
       position: null,
-      buttons: true,
       openOn: 'click',
       closeAfterClick: true,
 
@@ -285,7 +284,7 @@ class MaterialDatepicker {
           let nextDate = this.date
           nextDate.setDate(date)
 
-          if (this.settings.openOn == 'direct') {
+          if (this.settings.openOn == 'direct' || !this.settings.closeAfterClick) {
             this.newDate(nextDate)
           } else {
             this.newDate(nextDate, 'close')
@@ -314,7 +313,7 @@ class MaterialDatepicker {
           let nextDate = this.date
           nextDate.setMonth(month)
 
-          if (this.settings.openOn == 'direct') {
+          if (this.settings.openOn == 'direct' || !this.settings.closeAfterClick) {
             this.newDate(nextDate)
           } else {
             this.newDate(nextDate, 'close')

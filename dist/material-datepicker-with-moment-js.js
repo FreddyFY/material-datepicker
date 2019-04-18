@@ -5213,7 +5213,6 @@ function () {
       theme: 'light',
       zIndex: '100',
       position: null,
-      buttons: true,
       openOn: 'click',
       closeAfterClick: true,
       date: new Date(),
@@ -5473,7 +5472,7 @@ function () {
             var nextDate = _this3.date;
             nextDate.setDate(date);
 
-            if (_this3.settings.openOn == 'direct') {
+            if (_this3.settings.openOn == 'direct' || !_this3.settings.closeAfterClick) {
               _this3.newDate(nextDate);
             } else {
               _this3.newDate(nextDate, 'close');
@@ -5507,7 +5506,7 @@ function () {
             var nextDate = _this3.date;
             nextDate.setMonth(month);
 
-            if (_this3.settings.openOn == 'direct') {
+            if (_this3.settings.openOn == 'direct' || !_this3.settings.closeAfterClick) {
               _this3.newDate(nextDate);
             } else {
               _this3.newDate(nextDate, 'close');
