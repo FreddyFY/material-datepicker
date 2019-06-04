@@ -248,13 +248,13 @@ class MaterialDatepicker {
       }
 
       //all days
-      let thisMonthLenght = this.date.getTime()
-      thisMonthLenght = new Date(thisMonthLenght)
-      thisMonthLenght.setDate(1)
-      thisMonthLenght.setMonth(thisMonthLenght.getMonth() + 1)
-      thisMonthLenght.setDate(0)
-      let firstWeekDay = thisMonthLenght
-      thisMonthLenght = thisMonthLenght.getDate()
+      let thisMonthLength = this.date.getTime()
+      thisMonthLength = new Date(thisMonthLength)
+      thisMonthLength.setDate(1)
+      thisMonthLength.setMonth(thisMonthLength.getMonth() + 1)
+      thisMonthLength.setDate(0)
+      let firstWeekDay = thisMonthLength
+      thisMonthLength = thisMonthLength.getDate()
       firstWeekDay.setDate(1)
       firstWeekDay = firstWeekDay.getDay()
 
@@ -267,7 +267,7 @@ class MaterialDatepicker {
           boolean = i + 1 >= firstWeekDay
         }
 
-        if (boolean && num <= thisMonthLenght) {
+        if (boolean && num <= thisMonthLength) {
           containerPickerChooseDay.innerHTML = num
           containerPickerChooseDay.classList.add(`mp-picker-click-${num}`)
           num++
