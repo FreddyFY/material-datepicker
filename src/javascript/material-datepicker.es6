@@ -259,6 +259,7 @@ class MaterialDatepicker {
       firstWeekDay = firstWeekDay.getDay()
 
       for (let i = 0, num = 1; i < maxMonthLength; i++) {
+        const date = moment(new Date().setDate(num))
         const containerPickerChooseDay = document.createElement('a')
         containerPickerChooseDay.setAttribute('class', `mp-picker-choose-day`)
 
@@ -268,8 +269,8 @@ class MaterialDatepicker {
         }
 
         if (boolean && num <= thisMonthLength) {
-          containerPickerChooseDay.innerHTML = num
-          containerPickerChooseDay.classList.add(`mp-picker-click-${num}`)
+          containerPickerChooseDay.innerHTML = date.format('D')
+          containerPickerChooseDay.classList.add(`mp-picker-click-${date.format('D')}`)
           num++
         } else {
           containerPickerChooseDay.innerHTML = ' '
@@ -280,9 +281,7 @@ class MaterialDatepicker {
 
         containerPickerChooseDay.addEventListener('click', (event) => {
           if (this._getPath(event)[0].classList.contains('mp-empty')) return
-          let date = num - 1
-          let nextDate = this.date
-          nextDate.setDate(date)
+          let nextDate = date.toDate()
 
           if (this.settings.openOn == 'direct' || !this.settings.closeAfterClick) {
             this.newDate(nextDate)
@@ -292,14 +291,15 @@ class MaterialDatepicker {
         })
       }
 
+      const dayOfMonth = moment(this.date)
       //set Today
       if (new Date().getYear() == this.date.getYear() && new Date().getMonth() == this.date.getMonth()) {
-        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}`).classList.add('today')
+        this.picker.querySelector(`.mp-picker-click-${moment().format('D')}`).classList.add('today')
       } else if (this.picker.querySelector(`.mp-picker-click-${new Date().getMonth() * 1}.today`) != null) {
-        this.picker.querySelector(`.mp-picker-click-${new Date().getDate() * 1}.today`).classList.remove('today')
+        this.picker.querySelector(`.mp-picker-click-${moment().format('D')}.today`).classList.remove('today')
       }
 
-      this.picker.querySelector(`.mp-picker-click-${this.date.getDate() * 1}`).classList.add('active')
+      this.picker.querySelector(`.mp-picker-click-${moment(this.date).format('D')}`).classList.add('active')
     } else if (this.settings.type == 'month') {
       const months = 12
       for (let i = 0; i < months; i++) {

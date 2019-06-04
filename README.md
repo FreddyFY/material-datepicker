@@ -13,15 +13,15 @@ There are two methods to include the Material-Datepicker.
 When you have included moment.js already.
 ```html
   <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.css">
-  <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.7/dist/material-datepicker.css">
+  <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.7/dist/material-datepicker.min.js"></script>
 ```
 
 **Method 2**
 When you don't need moment.js itself.
 ```html
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.css">
-  <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker-with-moment-js.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.7/dist/material-datepicker.css">
+  <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.7/dist/material-datepicker-with-moment-js.min.js"></script>
 ```
 
 *It's better to download the files, instead of using the rawgit cdn server.*
