@@ -259,7 +259,7 @@ class MaterialDatepicker {
       firstWeekDay = firstWeekDay.getDay()
 
       for (let i = 0, num = 1; i < maxMonthLength; i++) {
-        const date = moment(new Date().setDate(num))
+        const date = moment(new Date(this.date.toISOString()).setDate(num)).format('D')
         const containerPickerChooseDay = document.createElement('a')
         containerPickerChooseDay.setAttribute('class', `mp-picker-choose-day`)
 
@@ -269,8 +269,8 @@ class MaterialDatepicker {
         }
 
         if (boolean && num <= thisMonthLength) {
-          containerPickerChooseDay.innerHTML = date.format('D')
-          containerPickerChooseDay.classList.add(`mp-picker-click-${date.format('D')}`)
+          containerPickerChooseDay.innerHTML = date
+          containerPickerChooseDay.classList.add(`mp-picker-click-${date}`)
           num++
         } else {
           containerPickerChooseDay.innerHTML = ' '
@@ -281,7 +281,7 @@ class MaterialDatepicker {
 
         containerPickerChooseDay.addEventListener('click', (event) => {
           if (this._getPath(event)[0].classList.contains('mp-empty')) return
-          let nextDate = date.toDate()
+          let nextDate = moment(this.date).date(date * 1).toDate()
 
           if (this.settings.openOn == 'direct' || !this.settings.closeAfterClick) {
             this.newDate(nextDate)

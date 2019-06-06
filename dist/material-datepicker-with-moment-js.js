@@ -5444,7 +5444,7 @@ function () {
         firstWeekDay = firstWeekDay.getDay();
 
         var _loop = function _loop(_num, _i) {
-          var date = moment(new Date().setDate(_num));
+          var date = moment(new Date(_this3.date.toISOString()).setDate(_num)).format('D');
           var containerPickerChooseDay = document.createElement('a');
           containerPickerChooseDay.setAttribute('class', "mp-picker-choose-day");
           var boolean = _i >= firstWeekDay;
@@ -5454,8 +5454,8 @@ function () {
           }
 
           if (boolean && _num <= thisMonthLength) {
-            containerPickerChooseDay.innerHTML = date.format('D');
-            containerPickerChooseDay.classList.add("mp-picker-click-".concat(date.format('D')));
+            containerPickerChooseDay.innerHTML = date;
+            containerPickerChooseDay.classList.add("mp-picker-click-".concat(date));
             _num++;
           } else {
             containerPickerChooseDay.innerHTML = ' ';
@@ -5469,7 +5469,7 @@ function () {
               return;
             }
 
-            var nextDate = date.toDate();
+            var nextDate = moment(_this3.date).date(date * 1).toDate();
 
             if (_this3.settings.openOn == 'direct' || !_this3.settings.closeAfterClick) {
               _this3.newDate(nextDate);
