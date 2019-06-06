@@ -5447,13 +5447,14 @@ function () {
           var date = moment(new Date(_this3.date.toISOString()).setDate(_num)).format('D');
           var containerPickerChooseDay = document.createElement('a');
           containerPickerChooseDay.setAttribute('class', "mp-picker-choose-day");
-          var boolean = _i >= firstWeekDay;
+
+          var _boolean = _i >= firstWeekDay;
 
           if (_this3.settings.weekBegin == 'monday') {
-            boolean = _i + 1 >= firstWeekDay;
+            _boolean = _i + 1 >= firstWeekDay;
           }
 
-          if (boolean && _num <= thisMonthLength) {
+          if (_boolean && _num <= thisMonthLength) {
             containerPickerChooseDay.innerHTML = date;
             containerPickerChooseDay.classList.add("mp-picker-click-".concat(date));
             _num++;
