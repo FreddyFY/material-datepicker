@@ -251,15 +251,21 @@ function () {
         thisMonthLength = thisMonthLength.getDate();
         firstWeekDay.setDate(1);
         firstWeekDay = firstWeekDay.getDay();
+        firstWeekDay = firstWeekDay === 0 ? 7 : firstWeekDay;
 
         var _loop = function _loop(_num, _i) {
+          if (_num > thisMonthLength) {
+            num = _num;
+            return "break";
+          }
+
           var date = moment(new Date(_this3.date.toISOString()).setDate(_num)).format('D');
           var containerPickerChooseDay = document.createElement('a');
           containerPickerChooseDay.setAttribute('class', "mp-picker-choose-day");
 
           var _boolean = _i >= firstWeekDay;
 
-          if (_this3.settings.weekBegin == 'monday') {
+          if (_this3.settings.weekBegin === 'monday') {
             _boolean = _i + 1 >= firstWeekDay;
           }
 
@@ -291,7 +297,9 @@ function () {
         };
 
         for (var _i = 0, num = 1; _i < maxMonthLength; _i++) {
-          _loop(num, _i);
+          var _ret = _loop(num, _i);
+
+          if (_ret === "break") break;
         }
 
         var dayOfMonth = moment(this.date); //set Today

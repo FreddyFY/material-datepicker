@@ -257,14 +257,18 @@ class MaterialDatepicker {
       thisMonthLength = thisMonthLength.getDate()
       firstWeekDay.setDate(1)
       firstWeekDay = firstWeekDay.getDay()
+      firstWeekDay = firstWeekDay === 0 ? 7 : firstWeekDay
 
       for (let i = 0, num = 1; i < maxMonthLength; i++) {
+        if (num > thisMonthLength) {
+          break
+        }
         const date = moment(new Date(this.date.toISOString()).setDate(num)).format('D')
         const containerPickerChooseDay = document.createElement('a')
         containerPickerChooseDay.setAttribute('class', `mp-picker-choose-day`)
 
         let boolean = i >= firstWeekDay
-        if (this.settings.weekBegin == 'monday') {
+        if (this.settings.weekBegin === 'monday') {
           boolean = i + 1 >= firstWeekDay
         }
 
