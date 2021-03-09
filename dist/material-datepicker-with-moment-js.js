@@ -5256,7 +5256,7 @@ function () {
     }
 
     if (_typeof(this.settings.inputFormat) == 'object') {
-      this.settings.inputFormat = this.settings.inputFormat[this.settings.type];
+      this.settings.inputFormat = this.settings.outputFormat;
     }
 
     if (_typeof(this.settings.sitePickerFormat) == 'object') {
