@@ -19,6 +19,10 @@ class MaterialDatepicker {
         date: "YYYY/MM/DD",
         month: "MMMM YYYY",
       },
+      inputFormat: {
+        date: "YYYY/MM/DD",
+        month: "MMMM YYYY",
+      },
       topHeaderFormat: "YYYY",
       headerFormat: {
         date: "ddd, MMM D",
@@ -51,6 +55,10 @@ class MaterialDatepicker {
       this.settings.outputFormat = this.settings.outputFormat[this.settings.type]
     }
 
+    if (typeof this.settings.inputFormat == 'object') {
+      this.settings.inputFormat = this.settings.outputFormat;
+    }
+
     if (typeof this.settings.sitePickerFormat == 'object') {
       this.settings.sitePickerFormat = this.settings.sitePickerFormat[this.settings.type]
     }
@@ -78,7 +86,7 @@ class MaterialDatepicker {
       elementVal = this.element.value
     }
 
-    const valueDate = moment(elementVal, this.settings.outputFormat)
+    const valueDate = moment(elementVal, this.settings.inputFormat)
     this.date = this.settings.date
 
     if (valueDate.isValid()) {

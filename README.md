@@ -55,6 +55,7 @@ var monthpicker = new MaterialDatepicker('input', {
 * **date** *(default: today or string inside input)* *[type: Date Object]* - The initial date of the Picker
 * **weekBegin** *(default: "sunday")* *[string]* - Beginning weekday of the week: sunday or monday
 * **outputFormat** *(default: date "YYYY/MM/DD"; month "MMMM YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]
+* **inputFormat** *(default: date "YYYY/MM/DD"; month "MMMM YYYY")* *[string]* - Date-format&#42; of the input value attribute [in the inputElement]
 * **topHeaderFormat** *(default: "YYYY")* *[string]* - Date-format&#42; of the output [inside a input or OutputElement]
 * **headerFormat** *(default: date "ddd, MMM D"; month "MMMM")* *[string]* - Date format&#42; in the header bar&#42;
 * **sitePickerFormat** *(default: date "MMMM YYYY"; month "YYYY")* *[string]* - Date format&#42; in the site picker bar&#42;
@@ -78,6 +79,7 @@ var monthpicker = new MaterialDatepicker('input', {
   color: 'red',
   date: new Date(861999834000),
   outputFormat: 'd-mm-yyyy',
+  inputFormat: 'ddmmyyyy',
   outputElment: '.month',
   onChange: function() {
                alert('Date Changed!!')

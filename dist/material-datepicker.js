@@ -30,6 +30,10 @@ function () {
         date: "YYYY/MM/DD",
         month: "MMMM YYYY"
       },
+      inputFormat: {
+        date: "YYYY/MM/DD",
+        month: "MMMM YYYY"
+      },
       topHeaderFormat: "YYYY",
       headerFormat: {
         date: "ddd, MMM D",
@@ -58,6 +62,10 @@ function () {
 
     if (_typeof(this.settings.outputFormat) == 'object') {
       this.settings.outputFormat = this.settings.outputFormat[this.settings.type];
+    }
+
+    if (_typeof(this.settings.inputFormat) == 'object') {
+      this.settings.inputFormat = this.settings.outputFormat;
     }
 
     if (_typeof(this.settings.sitePickerFormat) == 'object') {
@@ -89,7 +97,7 @@ function () {
       elementVal = this.element.value;
     }
 
-    var valueDate = moment(elementVal, this.settings.outputFormat);
+    var valueDate = moment(elementVal, this.settings.inputFormat);
     this.date = this.settings.date;
 
     if (valueDate.isValid()) {
